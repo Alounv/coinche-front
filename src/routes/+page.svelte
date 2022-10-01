@@ -10,10 +10,8 @@
 	}
 	let games: GamePreview[] = [];
 	let newGameName = '';
-	let ws: WebSocket;
 	let message = '';
-	let name = ''; // save name somewhere ? localStorage ? store ?
-	let currentGame: GamePreview | null = null;
+	let name = '';
 
 	const refreshList = async () => {
 		const response = await fetch('http://localhost:5000/games/all', {
@@ -67,46 +65,7 @@
 		if (error) {
 			message = error;
 		}
-		if (currentGame?.ID === gameID) {
-			currentGame = null;
-		}
 		refreshList();
-	};
-
-	const leaveCurrentGame = async () => {
-		if (ws && ws.readyState === WebSocket.OPEN) {
-			ws.send(JSON.stringify('leave'));
-			currentGame = null;
-		}
-	};
-
-	const joinGame = async (gameId: number, playerName: string) => {
-		if (currentGame?.ID === gameId) {
-			return;
-		}
-
-		await leaveCurrentGame();
-
-		ws = new WebSocket(`ws://localhost:5000/games/${gameId}/join?playerName=${playerName}`);
-
-		const socketGame = games.find((game) => game.ID === gameId);
-		if (socketGame) currentGame = socketGame;
-
-		ws.onclose = () => {
-			console.log('closed');
-			refreshList();
-		};
-
-		ws.onerror = () => {
-			console.error('WS error');
-			refreshList();
-		};
-
-		ws.onmessage = async (event) => {
-			const data = await event.data.text();
-			message = data;
-			refreshList();
-		};
 	};
 
 	const handleNameChange = (event: Event) => {
@@ -139,11 +98,10 @@
 	{#each games as game (game.ID)}
 		<li>
 			<button on:click={() => deleteGame(game.ID)}>Delete</button>
-			<button on:click={() => joinGame(game.ID, name)}>Join</button>
 			<button on:click={() => forceLeaveGame(game.ID, name)}>Force Leave</button>
+			<a href={`/game?game=${game.ID}&player=${name}`}>{game.Name}</a>
 
 			<span>{game.ID}</span>
-			<span>{game.Name}</span>
 			<span>{game.TurnsCount}</span>
 			<span>{game.Phase}</span>
 			<span>{game.Players}</span>
@@ -152,6 +110,3 @@
 </ul>
 
 <div style="color: red;">{message}</div>
-
-<h2>Your current game is: {currentGame?.Name || ''}</h2>
-<button on:click={leaveCurrentGame}>Leave current game</button>
