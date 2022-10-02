@@ -1,92 +1,64 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
-	let urlParams: URLSearchParams;
-	let playerName = '';
-	let gameID = '';
-	let currentPlayer: any;
+	import type { Player, Game } from '../../types';
+	import { Phase } from '../../types';
+	import { GameSocket } from '../../socket';
+	import { getPlayerAndGameFromUrl } from '../../url';
 
+	interface Team {
+		name: string;
+		players: Player[];
+	}
+
+	let currentPlayer: Player = { name: '', Team: '', Hand: [] };
 	let teamName = '';
-	let game: any;
-
-	let ws: WebSocket;
+	let currentGame: Game = { ID: 0, Name: '', Players: [], Phase: Phase.Teaming };
 	let message = '';
-	let teams: { name: string; players: { name: string }[] }[] = [];
+	let teams: Team[] = [];
 
-	const leaveCurrentGame = () => {
-		if (ws && ws.readyState === WebSocket.OPEN) {
-			ws.send(JSON.stringify('leave'));
+	let gs: GameSocket;
+
+	const onMessage = (msg: string): void => {
+		message = msg;
+	};
+
+	const onGame = (game: Game): void => {
+		const teamsObject: Record<string, Team> = {};
+		currentGame = game;
+
+		for (const name in game.Players) {
+			const { Team, Hand } = game.Players[name];
+			const player = { name, Team, Hand };
+
+			const teamName = player.Team || 'Not in a team';
+			teamsObject[teamName] ??= { name: teamName, players: [] };
+			teamsObject[teamName].players.push(player);
+			if (name === currentPlayer.name) {
+				currentPlayer = player;
+			}
 		}
-	};
 
-	const joinGame = async (gameId: number, playerName: string) => {
-		ws = new WebSocket(`ws://localhost:5000/games/${gameId}/join?playerName=${playerName}`);
-
-		ws.onclose = () => {
-			console.log('closed');
-		};
-
-		ws.onerror = () => {
-			console.error('WS error');
-		};
-
-		ws.onmessage = async (event) => {
-			const data = await event.data.text();
-			console.log(data);
-			try {
-				game = JSON.parse(data);
-			} catch (e) {
-				console.error(e);
-				message = data;
-			}
-			const newTeams: Record<string, { name: string; players: { name: string }[] }> = {};
-			for (const name in game.Players) {
-				const player = game.Players[name];
-
-				const teamName = player.Team || 'Not in a team';
-				newTeams[teamName] ??= { name: teamName, players: [] };
-				newTeams[teamName].players.push({ name });
-				if (name === playerName) {
-					currentPlayer = player;
-				}
-			}
-
-			teams = [];
-			for (const team in newTeams) {
-				teams.push(newTeams[team]);
-			}
-		};
-	};
-
-	const joinTeam = () => {
-		if (!!teamName && ws && ws.readyState === WebSocket.OPEN) {
-			ws.send(JSON.stringify('joinTeam: ' + teamName));
-		}
-	};
-
-	const startGame = () => {
-		if (ws && ws.readyState === WebSocket.OPEN) {
-			ws.send(JSON.stringify('start'));
+		teams = [];
+		for (const team in teamsObject) {
+			teams.push(teamsObject[team]);
 		}
 	};
 
 	onMount(() => {
-		urlParams = new URLSearchParams(window.location.search);
-		playerName = urlParams.get('player') || '';
-		gameID = urlParams.get('game') || '';
-
-		if (playerName && gameID) {
-			joinGame(parseInt(gameID), playerName);
+		const { gameId, playerName } = getPlayerAndGameFromUrl();
+		currentPlayer.name = playerName;
+		if (playerName && gameId) {
+			gs = new GameSocket({ gameId, playerName, onMessage, onGame });
 		}
 	});
 
-	onDestroy(() => {
-		leaveCurrentGame();
-	});
+	onDestroy(() => gs?.leave());
 
-	const handleBeforeUnload = () => {
-		leaveCurrentGame();
-	};
+	const joinTeam = () => gs?.joinTeam(teamName);
+	const startGame = () => gs?.start();
 </script>
+
+<svelte:window on:beforeunload={() => gs?.leave()} />
 
 <div>GAME</div>
 <a href="/">Back</a>
@@ -98,10 +70,10 @@
 	<input id="team-name" type="text" bind:value={teamName} />
 </form>
 
-<div>Phase: {game?.Phase}</div>
+<div>Phase: {currentGame?.Phase}</div>
 
 <div>
-	<p>Game name: {game?.Name}</p>
+	<p>Game name: {currentGame?.Name}</p>
 	<ul>
 		{#each teams as team (team.name)}
 			<li>
@@ -116,11 +88,9 @@
 	</ul>
 </div>
 
-{#if game?.Phase === 1}
+{#if currentGame?.Phase === 1}
 	<button on:click={startGame}>Start</button>
 {/if}
 
-<svelte:window on:beforeunload={handleBeforeUnload} />
-
-<div>{currentPlayer?.Hand}</div>
-<div>{playerName}</div>
+<div>{currentPlayer.Hand}</div>
+<div>{currentPlayer.name}</div>
