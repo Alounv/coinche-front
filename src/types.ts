@@ -17,14 +17,19 @@ export interface GamePreview {
 export interface Game {
 	ID: number;
 	Name: string;
-	Players: Player[];
+	Players: Record<string, Player>;
 	Phase: Phase;
 }
 
 export interface Player {
-	name: string;
 	Hand: Card[];
 	Team: string;
+	Order: number;
+	InitialOrder: number;
+}
+
+export interface PlayerWithName extends Player {
+	name: string;
 }
 
 export enum Card {
