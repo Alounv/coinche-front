@@ -3,12 +3,8 @@
 	let urlParams: URLSearchParams;
 	let playerName = '';
 	let gameID = '';
+	let currentPlayer: any;
 
-	if (window) {
-		urlParams = new URLSearchParams(window.location.search);
-		playerName = urlParams.get('player') || '';
-		gameID = urlParams.get('game') || '';
-	}
 	let teamName = '';
 	let game: any;
 
@@ -16,15 +12,13 @@
 	let message = '';
 	let teams: { name: string; players: { name: string }[] }[] = [];
 
-	const leaveCurrentGame = async () => {
+	const leaveCurrentGame = () => {
 		if (ws && ws.readyState === WebSocket.OPEN) {
 			ws.send(JSON.stringify('leave'));
 		}
 	};
 
 	const joinGame = async (gameId: number, playerName: string) => {
-		await leaveCurrentGame();
-
 		ws = new WebSocket(`ws://localhost:5000/games/${gameId}/join?playerName=${playerName}`);
 
 		ws.onclose = () => {
@@ -37,15 +31,23 @@
 
 		ws.onmessage = async (event) => {
 			const data = await event.data.text();
-			message = data;
-			game = JSON.parse(data);
+			console.log(data);
+			try {
+				game = JSON.parse(data);
+			} catch (e) {
+				console.error(e);
+				message = data;
+			}
 			const newTeams: Record<string, { name: string; players: { name: string }[] }> = {};
 			for (const name in game.Players) {
 				const player = game.Players[name];
+
 				const teamName = player.Team || 'Not in a team';
-				console.log(teamName);
 				newTeams[teamName] ??= { name: teamName, players: [] };
 				newTeams[teamName].players.push({ name });
+				if (name === playerName) {
+					currentPlayer = player;
+				}
 			}
 
 			teams = [];
@@ -56,13 +58,23 @@
 	};
 
 	const joinTeam = () => {
-		if (ws && ws.readyState === WebSocket.OPEN) {
+		if (!!teamName && ws && ws.readyState === WebSocket.OPEN) {
 			ws.send(JSON.stringify('joinTeam: ' + teamName));
 		}
 	};
 
+	const startGame = () => {
+		if (ws && ws.readyState === WebSocket.OPEN) {
+			ws.send(JSON.stringify('start'));
+		}
+	};
+
 	onMount(() => {
-		if (!ws && playerName && gameID) {
+		urlParams = new URLSearchParams(window.location.search);
+		playerName = urlParams.get('player') || '';
+		gameID = urlParams.get('game') || '';
+
+		if (playerName && gameID) {
 			joinGame(parseInt(gameID), playerName);
 		}
 	});
@@ -85,7 +97,8 @@
 	<label for="team-name">My team</label>
 	<input id="team-name" type="text" bind:value={teamName} />
 </form>
-<button on:click={joinTeam}>Join</button>
+
+<div>Phase: {game?.Phase}</div>
 
 <div>
 	<p>Game name: {game?.Name}</p>
@@ -103,4 +116,11 @@
 	</ul>
 </div>
 
+{#if game?.Phase === 1}
+	<button on:click={startGame}>Start</button>
+{/if}
+
 <svelte:window on:beforeunload={handleBeforeUnload} />
+
+<div>{currentPlayer?.Hand}</div>
+<div>{playerName}</div>
