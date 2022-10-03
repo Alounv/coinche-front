@@ -15,6 +15,9 @@
 	let message = '';
 	let joinTeam: (team: string) => void = () => null;
 	let start: () => void = () => null;
+	let bid: ({ value: number, color: string }) => void = () => null;
+	let pass: () => void = () => null;
+	let coinche: () => void = () => null;
 
 	let gs: GameSocket;
 
@@ -35,6 +38,9 @@
 
 			joinTeam = (team: string) => gs.joinTeam(team);
 			start = () => gs.start();
+			bid = ({ value, color }) => gs.bid({ value, color });
+			pass = () => gs.pass();
+			coinche = () => gs.coinche();
 		}
 	});
 
@@ -50,5 +56,5 @@
 {#if currentGame.Phase === Phase.Teaming}
 	<Teaming game={currentGame} {start} {joinTeam} />
 {:else if currentGame.Phase === Phase.Bidding}
-	<Bidding player={currentPlayer} game={currentGame} />
+	<Bidding player={currentPlayer} game={currentGame} {bid} {pass} {coinche} />
 {/if}

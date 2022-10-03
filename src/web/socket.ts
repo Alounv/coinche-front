@@ -1,4 +1,4 @@
-import type { Game } from './types';
+import type { Game } from '../data/types';
 
 interface ISocket {
 	gameId: number;
@@ -54,5 +54,17 @@ export class GameSocket {
 
 	joinTeam(teamName: string) {
 		if (teamName) this.send(`joinTeam: ${teamName}`);
+	}
+
+	bid({ value, color }: { value: number; color: string }) {
+		this.send(`bid: ${color},${value}`);
+	}
+
+	pass() {
+		this.send('bid: pass');
+	}
+
+	coinche() {
+		this.send('bid: coinche');
 	}
 }
