@@ -1,4 +1,4 @@
-import type { GamePreview } from './types';
+import type { GamePreview } from '../data/types';
 
 type ListGamesOutput =
 	| {

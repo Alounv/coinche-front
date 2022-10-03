@@ -1,3 +1,4 @@
+import type { BidColors, BidValues, Card } from 'src/data/enums';
 import type { Game } from '../data/types';
 
 interface ISocket {
@@ -52,11 +53,11 @@ export class GameSocket {
 		this.send('start');
 	}
 
-	joinTeam(teamName: string) {
-		if (teamName) this.send(`joinTeam: ${teamName}`);
+	joinTeam(team: string) {
+		if (team) this.send(`joinTeam: ${team}`);
 	}
 
-	bid({ value, color }: { value: number; color: string }) {
+	bid({ value, color }: { value: BidValues; color: BidColors }) {
 		this.send(`bid: ${color},${value}`);
 	}
 
@@ -66,5 +67,9 @@ export class GameSocket {
 
 	coinche() {
 		this.send('bid: coinche');
+	}
+
+	play(card: Card) {
+		this.send(`play: ${card}`);
 	}
 }

@@ -1,10 +1,8 @@
 <script lang="ts">
-	import { initialGame } from '../data/initials';
-
-	import type { Player, Game, PlayerWithName } from '../data/types';
+	import type { Game, PlayerWithName } from '../data/types';
 	import { afterUpdate, onMount } from 'svelte';
 
-	export let game: Game = initialGame;
+	export let game: Game;
 	export let start: () => void;
 	export let joinTeam: (team: string) => void;
 
@@ -13,7 +11,10 @@
 		players: PlayerWithName[];
 	}
 
-	const getTeamsFromPlayers = (players: Record<string, Player>): Team[] => {
+	const getTeams = (game: Game): Team[] => {
+		if (!game) return [];
+
+		const players = game.Players;
 		const teams: Team[] = [];
 		for (const name in players) {
 			const player = { name, ...players[name] };
@@ -32,11 +33,11 @@
 	let teams: Team[] = [];
 
 	onMount(() => {
-		teams = getTeamsFromPlayers(game.Players);
+		teams = getTeams(game);
 	});
 
 	afterUpdate(() => {
-		teams = getTeamsFromPlayers(game.Players);
+		teams = getTeams(game);
 	});
 </script>
 

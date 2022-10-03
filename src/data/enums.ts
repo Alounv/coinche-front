@@ -39,3 +39,38 @@ export enum Card {
 	SK = 'king-spade',
 	SA = 'as-spade'
 }
+
+export enum BidValues {
+	Eighty = 80,
+	Ninety = 90,
+	OneHundred = 100,
+	OneHundredTen = 110,
+	OneHundredTwenty = 120,
+	OneHundredThirty = 130,
+	OneHundredForty = 140,
+	OneHundredFifty = 150,
+	Capot = 160
+}
+
+export enum Colors {
+	Spade = 'spade',
+	Heart = 'heart',
+	Diamond = 'diamond',
+	Club = 'club'
+}
+
+enum BidSpecificColors {
+	NoTrump = 'noTrump',
+	AllTrump = 'allTrump'
+}
+
+export type BidColors = Colors | BidSpecificColors;
+
+export const bidColors = [
+	{ label: '♠', value: Colors.Spade },
+	{ label: '♥', value: Colors.Heart },
+	{ label: '♦', value: Colors.Diamond },
+	{ label: '♣', value: Colors.Club },
+	{ label: 'All trump', value: BidSpecificColors.AllTrump },
+	{ label: 'No trump', value: BidSpecificColors.NoTrump }
+];

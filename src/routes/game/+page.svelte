@@ -1,23 +1,25 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
 	import type { Game, PlayerWithName } from '../../data/types';
-	import { Phase } from '../../data/enums';
+	import { BidValues, Card, Phase, type BidColors } from '../../data/enums';
 	import { GameSocket } from '../../web/socket';
 	import { getPlayerAndGameFromUrl } from '../../utils/url';
-	import { initialGame, initialPlayer } from '../../data/initials';
 
 	import Teaming from '../../components/teaming.svelte';
 	import Bidding from '../../components/bidding.svelte';
+	import Playing from '../../components/playing.svelte';
 
 	let name = '';
-	let currentGame: Game = initialGame;
-	let currentPlayer: PlayerWithName = initialPlayer;
+	let game: Game;
+	let player: PlayerWithName;
 	let message = '';
 	let joinTeam: (team: string) => void = () => null;
 	let start: () => void = () => null;
-	let bid: ({ value: number, color: string }) => void = () => null;
+	let bid: (args: { value: BidValues; color: BidColors }) => void = () => null;
 	let pass: () => void = () => null;
 	let coinche: () => void = () => null;
+	let play: (card: Card) => void = () => null;
+	let phase: Phase = Phase.Teaming;
 
 	let gs: GameSocket;
 
@@ -25,9 +27,10 @@
 		message = msg;
 	};
 
-	const onGame = (game: Game): void => {
-		currentGame = game;
-		currentPlayer = { name, ...game.Players[name] };
+	const onGame = (g: Game): void => {
+		game = g;
+		player = { name, ...g.Players[name] };
+		phase = g.Phase;
 	};
 
 	onMount(() => {
@@ -41,6 +44,7 @@
 			bid = ({ value, color }) => gs.bid({ value, color });
 			pass = () => gs.pass();
 			coinche = () => gs.coinche();
+			play = (card) => gs.play(card);
 		}
 	});
 
@@ -50,11 +54,13 @@
 <svelte:window on:beforeunload={gs?.leave} />
 
 <div style="color: red;">{message}</div>
-<div>Phase: {currentGame?.Phase}</div>
-<div>Game name: {currentGame?.Name}</div>
+<div>Phase: {phase}</div>
+<div>Game name: {game?.Name}</div>
 
-{#if currentGame.Phase === Phase.Teaming}
-	<Teaming game={currentGame} {start} {joinTeam} />
-{:else if currentGame.Phase === Phase.Bidding}
-	<Bidding player={currentPlayer} game={currentGame} {bid} {pass} {coinche} />
+{#if phase === Phase.Teaming}
+	<Teaming {game} {start} {joinTeam} />
+{:else if phase === Phase.Bidding}
+	<Bidding {player} {game} {bid} {pass} {coinche} />
+{:else if phase === Phase.Playing}
+	<Playing {player} {game} {play} />
 {/if}

@@ -1,42 +1,33 @@
 <script lang="ts">
+	import { BidValues, bidColors, type BidColors } from '../data/enums';
 	import { afterUpdate } from 'svelte';
-
 	import type { PlayerWithName, Game, BidWithValue } from '../data/types';
-	import { getPlayersFromGame, getBidsFromGame } from '../utils/game';
+	import { getBidsFromGame } from '../utils/game';
+	import Players from './players.svelte';
 
 	export let player: PlayerWithName;
 	export let game: Game;
-	export let bid: (args: { value: number; color: string }) => void;
+	export let bid: (args: { value: BidValues; color: BidColors }) => void;
 	export let pass: () => void;
 	export let coinche: () => void;
 
-	let bidValue = 0;
-	let bidColor = '';
-	let players: PlayerWithName[] = [];
+	let bidValue: BidValues;
+	let bidColor: BidColors;
 	let bids: BidWithValue[] = [];
 	let maxBidValue = 0;
+	let canBid = false;
 
-	const values = [80, 90, 100, 110, 120, 130, 140, 150, 160];
+	const values = Object.values(BidValues);
 	const usableValues = values.filter((v) => v > maxBidValue);
-	const colors = [
-		{ label: '♠', value: 'spike' },
-		{ label: '♥', value: 'heart' },
-		{ label: '♦', value: 'diamond' },
-		{ label: '♣', value: 'club' },
-		{ label: 'AllTrump', value: 'AllTrump' },
-		{ label: 'NoTrump', value: 'NoTrump' }
-	];
 
 	const handleBid = () => {
 		bid({ value: bidValue, color: bidColor });
 	};
 
 	afterUpdate(() => {
-		players = getPlayersFromGame(game);
+		canBid = game.Players[player.name].Order === 1;
 		bids = getBidsFromGame(game);
 		maxBidValue = bids.length ? bids[bids.length - 1].value : 0;
-
-		players.sort((a, b) => a.InitialOrder - b.InitialOrder);
 	});
 </script>
 
@@ -44,38 +35,32 @@
 	<div>{bid.value} - {bid.Color}</div>
 {/each}
 
-{#each players as p}
-	<div>
-		{p.name}
-		{p.Team}
-		{#if p.Order === 1}
-			<strong>{'<---- turn'}</strong>
-		{/if}
-	</div>
-{/each}
+<Players {game} playerName={player.name} />
 
 <div>{player.Hand}</div>
 
-{#if usableValues.length}
-	<select bind:value={bidValue}>
-		{#each usableValues as value}
-			<option {value}>{value === 160 ? 'capot' : value}</option>
+{#if canBid}
+	{#if usableValues.length}
+		<select bind:value={bidValue}>
+			{#each usableValues as value}
+				<option {value}>{value === 160 ? 'capot' : value}</option>
+			{/each}
+		</select>
+
+		{#each bidColors as color}
+			<label>
+				<input type="radio" name="color" value={color.value} bind:group={bidColor} />
+				{color.label}
+			</label>
 		{/each}
-	</select>
 
-	{#each colors as color}
-		<label>
-			<input type="radio" name="color" value={color.value} bind:group={bidColor} />
-			{color.label}
-		</label>
-	{/each}
-
-	{#if bidValue && bidColor}
-		<button on:click={handleBid}>{'Bid'}</button>
+		{#if bidValue && bidColor}
+			<button on:click={handleBid}>{'Bid'}</button>
+		{/if}
 	{/if}
-{/if}
 
-{#if bids.length}
-	<button on:click={coinche}>Coinche</button>
-	<button on:click={pass}>Pass</button>
+	{#if bids.length}
+		<button on:click={coinche}>Coinche</button>
+		<button on:click={pass}>Pass</button>
+	{/if}
 {/if}

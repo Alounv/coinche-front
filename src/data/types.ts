@@ -1,4 +1,4 @@
-import type { Phase, Card } from './enums';
+import type { Phase, Card, BidColors, BidValues } from './enums';
 
 export interface GamePreview {
 	ID: number;
@@ -9,8 +9,8 @@ export interface GamePreview {
 	CreatedAt: string;
 }
 
-interface Bid {
-	Color: string;
+export interface Bid {
+	Color: BidColors;
 	Pass: number;
 	Coinche: number;
 }
@@ -24,7 +24,7 @@ export interface Game {
 	Name: string;
 	Players: Record<string, Player>;
 	Phase: Phase;
-	Bids: Record<string, Bid>;
+	Bids: Record<BidValues, Bid>;
 }
 
 export interface Player {
