@@ -21,7 +21,6 @@
 
 <Players {game} playerName={player.name} />
 
-<div>{player.Hand}</div>
 <div>Trump is {trump}</div>
 
 {#each player.Hand as card}
