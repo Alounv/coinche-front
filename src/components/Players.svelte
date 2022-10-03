@@ -8,18 +8,26 @@
 	$: players = getPlayers(game);
 </script>
 
-{#each players as p}
-	<div>
-		{#if p.Order === 1}
-			<strong>[</strong>
-		{/if}
-		{p.name}
-		{p.Team}
-		{#if p.Order === 1}
-			<strong>]</strong>
-		{/if}
-		{#if p.name === playerName}
-			<strong>👈</strong>
-		{/if}
-	</div>
-{/each}
+<ul>
+	{#each players as p}
+		<li class={p.name === playerName ? 'current' : ''}>
+			{p.name}
+			{#if p.Order === 1}
+				<strong>👈</strong>
+			{/if}
+		</li>
+	{/each}
+</ul>
+
+<style>
+	.current {
+		font-weight: bold;
+	}
+
+	.current::after {
+		content: ']';
+	}
+	.current::before {
+		content: '[ ';
+	}
+</style>

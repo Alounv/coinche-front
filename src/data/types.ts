@@ -19,12 +19,23 @@ export interface BidWithValue extends Bid {
 	value: number;
 }
 
+interface Play {
+	Card: Card;
+	Player: string;
+}
+
+interface Turn {
+	Winner?: string;
+	Plays: Play[];
+}
+
 export interface Game {
 	ID: number;
 	Name: string;
 	Players: Record<string, Player>;
 	Phase: Phase;
 	Bids: Record<BidValues, Bid>;
+	Turns: Turn[];
 	Scores: Record<string, number>;
 	Points: Record<string, number>;
 }

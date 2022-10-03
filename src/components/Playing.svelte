@@ -2,6 +2,7 @@
 	import type { Card } from '../data/enums';
 	import type { PlayerWithName, Game } from '../data/types';
 	import Players from './Players.svelte';
+	import LastTurns from './LastTurns.svelte';
 	import { getTrump } from '../utils/game';
 
 	export let player: PlayerWithName;
@@ -15,6 +16,8 @@
 <Players {game} playerName={player.name} />
 
 <div>Trump is {trump}</div>
+
+<LastTurns {game} />
 
 {#each player.Hand as card}
 	<li>
