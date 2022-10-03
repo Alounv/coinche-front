@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { initialGame } from '../initials';
+	import { initialGame } from '../data/initials';
 
-	import type { Player, Game, PlayerWithName } from '../types';
+	import type { Player, Game, PlayerWithName } from '../data/types';
 	import { afterUpdate, onMount } from 'svelte';
 
 	export let game: Game = initialGame;

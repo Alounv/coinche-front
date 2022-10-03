@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { GamePreview } from '../types';
-	import { listGames, createGame, deleteGame, forceLeaveGame } from '../rest';
+	import type { GamePreview } from '../data/types';
+	import { listGames, createGame, deleteGame, forceLeaveGame } from '../web/rest';
 
 	let games: GamePreview[] = [];
 	let newGameName = '';

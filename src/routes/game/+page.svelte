@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
-	import type { Game, PlayerWithName } from '../../types';
-	import { Phase } from '../../enums';
-	import { GameSocket } from '../../socket';
-	import { getPlayerAndGameFromUrl } from '../../url';
-	import { initialGame, initialPlayer } from '../../initials';
+	import type { Game, PlayerWithName } from '../../data/types';
+	import { Phase } from '../../data/enums';
+	import { GameSocket } from '../../web/socket';
+	import { getPlayerAndGameFromUrl } from '../../utils/url';
+	import { initialGame, initialPlayer } from '../../data/initials';
 
 	import Teaming from '../../components/teaming.svelte';
 	import Bidding from '../../components/bidding.svelte';
@@ -50,5 +50,5 @@
 {#if currentGame.Phase === Phase.Teaming}
 	<Teaming game={currentGame} {start} {joinTeam} />
 {:else if currentGame.Phase === Phase.Bidding}
-	<Bidding player={currentPlayer} />
+	<Bidding player={currentPlayer} game={currentGame} />
 {/if}
