@@ -1,9 +1,4 @@
-export enum Phase {
-	Teaming = 1,
-	Playing = 2,
-	Bidding = 3,
-	Counting = 4
-}
+import type { Phase } from './enums';
 
 export interface GamePreview {
 	ID: number;

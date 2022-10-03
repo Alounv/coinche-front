@@ -65,7 +65,7 @@
 		<li>
 			<button on:click={() => deleteThisGame(game.ID)}>Delete</button>
 			<button on:click={() => forceLeave(game.ID, name)}>Force Leave</button>
-			<a href={`/game/team?game=${game.ID}&player=${name}`}>{game.Name}</a>
+			<a href={`/game?game=${game.ID}&player=${name}`}>{game.Name}</a>
 
 			<span>{game.ID}</span>
 			<span>{game.TurnsCount}</span>
