@@ -2,7 +2,7 @@
 	import type { BidColors, Card } from '../data/enums';
 	import { afterUpdate } from 'svelte';
 	import type { PlayerWithName, Game } from '../data/types';
-	import Players from './players.svelte';
+	import Players from './Players.svelte';
 	import { getTrump } from '../utils/game';
 
 	export let player: PlayerWithName;

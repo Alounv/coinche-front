@@ -3,7 +3,7 @@
 	import { afterUpdate } from 'svelte';
 	import type { PlayerWithName, Game, BidWithValue } from '../data/types';
 	import { getBidsFromGame } from '../utils/game';
-	import Players from './players.svelte';
+	import Players from './Players.svelte';
 
 	export let player: PlayerWithName;
 	export let game: Game;

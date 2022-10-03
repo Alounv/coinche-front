@@ -5,9 +5,9 @@
 	import { GameSocket } from '../../web/socket';
 	import { getPlayerAndGameFromUrl } from '../../utils/url';
 
-	import Teaming from '../../components/teaming.svelte';
-	import Bidding from '../../components/bidding.svelte';
-	import Playing from '../../components/playing.svelte';
+	import Teaming from '../../components/Teaming.svelte';
+	import Bidding from '../../components/Bidding.svelte';
+	import Playing from '../../components/Playing.svelte';
 
 	let name = '';
 	let game: Game;
