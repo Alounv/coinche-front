@@ -4,6 +4,7 @@
 
 	export let game: Game;
 	export let canStart: boolean = false;
+	export let showScores: boolean = false;
 
 	$: teams = getTeams(game);
 	$: canStart =
@@ -15,8 +16,10 @@
 		{#each teams as team (team.name)}
 			<li>
 				{team.name}
-				{team.score || 0}
-				{team.points || 0}
+				{#if showScores}
+					{team.score || 0}
+					{team.points || 0}
+				{/if}
 				<ul>
 					{#each team.players as player (player.name)}
 						<li>{player.name}</li>

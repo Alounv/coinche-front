@@ -6,6 +6,6 @@
 	export let start: () => void;
 </script>
 
-<Teams {game} />
+<Teams {game} showScores={true} />
 
 <button on:click={start}>Restart</button>
