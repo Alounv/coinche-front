@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { BidValues, bidColors, type BidColors } from '../data/enums';
+	import { bidValues, BidValues, bidColors, type BidColors } from '../data/enums';
 
 	export let bid: (args: { value: BidValues; color: BidColors }) => void;
 	export let maxBidValue: BidValues;
@@ -7,16 +7,14 @@
 	let bidValue: BidValues;
 	let bidColor: BidColors;
 
-	const values = Object.values(BidValues);
-	const usableValues = values.filter((v) => v > maxBidValue);
-
+	const values = bidValues.filter((v) => v > maxBidValue);
 	const handleBid = () => {
 		bid({ value: bidValue, color: bidColor });
 	};
 </script>
 
 <select bind:value={bidValue}>
-	{#each usableValues as value}
+	{#each values as value}
 		<option {value}>{value === 160 ? 'capot' : value}</option>
 	{/each}
 </select>

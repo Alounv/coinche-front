@@ -52,6 +52,18 @@ export enum BidValues {
 	Capot = 160
 }
 
+export const bidValues: BidValues[] = [
+	BidValues.Eighty,
+	BidValues.Ninety,
+	BidValues.OneHundred,
+	BidValues.OneHundredTen,
+	BidValues.OneHundredTwenty,
+	BidValues.OneHundredThirty,
+	BidValues.OneHundredForty,
+	BidValues.OneHundredFifty,
+	BidValues.Capot
+];
+
 export enum Colors {
 	Spade = 'spade',
 	Heart = 'heart',

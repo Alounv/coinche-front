@@ -25,6 +25,8 @@ export interface Game {
 	Players: Record<string, Player>;
 	Phase: Phase;
 	Bids: Record<BidValues, Bid>;
+	Scores: Record<string, number>;
+	Points: Record<string, number>;
 }
 
 export interface Player {
@@ -36,4 +38,21 @@ export interface Player {
 
 export interface PlayerWithName extends Player {
 	name: string;
+}
+
+export interface Team {
+	name: string;
+	players: PlayerWithName[];
+	score: number;
+	points: number;
+}
+
+export interface Score {
+	team: string;
+	value: number;
+}
+
+export interface Point {
+	team: string;
+	value: number;
 }

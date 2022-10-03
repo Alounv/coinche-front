@@ -8,6 +8,7 @@
 	import Teaming from '../../components/Teaming.svelte';
 	import Bidding from '../../components/Bidding.svelte';
 	import Playing from '../../components/Playing.svelte';
+	import Counting from '../../components/Counting.svelte';
 
 	let name = '';
 	let game: Game;
@@ -25,6 +26,9 @@
 
 	const onMessage = (msg: string): void => {
 		message = msg;
+		setTimeout(() => {
+			message = '';
+		}, 5000);
 	};
 
 	const onGame = (g: Game): void => {
@@ -53,14 +57,20 @@
 
 <svelte:window on:beforeunload={gs?.leave} />
 
+<a href="/">Exit</a>
+
 <div style="color: red;">{message}</div>
 <div>Phase: {phase}</div>
 <div>Game name: {game?.Name}</div>
 
-{#if phase === Phase.Teaming}
-	<Teaming {game} {start} {joinTeam} />
-{:else if phase === Phase.Bidding}
-	<Bidding {player} {game} {bid} {pass} {coinche} />
-{:else if phase === Phase.Playing}
-	<Playing {player} {game} {play} />
+{#if game}
+	{#if phase === Phase.Teaming}
+		<Teaming {game} {start} {joinTeam} />
+	{:else if phase === Phase.Bidding}
+		<Bidding {player} {game} {bid} {pass} {coinche} />
+	{:else if phase === Phase.Playing}
+		<Playing {player} {game} {play} />
+	{:else if phase === Phase.Counting}
+		<Counting {game} {start} />
+	{/if}
 {/if}

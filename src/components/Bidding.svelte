@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { BidValues, type BidColors } from '../data/enums';
-	import { afterUpdate } from 'svelte';
-	import type { PlayerWithName, Game, BidWithValue } from '../data/types';
-	import { getBidsFromGame } from '../utils/game';
+	import type { BidValues, BidColors } from '../data/enums';
+	import type { PlayerWithName, Game } from '../data/types';
+	import { getBids } from '../utils/game';
 
 	import Players from './Players.svelte';
 	import PlaceBid from './PlaceBid.svelte';
@@ -13,18 +12,9 @@
 	export let pass: () => void;
 	export let coinche: () => void;
 
-	let bids: BidWithValue[] = [];
-	let maxBidValue: BidValues = 0;
-	let canBid = false;
-
-	const values = Object.values(BidValues);
-	const usableValues = values.filter((v) => v > maxBidValue);
-
-	afterUpdate(() => {
-		canBid = game.Players[player.name].Order === 1;
-		bids = getBidsFromGame(game);
-		maxBidValue = bids.length ? bids[bids.length - 1].value : 0;
-	});
+	$: canBid = game.Players[player.name].Order === 1;
+	$: bids = getBids(game);
+	$: maxBidValue = bids.length ? bids[bids.length - 1].value : 0;
 </script>
 
 {#each bids as bid}
@@ -36,7 +26,7 @@
 <div>{player.Hand}</div>
 
 {#if canBid}
-	{#if usableValues.length}
+	{#if maxBidValue < 160}
 		<PlaceBid {bid} {maxBidValue} />
 	{/if}
 

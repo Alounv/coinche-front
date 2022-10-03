@@ -1,18 +1,11 @@
 <script lang="ts">
-	import { afterUpdate } from 'svelte';
-
-	import type { PlayerWithName, Game } from '../data/types';
-	import { getPlayersFromGame } from '../utils/game';
+	import type { Game } from '../data/types';
+	import { getPlayers } from '../utils/game';
 
 	export let playerName: string;
 	export let game: Game;
 
-	let players: PlayerWithName[] = [];
-
-	afterUpdate(() => {
-		players = getPlayersFromGame(game);
-		players.sort((a, b) => a.InitialOrder - b.InitialOrder);
-	});
+	$: players = getPlayers(game);
 </script>
 
 {#each players as p}

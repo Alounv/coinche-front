@@ -1,6 +1,5 @@
 <script lang="ts">
-	import type { BidColors, Card } from '../data/enums';
-	import { afterUpdate } from 'svelte';
+	import type { Card } from '../data/enums';
 	import type { PlayerWithName, Game } from '../data/types';
 	import Players from './Players.svelte';
 	import { getTrump } from '../utils/game';
@@ -9,14 +8,8 @@
 	export let game: Game;
 	export let play: (card: Card) => void;
 
-	const trump: BidColors = getTrump(game);
-	let canPlay = false;
-
-	afterUpdate(() => {
-		canPlay = game.Players[player.name].Order === 1;
-	});
-
-	console.log('game', game);
+	$: trump = getTrump(game);
+	$: canPlay = game.Players[player.name].Order === 1;
 </script>
 
 <Players {game} playerName={player.name} />
