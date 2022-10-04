@@ -3,6 +3,7 @@
 	import type { PlayerWithName, Game } from '../data/types';
 	import Players from './Players.svelte';
 	import LastTurns from './LastTurns.svelte';
+	import Hand from './Hand.svelte';
 	import { getTrump } from '../utils/game';
 
 	export let player: PlayerWithName;
@@ -19,11 +20,4 @@
 
 <LastTurns {game} />
 
-{#each player.Hand as card}
-	<li>
-		<span>{card}</span>
-		{#if canPlay}
-			<button on:click={() => play(card)}>Play</button>
-		{/if}
-	</li>
-{/each}
+<Hand {player} {play} {canPlay} />
