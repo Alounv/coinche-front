@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition';
 	import { onDestroy, onMount } from 'svelte';
 	import type { Game, PlayerWithName } from '../../data/types';
 	import { BidValues, Card, Phase, type BidColors } from '../../data/enums';
 	import { GameSocket } from '../../web/socket';
 	import { getPlayerAndGameFromUrl } from '../../utils/url';
+	import { CloseButton } from 'spaper';
 
 	import Teaming from '../../components/Teaming.svelte';
 	import Bidding from '../../components/Bidding.svelte';
@@ -59,7 +61,15 @@
 
 <a href="/">Exit</a>
 
-<div style="color: red;">{message}</div>
+<div class="row flex-center text-danger margin-small" style="min-height: 1.25rem">
+	{#if message}
+		<div transition:fade>
+			<CloseButton class="margin-left" on:click={() => (message = '')} />
+			{message}
+		</div>
+	{/if}
+</div>
+
 <div>Phase: {phase}</div>
 <div>Game name: {game?.Name}</div>
 
