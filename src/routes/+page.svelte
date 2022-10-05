@@ -2,16 +2,29 @@
 	import { onMount } from 'svelte';
 	import type { GamePreview } from '../data/types';
 	import { listGames, createGame, deleteGame, forceLeaveGame } from '../web/rest';
+	import Message from '../components/Message.svelte';
+	import { Input } from 'spaper';
+	import GamesList from '../components/GamesList.svelte';
 
 	let games: GamePreview[] = [];
 	let newGameName = '';
 	let message = '';
 	let name = '';
+	let interval: any;
+
+	$: {
+		if (name) localStorage.setItem('name', name);
+	}
 
 	onMount(() => {
 		refreshList();
 		name = localStorage.getItem('name') || '';
 	});
+
+	$: {
+		clearInterval(interval);
+		interval = setInterval(refreshList, 4000);
+	}
 
 	const refreshList = async () => {
 		const { error, previews } = await listGames();
@@ -22,6 +35,13 @@
 		}
 	};
 
+	const setMessage = (msg: string) => {
+		message = msg;
+		setTimeout(() => {
+			message = '';
+		}, 5000);
+	};
+
 	const createNewGame = async () => {
 		const error = await createGame(newGameName);
 		if (error) message = error;
@@ -30,49 +50,40 @@
 
 	const deleteThisGame = async (gameId: number) => {
 		const error = await deleteGame(gameId);
-		if (error) message = error;
+		if (error) setMessage(error);
 		refreshList();
 	};
 
 	const forceLeave = async (gameID: number, name: string) => {
 		const error = await forceLeaveGame(gameID, name);
-		if (error) message = error;
+		if (error) setMessage(error);
 		refreshList();
-	};
-
-	const changeName = (value: string) => {
-		localStorage.setItem('name', value);
 	};
 </script>
 
-<h1>Test connection to server</h1>
+<h1>Let's play Coinche!</h1>
 
-<h2>Your name is: {name}</h2>
-<div>
-	<label for="name">Set name</label>
-	<input id="name" bind:value={name} on:change={(e) => changeName(e.currentTarget.value)} />
+<Message {message} onClose={() => (message = '')} />
+
+<div class="input-row">
+	<label for="name">Set player name</label>
+	<Input id="name" bind:value={name} />
 </div>
 
-<button on:click={refreshList}>Refresh list</button>
+<h4>Games</h4>
 
-<form on:submit|preventDefault={createNewGame}>
+<form on:submit|preventDefault={createNewGame} class="input-row">
 	<label for="create-game">Create new game</label>
 	<input id="create-game" bind:value={newGameName} />
+	<div>(press <span class="badge">Enter</span> to submit)</div>
 </form>
 
-<ul>
-	{#each games as game (game.ID)}
-		<li>
-			<button on:click={() => deleteThisGame(game.ID)}>Delete</button>
-			<button on:click={() => forceLeave(game.ID, name)}>Force Leave</button>
-			<a href={`/game?game=${game.ID}&player=${name}`}>{game.Name}</a>
+<GamesList {games} playerName={name} deleteGame={deleteThisGame} {forceLeave} />
 
-			<span>{game.ID}</span>
-			<span>{game.TurnsCount}</span>
-			<span>{game.Phase}</span>
-			<span>{game.Players}</span>
-		</li>
-	{/each}
-</ul>
-
-<div style="color: red;">{message}</div>
+<style>
+	.input-row {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+</style>

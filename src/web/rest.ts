@@ -23,7 +23,11 @@ export const listGames = async (): Promise<ListGamesOutput> => {
 	}
 
 	(data as GamePreview[]).sort((a, b) => a.ID - b.ID);
-	return { previews: data };
+	const previews = data.map((preview: GamePreview) => ({
+		...preview,
+		Players: preview.Players.sort((a, b) => a.localeCompare(b))
+	}));
+	return { previews };
 };
 
 export const createGame = async (gameName: string): Promise<string> => {

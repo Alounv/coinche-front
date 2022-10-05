@@ -1,9 +1,16 @@
-export enum Phase {
+export enum Phases {
 	Teaming = 1,
 	Bidding = 2,
 	Playing = 3,
 	Counting = 4
 }
+
+export const phases = {
+	[Phases.Teaming]: 'Teaming',
+	[Phases.Bidding]: 'Bidding',
+	[Phases.Playing]: 'Playing',
+	[Phases.Counting]: 'Counting'
+};
 
 export enum Card {
 	C7 = '7-club',
