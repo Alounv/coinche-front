@@ -13,9 +13,11 @@
 	export let pass: () => void;
 	export let coinche: () => void;
 
-	$: canBid = game.Players[player.name].Order === 1;
 	$: bids = getBids(game);
 	$: maxBidValue = bids.length ? bids[bids.length - 1].value : 0;
+	$: lastBid = maxBidValue ? game.Bids[maxBidValue as BidValues] : null;
+	$: isCoinched = !!lastBid?.Coinche;
+	$: canBid = player.Order === 1;
 </script>
 
 {#each bids as bid}
@@ -24,15 +26,15 @@
 
 <Players {game} playerName={player.name} />
 
-<div class="row">
+<div class="row" style="gap: 1rem;">
 	{#if canBid}
-		{#if maxBidValue < 160}
+		{#if maxBidValue < 160 && !isCoinched}
 			<PlaceBid {bid} {maxBidValue} />
 		{/if}
 
 		{#if bids.length}
-			<button on:click={coinche}>Coinche</button>
-			<button on:click={pass}>Pass</button>
+			<button class="align-bottom" on:click={coinche}>Coinche</button>
+			<button class="align-bottom" on:click={pass}>Pass</button>
 		{/if}
 	{/if}
 </div>

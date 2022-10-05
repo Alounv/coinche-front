@@ -1,16 +1,13 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy, onMount, beforeUpdate } from 'svelte';
 	import type { Game, PlayerWithName } from '../../data/types';
-	import { BidValues, Card, Phase, type BidColors } from '../../data/enums';
+	import { BidValues, Card, type BidColors } from '../../data/enums';
 	import { GameSocket } from '../../web/socket';
 	import { getPlayerAndGameFromUrl } from '../../utils/url';
 	import { CloseButton } from 'spaper';
 
-	import Teaming from '../../components/Teaming.svelte';
-	import Bidding from '../../components/Bidding.svelte';
-	import Playing from '../../components/Playing.svelte';
-	import Counting from '../../components/Counting.svelte';
+	import GameArea from '../../components/Game.svelte';
 
 	let name = '';
 	let game: Game;
@@ -22,7 +19,6 @@
 	let pass: () => void = () => null;
 	let coinche: () => void = () => null;
 	let play: (card: Card) => void = () => null;
-	let phase: Phase = Phase.Teaming;
 
 	let gs: GameSocket;
 
@@ -35,26 +31,45 @@
 
 	const onGame = (g: Game): void => {
 		game = g;
-		player = { name, ...g.Players[name] };
-		phase = g.Phase;
+		const currentPlayer = g.Players[name];
+		if (currentPlayer) {
+			player = { name, ...g.Players[name] };
+		} else {
+			message = 'You are not in this game';
+		}
 	};
 
 	onMount(() => {
+		window.addEventListener('popstate', onPopState);
 		const { gameId, playerName } = getPlayerAndGameFromUrl();
 		name = playerName;
 		if (playerName && gameId) {
 			gs = new GameSocket({ gameId, playerName, onMessage, onGame });
-
-			joinTeam = (team: string) => gs.joinTeam(team);
-			start = () => gs.start();
-			bid = ({ value, color }) => gs.bid({ value, color });
-			pass = () => gs.pass();
-			coinche = () => gs.coinche();
-			play = (card) => gs.play(card);
 		}
 	});
 
-	onDestroy(() => gs?.leave());
+	const onPopState = () => {
+		const { gameId, playerName } = getPlayerAndGameFromUrl();
+		if (playerName !== name || gameId !== game?.ID) {
+			gs?.leave();
+			name = playerName;
+			gs = new GameSocket({ gameId, playerName, onMessage, onGame });
+		}
+	};
+
+	$: {
+		joinTeam = (team: string) => gs.joinTeam(team);
+		start = () => gs.start();
+		bid = ({ value, color }) => gs.bid({ value, color });
+		pass = () => gs.pass();
+		coinche = () => gs.coinche();
+		play = (card) => gs.play(card);
+	}
+
+	onDestroy(() => {
+		gs?.leave();
+		window?.removeEventListener('popstate', onPopState);
+	});
 </script>
 
 <svelte:window on:beforeunload={gs?.leave} />
@@ -70,17 +85,7 @@
 	{/if}
 </div>
 
-<div>Phase: {phase}</div>
+<div>Phase: {game?.Phase}</div>
 <div>Game name: {game?.Name}</div>
 
-{#if game}
-	{#if phase === Phase.Teaming}
-		<Teaming {game} {start} {joinTeam} />
-	{:else if phase === Phase.Bidding}
-		<Bidding {player} {game} {bid} {pass} {coinche} />
-	{:else if phase === Phase.Playing}
-		<Playing {player} {game} {play} />
-	{:else if phase === Phase.Counting}
-		<Counting {game} {start} />
-	{/if}
-{/if}
+<GameArea {game} {player} {joinTeam} {start} {bid} {pass} {coinche} {play} />

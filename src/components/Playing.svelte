@@ -20,4 +20,14 @@
 
 <LastTurns {game} />
 
-<Hand {player} {play} {canPlay} />
+<div class="row flex-center">
+	<Hand {player} {play} {canPlay} />
+
+	{#if canPlay}
+		<div class="margin">
+			Use <span class="badge">LEFT</span> / <span class="badge">RIGHT</span> to select a card then
+			press
+			<span class="badge secondary">ENTER</span> to play it.
+		</div>
+	{/if}
+</div>

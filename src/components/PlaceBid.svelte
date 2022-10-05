@@ -5,7 +5,7 @@
 	export let bid: (args: { value: BidValues; color: BidColors }) => void;
 	export let maxBidValue: BidValues;
 
-	let bidValue: BidValues;
+	let bidValue: BidValues = maxBidValue;
 	let bidColor: BidColors;
 
 	const values = bidValues.filter((v) => v > maxBidValue);
@@ -14,7 +14,7 @@
 	};
 </script>
 
-<div class="row margin-small">
+<div style="display: flex; gap: 1rem;">
 	<Select bind:value={bidValue} label="Value">
 		{#each values as value}
 			<option {value}>{value === 160 ? 'capot' : value}</option>
@@ -27,5 +27,7 @@
 		{/each}
 	</Select>
 
-	<button on:click={handleBid} disabled={!bidValue || !bidColor}>{'Bid'}</button>
+	<button on:click={handleBid} class="align-bottom" disabled={!bidValue || !bidColor}
+		>{'Bid'}</button
+	>
 </div>
