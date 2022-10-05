@@ -2,13 +2,12 @@
 	import { onMount } from 'svelte';
 	import type { GamePreview } from '../data/types';
 	import { listGames, createGame, deleteGame, forceLeaveGame } from '../web/rest';
-	import Message from '../components/Message.svelte';
 	import { Input } from 'spaper';
 	import GamesList from '../components/GamesList.svelte';
+	import { showToast } from '../utils/toast';
 
 	let games: GamePreview[] = [];
 	let newGameName = '';
-	let message = '';
 	let name = '';
 	let interval: any;
 
@@ -31,39 +30,30 @@
 		if (previews) {
 			games = previews;
 		} else {
-			message = error;
+			showToast({ message: error, type: 'danger' });
 		}
-	};
-
-	const setMessage = (msg: string) => {
-		message = msg;
-		setTimeout(() => {
-			message = '';
-		}, 5000);
 	};
 
 	const createNewGame = async () => {
 		const error = await createGame(newGameName);
-		if (error) message = error;
+		if (error) showToast({ message: error, type: 'danger' });
 		refreshList();
 	};
 
 	const deleteThisGame = async (gameId: number) => {
 		const error = await deleteGame(gameId);
-		if (error) setMessage(error);
+		if (error) showToast({ message: error, type: 'danger' });
 		refreshList();
 	};
 
 	const forceLeave = async (gameID: number, name: string) => {
 		const error = await forceLeaveGame(gameID, name);
-		if (error) setMessage(error);
+		if (error) showToast({ message: error, type: 'danger' });
 		refreshList();
 	};
 </script>
 
 <h1>Let's play Coinche!</h1>
-
-<Message {message} onClose={() => (message = '')} />
 
 <div class="input-row">
 	<label for="name">Set player name</label>

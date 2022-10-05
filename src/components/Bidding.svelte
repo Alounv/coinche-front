@@ -24,8 +24,6 @@
 	<div>{bid.value} - {bid.Color}</div>
 {/each}
 
-<Players {game} playerName={player.name} />
-
 <div class="row" style="gap: 1rem;">
 	{#if canBid}
 		{#if maxBidValue < 160 && !isCoinched}
@@ -40,3 +38,5 @@
 </div>
 
 <Hand {player} />
+
+<Players {game} playerName={player.name} />

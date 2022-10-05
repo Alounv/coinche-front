@@ -1,18 +1,16 @@
 <script lang="ts">
-	import { fade } from 'svelte/transition';
-	import { onDestroy, onMount, beforeUpdate } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import type { Game, PlayerWithName } from '../../data/types';
-	import { BidValues, Card, type BidColors } from '../../data/enums';
+	import type { BidValues, Card, BidColors } from '../../data/enums';
 	import { GameSocket } from '../../web/socket';
 	import { getPlayerAndGameFromUrl } from '../../utils/url';
-	import { CloseButton } from 'spaper';
 
 	import GameArea from '../../components/Game.svelte';
+	import { showToast } from '../../utils/toast';
 
 	let name = '';
 	let game: Game;
 	let player: PlayerWithName;
-	let message = '';
 	let joinTeam: (team: string) => void = () => null;
 	let start: () => void = () => null;
 	let bid: (args: { value: BidValues; color: BidColors }) => void = () => null;
@@ -23,10 +21,7 @@
 	let gs: GameSocket;
 
 	const onMessage = (msg: string): void => {
-		message = msg;
-		setTimeout(() => {
-			message = '';
-		}, 5000);
+		showToast({ message: msg, type: 'danger' });
 	};
 
 	const onGame = (g: Game): void => {
@@ -35,7 +30,7 @@
 		if (currentPlayer) {
 			player = { name, ...g.Players[name] };
 		} else {
-			message = 'You are not in this game';
+			showToast({ message: 'You are not in this game', type: 'danger' });
 		}
 	};
 
@@ -75,16 +70,9 @@
 
 <a href="/">Exit</a>
 
-<div class="row flex-center text-danger margin-small" style="min-height: 1.25rem">
-	{#if message}
-		<div transition:fade>
-			<CloseButton class="margin-left" on:click={() => (message = '')} />
-			{message}
-		</div>
-	{/if}
-</div>
-
 <div>Phase: {game?.Phase}</div>
 <div>Game name: {game?.Name}</div>
 
-<GameArea {game} {player} {joinTeam} {start} {bid} {pass} {coinche} {play} />
+<div class="background-secondary border">
+	<GameArea {game} {player} {joinTeam} {start} {bid} {pass} {coinche} {play} />
+</div>

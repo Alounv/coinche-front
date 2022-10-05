@@ -6,6 +6,7 @@
 	import Hand from './Hand.svelte';
 	import { getPlayers, getPlayersPositions, getTrump } from '../utils/game';
 	import { Badge } from 'spaper';
+	import CardComponent from './Card.svelte';
 
 	export let player: PlayerWithName;
 	export let game: Game;
@@ -31,8 +32,6 @@
 	}
 </script>
 
-<Players {game} playerName={player.name} />
-
 <div>Trump is {trump}</div>
 
 <div class="row">
@@ -40,8 +39,9 @@
 	<div class="col-6 col">
 		{frontPlayer?.name}
 		{#if frontPlayer?.Order === 1}
-			<Badge>👈</Badge>
+			<span>👈</span>
 		{/if}
+		<CardComponent />
 	</div>
 	<div class="col-3 col" />
 </div>
@@ -50,7 +50,7 @@
 	<div class="col-3 col">
 		{leftPlayer?.name}
 		{#if leftPlayer?.Order === 1}
-			<Badge>👈</Badge>
+			<span>👈</span>
 		{/if}
 	</div>
 	<div class="col-6 col">
@@ -59,7 +59,7 @@
 	<div class="col-3 col">
 		{rightPlayer?.name}
 		{#if rightPlayer?.Order === 1}
-			<Badge>👈</Badge>
+			<span>👈</span>
 		{/if}
 	</div>
 </div>
@@ -76,3 +76,5 @@
 		{/if}
 	</div>
 </div>
+
+<Players {game} playerName={player.name} />

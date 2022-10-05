@@ -2,6 +2,7 @@
 	import type { PlayerWithName, Turn } from '../data/types';
 	import { fly } from 'svelte/transition';
 	import Card from './Card.svelte';
+	import { showToast } from '../utils/toast';
 
 	export let turns: Turn[];
 	export let player: PlayerWithName;
@@ -9,9 +10,13 @@
 	export let rightPlayer: PlayerWithName;
 	export let frontPlayer: PlayerWithName;
 
-	$: currentTurn = turns[turns.length - 1] || { Plays: [] };
-	$: previousTurn = turns[turns.length - 2] || { Plays: [] };
-	$: turn = currentTurn.Plays.length ? currentTurn : previousTurn;
+	$: turn = turns[turns.length - 1] || { Plays: [] };
+	$: {
+		if (turn.Winner) {
+			const message = `${turn.Winner} has won the turn`;
+			showToast({ message, type: 'secondary' });
+		}
+	}
 
 	const getClass = (p: string) => {
 		switch (p) {
