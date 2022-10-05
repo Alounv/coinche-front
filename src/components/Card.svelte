@@ -17,6 +17,6 @@
 {:else}
 	<div
 		class="shadow shadow-hover padding-small border background-primary"
-		style="transform: rotate({deg}deg);  width: 8rem; height: 11rem;"
+		style="transform: rotate({deg}deg);  width: 100%; height: 100%;"
 	/>
 {/if}

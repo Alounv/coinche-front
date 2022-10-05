@@ -6,7 +6,8 @@
 	import Hand from './Hand.svelte';
 	import { getPlayers, getPlayersPositions, getTrump } from '../utils/game';
 	import { Badge } from 'spaper';
-	import CardComponent from './Card.svelte';
+	import BackHand from './BackHand.svelte';
+	import OtherPlayer from './OtherPlayer.svelte';
 
 	export let player: PlayerWithName;
 	export let game: Game;
@@ -35,32 +36,18 @@
 <div>Trump is {trump}</div>
 
 <div class="row">
-	<div class="col-3 col" />
-	<div class="col-6 col">
-		{frontPlayer?.name}
-		{#if frontPlayer?.Order === 1}
-			<span>👈</span>
-		{/if}
-		<CardComponent />
-	</div>
-	<div class="col-3 col" />
+	<OtherPlayer player={frontPlayer} position="front" />
 </div>
 
 <div class="row">
 	<div class="col-3 col">
-		{leftPlayer?.name}
-		{#if leftPlayer?.Order === 1}
-			<span>👈</span>
-		{/if}
+		<OtherPlayer player={leftPlayer} position="left" />
 	</div>
 	<div class="col-6 col">
 		<LastTurns turns={game.Turns} {leftPlayer} {rightPlayer} {frontPlayer} {player} />
 	</div>
 	<div class="col-3 col">
-		{rightPlayer?.name}
-		{#if rightPlayer?.Order === 1}
-			<span>👈</span>
-		{/if}
+		<OtherPlayer player={rightPlayer} position="right" />
 	</div>
 </div>
 

@@ -58,18 +58,22 @@
 	}
 	.current {
 		top: calc(50% - 5.5rem + 3rem);
+		left: calc(50% - 4rem + 1rem);
 		transform: rotate(0deg);
 	}
 	.left {
 		left: calc(50% - 4rem - 3rem);
+		top: calc(50% - 5.5rem + 1rem);
 		transform: rotate(90deg);
 	}
 	.front {
 		top: calc(50% - 5.5rem - 3rem);
+		left: calc(50% - 4rem - 1rem);
 		transform: rotate(180deg);
 	}
 	.right {
 		left: calc(50% - 4rem + 3rem);
+		top: calc(50% - 5.5rem - 1rem);
 		transform: rotate(-90deg);
 	}
 </style>
