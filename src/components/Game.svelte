@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Game, PlayerWithName } from '../data/types';
-	import { BidValues, Card, Phase, type BidColors } from '../data/enums';
+	import { BidValues, Card, Phases, type BidColors } from '../data/enums';
 
 	import Teaming from './Teaming.svelte';
 	import Bidding from './Bidding.svelte';
@@ -20,13 +20,13 @@
 </script>
 
 {#if game}
-	{#if phase === Phase.Teaming}
+	{#if phase === Phases.Teaming}
 		<Teaming {game} {start} {joinTeam} />
-	{:else if phase === Phase.Bidding}
+	{:else if phase === Phases.Bidding}
 		<Bidding {player} {game} {bid} {pass} {coinche} />
-	{:else if phase === Phase.Playing}
+	{:else if phase === Phases.Playing}
 		<Playing {player} {game} {play} />
-	{:else if phase === Phase.Counting}
+	{:else if phase === Phases.Counting}
 		<Counting {game} {start} />
 	{/if}
 {/if}

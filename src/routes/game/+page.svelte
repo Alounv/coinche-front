@@ -68,7 +68,6 @@
 
 	onDestroy(() => {
 		gs?.leave();
-		window?.removeEventListener('popstate', onPopState);
 	});
 </script>
 
