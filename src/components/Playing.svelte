@@ -4,7 +4,7 @@
 	import Players from './Players.svelte';
 	import LastTurns from './LastTurns.svelte';
 	import Hand from './Hand.svelte';
-	import { getPlayers, getTrump } from '../utils/game';
+	import { getPlayers, getPlayersPositions, getTrump } from '../utils/game';
 	import { Badge } from 'spaper';
 
 	export let player: PlayerWithName;
@@ -15,9 +15,20 @@
 	$: order = player.Order;
 	$: canPlay = order === 1;
 	$: players = getPlayers(game);
-	$: leftPlayer = players.find((p) => [order + 1, order - 3].includes(p.Order));
-	$: rightPlayer = players.find((p) => [order - 1, order + 3].includes(p.Order));
-	$: frontPlayer = players.find((p) => [order - 2, order + 2].includes(p.Order));
+
+	let leftPlayer: PlayerWithName;
+	let rightPlayer: PlayerWithName;
+	let frontPlayer: PlayerWithName;
+
+	$: {
+		const { left, right, front } = getPlayersPositions({
+			players,
+			currentPlayerOrder: player.Order
+		});
+		leftPlayer = left;
+		rightPlayer = right;
+		frontPlayer = front;
+	}
 </script>
 
 <Players {game} playerName={player.name} />
@@ -43,7 +54,7 @@
 		{/if}
 	</div>
 	<div class="col-6 col">
-		<LastTurns {game} />
+		<LastTurns turns={game.Turns} {leftPlayer} {rightPlayer} {frontPlayer} {player} />
 	</div>
 	<div class="col-3 col">
 		{rightPlayer?.name}

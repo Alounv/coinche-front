@@ -60,13 +60,14 @@
 	.label {
 		position: relative;
 		transition: all 0.2s ease-in-out;
-		margin-left: -8rem;
+		margin-left: -4rem;
+		width: 8rem;
 	}
 
 	.label:focus-within {
-		transform: translateY(-4rem);
-		margin-right: 4rem;
-		margin-left: -7rem;
+		transform: translateY(-2rem);
+		margin-right: 2rem;
+		margin-left: -3rem;
 	}
 
 	.label:first-child {

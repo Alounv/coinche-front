@@ -21,10 +21,10 @@ export interface BidWithValue extends Bid {
 
 interface Play {
 	Card: Card;
-	Player: string;
+	PlayerName: string;
 }
 
-interface Turn {
+export interface Turn {
 	Winner?: string;
 	Plays: Play[];
 }
