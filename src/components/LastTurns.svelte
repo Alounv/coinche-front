@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PlayerWithName, Turn } from '../data/types';
+	import { fly } from 'svelte/transition';
 	import Card from './Card.svelte';
 
 	export let turns: Turn[];
@@ -8,8 +9,8 @@
 	export let rightPlayer: PlayerWithName;
 	export let frontPlayer: PlayerWithName;
 
-	$: currentTurn = turns[turns.length - 1];
-	$: previousTurn = turns[turns.length - 2];
+	$: currentTurn = turns[turns.length - 1] || { Plays: [] };
+	$: previousTurn = turns[turns.length - 2] || { Plays: [] };
 	$: turn = currentTurn.Plays.length ? currentTurn : previousTurn;
 
 	const getClass = (p: string) => {
@@ -28,7 +29,7 @@
 
 <div class="container">
 	{#each turn.Plays as play}
-		<div class={getClass(play.PlayerName)}>
+		<div class={getClass(play.PlayerName)} in:fly={{ y: 200 }}>
 			<Card card={play.Card} />
 		</div>
 	{/each}
@@ -37,7 +38,7 @@
 <style>
 	.container {
 		position: relative;
-		min-height: 20rem;
+		min-height: 16rem;
 		width: 100%;
 	}
 
@@ -46,24 +47,24 @@
 	.right,
 	.front {
 		position: absolute;
-		top: 50%;
-		left: 50%;
+		top: calc(50% - 5.5rem);
+		left: calc(50% - 4rem);
 		width: 8rem;
 	}
 	.current {
-		top: calc(50% + 3rem);
-		transform: translate(-50%, -50%);
+		top: calc(50% - 5.5rem + 3rem);
+		transform: rotate(0deg);
 	}
 	.left {
-		left: calc(50% - 3rem);
-		transform: translate(-50%, -50%) rotate(90deg);
-	}
-	.right {
-		left: calc(50% + 3rem);
-		transform: translate(-50%, -50%) rotate(-90deg);
+		left: calc(50% - 4rem - 3rem);
+		transform: rotate(90deg);
 	}
 	.front {
-		top: calc(50% - 3rem);
-		transform: translate(-50%, -50%) rotate(180deg);
+		top: calc(50% - 5.5rem - 3rem);
+		transform: rotate(180deg);
+	}
+	.right {
+		left: calc(50% - 4rem + 3rem);
+		transform: rotate(-90deg);
 	}
 </style>

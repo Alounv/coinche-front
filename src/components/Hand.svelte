@@ -12,6 +12,8 @@
 
 	const handlePlay = () => {
 		if (play && canPlay && selectedCard) play(selectedCard);
+		selectedCard = null;
+		document?.activeElement.blur();
 	};
 
 	let form: HTMLFormElement;
@@ -27,12 +29,16 @@
 		if (form.matches(':focus-within')) return;
 
 		if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-			selectedCard && focusCard(selectedCard);
+			if (selectedCard) {
+				focusCard(selectedCard);
+			} else {
+				focusCard(player.Hand[0]);
+			}
 		}
 	};
 </script>
 
-<form bind:this={form} class="row" on:submit|preventDefault={handlePlay}>
+<form bind:this={form} class="row margin" on:submit|preventDefault={handlePlay}>
 	{#each player.Hand as card (card)}
 		<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 		<label
@@ -60,14 +66,14 @@
 	.label {
 		position: relative;
 		transition: all 0.2s ease-in-out;
-		margin-left: -4rem;
+		margin-left: -6rem;
 		width: 8rem;
 	}
 
 	.label:focus-within {
 		transform: translateY(-2rem);
 		margin-right: 2rem;
-		margin-left: -3rem;
+		margin-left: -5rem;
 	}
 
 	.label:first-child {
