@@ -5,4 +5,4 @@
 	export let card: Card;
 </script>
 
-<img src={cardImages[card]} alt={card} />
+<img class="shadow" src={cardImages[card]} alt={card} />

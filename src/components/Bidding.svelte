@@ -5,6 +5,7 @@
 
 	import Players from './Players.svelte';
 	import PlaceBid from './PlaceBid.svelte';
+	import Hand from './Hand.svelte';
 
 	export let player: PlayerWithName;
 	export let game: Game;
@@ -23,15 +24,17 @@
 
 <Players {game} playerName={player.name} />
 
-<div>{player.Hand}</div>
+<div class="row">
+	{#if canBid}
+		{#if maxBidValue < 160}
+			<PlaceBid {bid} {maxBidValue} />
+		{/if}
 
-{#if canBid}
-	{#if maxBidValue < 160}
-		<PlaceBid {bid} {maxBidValue} />
+		{#if bids.length}
+			<button on:click={coinche}>Coinche</button>
+			<button on:click={pass}>Pass</button>
+		{/if}
 	{/if}
+</div>
 
-	{#if bids.length}
-		<button on:click={coinche}>Coinche</button>
-		<button on:click={pass}>Pass</button>
-	{/if}
-{/if}
+<Hand {player} />

@@ -4,15 +4,15 @@
 	import CardImage from './Card.svelte';
 
 	export let player: PlayerWithName;
-	export let play: (card: Card) => void;
-	export let canPlay: boolean;
+	export let play: ((card: Card) => void) | null = null;
+	export let canPlay = false;
 
 	let selectedCard: Card | null = null;
 	$: selectedIndex = selectedCard ? player.Hand.indexOf(selectedCard) : 0;
 
 	const handlePlay = () => {
 		console.log('handlePlay');
-		if (selectedCard) play(selectedCard);
+		if (selectedCard) play?.(selectedCard);
 	};
 
 	let form: HTMLFormElement;
@@ -26,29 +26,35 @@
 	};
 </script>
 
-{selectedCard}
+<div class="row flex-center">
+	<form
+		bind:this={form}
+		class="row"
+		on:submit|preventDefault={handlePlay}
+		disabled={!canPlay || !play}
+	>
+		{#each player.Hand as card}
+			<label class="label">
+				<CardImage {card} />
+				<input type="radio" value={card} bind:group={selectedCard} />
+			</label>
+		{/each}
 
-<form
-	bind:this={form}
-	class="row flex-center"
-	on:submit|preventDefault={handlePlay}
-	disabled={!canPlay}
->
-	{#each player.Hand as card}
-		<label class="label">
-			<CardImage {card} />
-			<input type="radio" value={card} bind:group={selectedCard} />
-		</label>
-	{/each}
+		{#if play}
+			<button class="margin btn-secondary" type="submit" disabled={!selectedCard || !canPlay}
+				>Play</button
+			>
+		{/if}
+	</form>
 
-	<button class="margin" type="submit" disabled={!selectedCard}>Play</button>
-
-	<div class="margin">
-		Use <span class="badge">LEFT</span> / <span class="badge">RIGHT</span> to select a card then
-		press
-		<span class="badge secondary">ENTER</span> to play it.
-	</div>
-</form>
+	{#if play}
+		<div class="margin">
+			Use <span class="badge">LEFT</span> / <span class="badge">RIGHT</span> to select a card then
+			press
+			<span class="badge secondary">ENTER</span> to play it.
+		</div>
+	{/if}
+</div>
 
 <svelte:window on:keydown={onKeyDown} />
 
@@ -69,7 +75,7 @@
 		margin-left: 0;
 	}
 
-	.label input {
+	.label > input {
 		position: absolute;
 		top: 0;
 		left: 0;
