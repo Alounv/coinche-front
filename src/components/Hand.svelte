@@ -32,8 +32,6 @@
 	};
 </script>
 
-{selectedCard}
-
 <form bind:this={form} class="row" on:submit|preventDefault={handlePlay}>
 	{#each player.Hand as card (card)}
 		<!-- svelte-ignore a11y-mouse-events-have-key-events -->

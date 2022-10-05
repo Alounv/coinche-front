@@ -75,7 +75,7 @@
 <form on:submit|preventDefault={createNewGame} class="input-row">
 	<label for="create-game">Create new game</label>
 	<input id="create-game" bind:value={newGameName} />
-	<div>(press <span class="badge">Enter</span> to submit)</div>
+	<div>(press <span class="badge">Enter</span> to create)</div>
 </form>
 
 <GamesList {games} playerName={name} deleteGame={deleteThisGame} {forceLeave} />
