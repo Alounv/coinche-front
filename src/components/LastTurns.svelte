@@ -6,9 +6,11 @@
 
 	export let turns: Turn[];
 	export let player: PlayerWithName;
-	export let leftPlayer: PlayerWithName;
-	export let rightPlayer: PlayerWithName;
-	export let frontPlayer: PlayerWithName;
+	export let left: PlayerWithName;
+	export let right: PlayerWithName;
+	export let front: PlayerWithName;
+
+	console.log({ left, right, front, player });
 
 	let wasWinnerShown = false;
 
@@ -25,11 +27,11 @@
 		switch (p) {
 			case player.name:
 				return 'current';
-			case leftPlayer.name:
+			case left.name:
 				return 'left';
-			case rightPlayer.name:
+			case right.name:
 				return 'right';
-			case frontPlayer.name:
+			case front.name:
 				return 'front';
 		}
 	};
