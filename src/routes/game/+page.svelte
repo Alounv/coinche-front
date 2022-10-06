@@ -72,6 +72,6 @@
 	<a href="/">Exit</a>
 </div>
 
-<div class="background-secondary border" style="flex: 1;">
+<div class="background-secondary border" style="flex: 1; display: flex; flex-direction: column;">
 	<GameArea {game} {player} {joinTeam} {start} {bid} {pass} {coinche} {play} />
 </div>

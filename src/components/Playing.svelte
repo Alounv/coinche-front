@@ -36,7 +36,7 @@
 
 <Players {game} playerName={player.name} />
 
-<div class="row">
+<div style="display: flex; margin-bottom: 1rem;">
 	<div class="col-2 col">
 		<div>Trump: {trumpLabel}</div>
 	</div>
@@ -45,11 +45,11 @@
 	</div>
 </div>
 
-<div class="row">
+<div style="display: flex; margin-bottom: 1rem; flex: 1;">
 	<div class=" col" style="display: flex; flex: 0;">
 		<OtherPlayer player={leftPlayer} position="left" />
 	</div>
-	<div style="flex: 1;">
+	<div style="flex: 1; display: flex;">
 		<LastTurns turns={game.Turns} {leftPlayer} {rightPlayer} {frontPlayer} {player} />
 	</div>
 	<div class=" col" style="display: flex; flex: 0;">
@@ -57,7 +57,7 @@
 	</div>
 </div>
 
-<div class="row flex-center" style="flex-direction: column; align-items: center;;">
+<div style="display: flex; flex-direction: column; align-items: center;padding-bottom: 1rem;">
 	<Hand {player} {play} {canPlay} />
 
 	<div>

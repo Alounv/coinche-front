@@ -6,7 +6,7 @@
 	export let isVertical = false;
 </script>
 
-<div style="display: flex; flex-direction: {isVertical ? 'column' : 'row'}">
+<div style="flex-direction: {isVertical ? 'column' : 'row'}" class="container">
 	{#each hand as _card}
 		<div class={isVertical ? 'horizontal-card' : 'vertical-card'}>
 			<CardImage />
@@ -15,6 +15,18 @@
 </div>
 
 <style>
+	.container {
+		display: none;
+	}
+
+	@media only screen and (min-width: 500px) {
+		.container {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+		}
+	}
+
 	.vertical-card {
 		margin-left: -5rem;
 		width: 6rem;
