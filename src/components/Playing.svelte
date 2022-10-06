@@ -1,12 +1,11 @@
 <script lang="ts">
-	import type { Card } from '../data/enums';
+	import { bidColors, type Card } from '../data/enums';
 	import type { PlayerWithName, Game } from '../data/types';
 	import Players from './Players.svelte';
 	import LastTurns from './LastTurns.svelte';
 	import Hand from './Hand.svelte';
 	import { getPlayers, getPlayersPositions, getTrump } from '../utils/game';
 	import { Badge } from 'spaper';
-	import BackHand from './BackHand.svelte';
 	import OtherPlayer from './OtherPlayer.svelte';
 
 	export let player: PlayerWithName;
@@ -31,12 +30,17 @@
 		rightPlayer = right;
 		frontPlayer = front;
 	}
+
+	$: trumpLabel = bidColors.find((c) => c.value === trump)?.label;
 </script>
 
-<div>Trump is {trump}</div>
-
 <div class="row">
-	<OtherPlayer player={frontPlayer} position="front" />
+	<div class="col-3 col">
+		<div>Trump: {trumpLabel}</div>
+	</div>
+	<div class="col-6 col">
+		<OtherPlayer player={frontPlayer} position="front" />
+	</div>
 </div>
 
 <div class="row">

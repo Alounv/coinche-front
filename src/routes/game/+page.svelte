@@ -68,11 +68,10 @@
 
 <svelte:window on:beforeunload={gs?.leave} />
 
-<a href="/">Exit</a>
+<div style="position: absolute; top: 2rem; right: 2rem;">
+	<a href="/">Exit</a>
+</div>
 
-<div>Phase: {game?.Phase}</div>
-<div>Game name: {game?.Name}</div>
-
-<div class="background-secondary border">
+<div class="background-secondary border" style="min-height: 100%;">
 	<GameArea {game} {player} {joinTeam} {start} {bid} {pass} {coinche} {play} />
 </div>
