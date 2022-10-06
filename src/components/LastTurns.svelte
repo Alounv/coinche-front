@@ -10,11 +10,14 @@
 	export let rightPlayer: PlayerWithName;
 	export let frontPlayer: PlayerWithName;
 
+	let wasWinnerShown = false;
+
 	$: turn = turns[turns.length - 1] || { Plays: [] };
 	$: {
-		if (turn.Winner) {
+		if (turn.Winner && !wasWinnerShown) {
 			const message = `${turn.Winner} has won the turn`;
 			showToast({ message, type: 'secondary' });
+			wasWinnerShown = true;
 		}
 	}
 
@@ -41,6 +44,10 @@
 </div>
 
 <style>
+	:root {
+		--axial-offset: 2rem;
+	}
+
 	.container {
 		position: relative;
 		min-height: 16rem;
@@ -57,22 +64,22 @@
 		width: 8rem;
 	}
 	.current {
-		top: calc(50% - 5.5rem + 3rem);
+		top: calc(50% - 5.5rem + var(--axial-offset));
 		left: calc(50% - 4rem + 1rem);
 		transform: rotate(0deg);
 	}
 	.left {
-		left: calc(50% - 4rem - 3rem);
+		left: calc(50% - 4rem - var(--axial-offset));
 		top: calc(50% - 5.5rem + 1rem);
 		transform: rotate(90deg);
 	}
 	.front {
-		top: calc(50% - 5.5rem - 3rem);
+		top: calc(50% - 5.5rem - var(--axial-offset));
 		left: calc(50% - 4rem - 1rem);
 		transform: rotate(180deg);
 	}
 	.right {
-		left: calc(50% - 4rem + 3rem);
+		left: calc(50% - 4rem + var(--axial-offset));
 		top: calc(50% - 5.5rem - 1rem);
 		transform: rotate(-90deg);
 	}

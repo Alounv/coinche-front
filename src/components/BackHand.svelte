@@ -3,10 +3,10 @@
 	import CardImage from './Card.svelte';
 
 	export let hand: Card[];
-	export let isVertical: boolean = false;
+	export let isVertical = false;
 </script>
 
-<div class="row  flex-center">
+<div style="display: flex; flex-direction: {isVertical ? 'column' : 'row'}">
 	{#each hand as _card}
 		<div class={isVertical ? 'horizontal-card' : 'vertical-card'}>
 			<CardImage />

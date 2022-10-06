@@ -18,7 +18,7 @@
 	};
 </script>
 
-<Collapsible label="Admin">
+<Collapsible label="Admin" style="position: absolute; right: 5rem; top: 1.25rem;">
 	<ul>
 		{#each players as p}
 			<li class={p.name === playerName ? 'current' : ''}>

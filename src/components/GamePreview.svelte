@@ -22,8 +22,6 @@
 		<Progress style="width: 4rem; margin: 0;" class="custom-progress" value={progress} />
 	{/if}
 
-	{game.TurnsCount}
-
 	<div>
 		(
 		{#each game.Players as player, i (player)}
