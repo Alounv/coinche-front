@@ -6,7 +6,7 @@
 	export let isVertical: boolean = false;
 </script>
 
-<div class="row margin flex-center">
+<div class="row  flex-center">
 	{#each hand as _card}
 		<div class={isVertical ? 'horizontal-card' : 'vertical-card'}>
 			<CardImage />

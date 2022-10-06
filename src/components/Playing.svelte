@@ -58,7 +58,7 @@
 <div class="row flex-center" style="flex-direction: column; align-items: center;;">
 	<Hand {player} {play} {canPlay} />
 
-	<div class="margin">
+	<div>
 		Use <Badge>LEFT</Badge> / <Badge>RIGHT</Badge>
 		{#if canPlay}
 			to select a card then press <Badge type="secondary">ENTER</Badge> to play it.
