@@ -10,11 +10,13 @@
 	let teamName = '';
 </script>
 
-<form on:submit|preventDefault={() => joinTeam(teamName)}>
-	<label for="team-name">My team</label>
-	<input id="team-name" type="text" bind:value={teamName} />
-</form>
+<div class="padding">
+	<form on:submit|preventDefault={() => joinTeam(teamName)}>
+		<label for="team-name">My team</label>
+		<input style="background-color: white;" id="team-name" type="text" bind:value={teamName} />
+	</form>
 
-<Teams {game} bind:canStart />
+	<Teams {game} bind:canStart />
 
-<button on:click={start} disabled={!canStart}>Start</button>
+	<button on:click={start} disabled={!canStart}>Start</button>
+</div>

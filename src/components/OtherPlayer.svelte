@@ -16,11 +16,12 @@
 </script>
 
 <div
-	style="display: flex; align-items: center; justify-content: center; width: 100%; flex-direction: {flexDirection};"
+	style="display: flex; flex-direction: column; gap: .5rem; align-items: center; justify-content: center; width: 100%; flex-direction: {flexDirection};"
 >
-	<Badge>{player.name}</Badge>
 	{#if player.Order === 1}
-		<span>👈</span>
+		<h4><Badge rounded type="secondary">{player.name}</Badge></h4>
+	{:else}
+		<span>{player.name}</span>
 	{/if}
 	<BackHand hand={player.Hand} {isVertical} />
 </div>
