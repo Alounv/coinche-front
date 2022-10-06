@@ -8,7 +8,6 @@
 	export let player: PlayerWithName;
 	export let play: ((card: Card) => void) | null = null;
 	export let canPlay = false;
-	export let hasInstructions = false;
 
 	let selectedCard: Card | null = null;
 

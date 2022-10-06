@@ -25,9 +25,11 @@
 <Players {game} playerName={player.name} />
 
 <TableLayout>
-	{#if hasBids}
-		<LastBid slot="top-left" {game} />
-	{/if}
+	<div slot="top-left">
+		{#if hasBids}
+			<LastBid {game} />
+		{/if}
+	</div>
 
 	<OtherPlayer slot="top" player={otherPlayers.front} position="front" />
 	<OtherPlayer slot="left" player={otherPlayers.left} position="left" />
