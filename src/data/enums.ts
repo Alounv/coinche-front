@@ -85,11 +85,11 @@ enum BidSpecificColors {
 
 export type BidColors = Colors | BidSpecificColors;
 
-export const bidColors = [
-	{ label: '♠', value: Colors.Spade },
-	{ label: '♥', value: Colors.Heart },
-	{ label: '♦', value: Colors.Diamond },
-	{ label: '♣', value: Colors.Club },
-	{ label: 'All trump', value: BidSpecificColors.AllTrump },
-	{ label: 'No trump', value: BidSpecificColors.NoTrump }
-];
+export const bidColors = {
+	[Colors.Spade]: '♠',
+	[Colors.Heart]: '♥',
+	[Colors.Diamond]: '♦',
+	[Colors.Club]: '♣',
+	[BidSpecificColors.NoTrump]: 'No Trump',
+	[BidSpecificColors.AllTrump]: 'All Trump'
+};

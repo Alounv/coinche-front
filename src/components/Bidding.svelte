@@ -1,11 +1,13 @@
 <script lang="ts">
-	import type { BidValues, BidColors } from '../data/enums';
-	import type { PlayerWithName, Game } from '../data/types';
-	import { getBids } from '../utils/game';
+	import { Badge } from 'spaper';
 
-	import Players from './Players.svelte';
+	import { type BidValues, type BidColors, bidColors } from '../data/enums';
+	import type { PlayerWithName, Game } from '../data/types';
+	import { getBids, getCurrentPlayer } from '../utils/game';
+	import Coinche from './Coinche.svelte';
+
 	import PlaceBid from './PlaceBid.svelte';
-	import Hand from './Hand.svelte';
+	import Table from './Table.svelte';
 
 	export let player: PlayerWithName;
 	export let game: Game;
@@ -18,13 +20,27 @@
 	$: lastBid = maxBidValue ? game.Bids[maxBidValue as BidValues] : null;
 	$: isCoinched = !!lastBid?.Coinche;
 	$: canBid = player.Order === 1;
+	$: currentPlayer = getCurrentPlayer(game);
 </script>
 
-<Players {game} playerName={player.name} />
-
-{#each bids as bid}
-	<div>{bid.value} - {bid.Color}</div>
-{/each}
+<Table {player} {game}>
+	<div slot="middle" style="display: flex; align-items: center; justify-content: center; flex: 1;">
+		<h4>
+			<ul>
+				{#each bids as bid}
+					<li>
+						{bid.value} - {bidColors[bid.Color]} ({bid.Player})
+					</li>
+				{/each}
+				{#if lastBid?.Coinche}
+					<li>
+						<Coinche coinche={lastBid?.Coinche || 0} />
+					</li>
+				{/if}
+			</ul>
+		</h4>
+	</div>
+</Table>
 
 <div class="row" style="gap: 1rem;">
 	{#if canBid}
@@ -36,7 +52,9 @@
 			<button class="align-bottom" on:click={coinche}>Coinche</button>
 			<button class="align-bottom" on:click={pass}>Pass</button>
 		{/if}
+	{:else if bids.length && player?.Order === 3}
+		<button class="align-bottom" on:click={coinche}>Coinche</button>
+	{:else}
+		<div>Waiting for <Badge>{currentPlayer?.name}</Badge> to bid...</div>
 	{/if}
 </div>
-
-<Hand {player} />

@@ -10,6 +10,11 @@ export const getPlayers = (game: Game): PlayerWithName[] => {
 	return players;
 };
 
+export const getCurrentPlayer = (game: Game): PlayerWithName | undefined => {
+	const players = getPlayers(game);
+	return players.find((p) => p.Order === 1);
+};
+
 export const getBids = (game: Game): BidWithValue[] => {
 	const bids = [];
 	for (const v in game.Bids) {

@@ -15,14 +15,14 @@
 </script>
 
 <div style="display: flex; gap: 1rem;">
-	<Select bind:value={bidValue} label="Value">
+	<Select bind:value={bidValue} label="Value" style="background-color: white;">
 		{#each values as value}
-			<option {value}>{value === 160 ? 'capot' : value}</option>
+			<option {value}>{value === 160 ? 'CAPOT' : value}</option>
 		{/each}
 	</Select>
 
-	<Select bind:value={bidColor} label="Color">
-		{#each bidColors as { value, label }}
+	<Select bind:value={bidColor} label="Color" style="background-color: white;">
+		{#each Object.entries(bidColors) as [value, label]}
 			<option {value}>{label}</option>
 		{/each}
 	</Select>

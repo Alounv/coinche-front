@@ -3,14 +3,14 @@
 	import type { PlayerWithName, Game } from '../data/types';
 	import Players from './Players.svelte';
 	import Hand from './Hand.svelte';
-	import { getPlayers, getPlayersPositions } from '../utils/game';
+	import { getBids, getPlayers, getPlayersPositions } from '../utils/game';
 	import TableLayout from './TableLayout.svelte';
 	import LastBid from './LastBid.svelte';
 	import OtherPlayer from './OtherPlayer.svelte';
 
 	export let player: PlayerWithName;
 	export let game: Game;
-	export let play: (card: Card) => void;
+	export let play: null | ((card: Card) => void) = null;
 
 	$: order = player.Order;
 	$: canPlay = order === 1;
@@ -19,12 +19,15 @@
 		players,
 		currentPlayerOrder: player.Order
 	});
+	$: hasBids = getBids(game).length > 0;
 </script>
 
 <Players {game} playerName={player.name} />
 
 <TableLayout>
-	<LastBid slot="top-left" {game} />
+	{#if hasBids}
+		<LastBid slot="top-left" {game} />
+	{/if}
 
 	<OtherPlayer slot="top" player={otherPlayers.front} position="front" />
 	<OtherPlayer slot="left" player={otherPlayers.left} position="left" />
