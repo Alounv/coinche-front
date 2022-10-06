@@ -1,5 +1,5 @@
-import type { BidColors, BidValues } from '../data/enums';
-import type { Game, PlayerWithName, BidWithValue, Team, Player } from '../data/types';
+import type { BidValues } from '../data/enums';
+import type { Game, PlayerWithName, BidWithValue, Team } from '../data/types';
 
 export const getPlayers = (game: Game): PlayerWithName[] => {
 	const players = [];
@@ -20,10 +20,9 @@ export const getBids = (game: Game): BidWithValue[] => {
 	return bids;
 };
 
-export const getTrump = (game: Game): BidColors => {
+export const getLastBid = (game: Game): BidWithValue => {
 	const bids = getBids(game);
-	const trump = bids[bids.length - 1].Color;
-	return trump;
+	return bids[bids.length - 1];
 };
 
 export const getTeams = (game: Game): Team[] => {

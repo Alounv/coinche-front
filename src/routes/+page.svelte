@@ -53,22 +53,24 @@
 	};
 </script>
 
-<h1>Let's play Coinche!</h1>
+<div style="margin-left: auto; margin-right: auto;">
+	<h1>Let's play Coinche!</h1>
 
-<div class="input-row">
-	<label for="name">Set player name</label>
-	<Input id="name" bind:value={name} />
+	<div class="input-row">
+		<label for="name">Set player name</label>
+		<Input id="name" bind:value={name} />
+	</div>
+
+	<h4>Games</h4>
+
+	<form on:submit|preventDefault={createNewGame} class="input-row">
+		<label for="create-game">Create new game</label>
+		<input id="create-game" bind:value={newGameName} />
+		<div>(press <span class="badge">Enter</span> to create)</div>
+	</form>
+
+	<GamesList {games} playerName={name} deleteGame={deleteThisGame} {forceLeave} />
 </div>
-
-<h4>Games</h4>
-
-<form on:submit|preventDefault={createNewGame} class="input-row">
-	<label for="create-game">Create new game</label>
-	<input id="create-game" bind:value={newGameName} />
-	<div>(press <span class="badge">Enter</span> to create)</div>
-</form>
-
-<GamesList {games} playerName={name} deleteGame={deleteThisGame} {forceLeave} />
 
 <style>
 	.input-row {

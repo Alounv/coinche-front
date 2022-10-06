@@ -13,6 +13,7 @@ export interface Bid {
 	Color: BidColors;
 	Pass: number;
 	Coinche: number;
+	Player: string;
 }
 
 export interface BidWithValue extends Bid {

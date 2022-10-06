@@ -52,7 +52,12 @@
 	};
 </script>
 
-<form bind:this={form} class="row margin" on:submit|preventDefault={handlePlay}>
+<form
+	style="min-height: 11rem"
+	bind:this={form}
+	class="row margin"
+	on:submit|preventDefault={handlePlay}
+>
 	{#each player.Hand as card (card)}
 		<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 		<label
