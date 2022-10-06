@@ -31,10 +31,14 @@
 
 	const onKeyDown = (e: KeyboardEvent) => {
 		if (form.matches(':focus-within')) {
-			if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) {
-				reset();
+			if (['ArrowLeft', 'ArrowRight'].includes(e.key)) {
+				return;
+			}
+			if (canPlay && play && ['Backspace', 'Enter'].includes(e.key)) {
+				return;
 			}
 
+			reset();
 			return;
 		}
 
