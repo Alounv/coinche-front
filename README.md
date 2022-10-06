@@ -1,7 +1,8 @@
 # Coinche CLIENT
 
 A simple multiplayer coinche game.
-This is the server part, the client part can be found here https://github.com/Alounv/coinche-back.
+
+This is the client part, the server part can be found here https://github.com/Alounv/coinche-back.
 
 This is a personal project to learn:
 - WebSockets
