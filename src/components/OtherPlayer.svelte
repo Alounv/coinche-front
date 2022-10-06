@@ -19,7 +19,7 @@
 	style="display: flex; flex-direction: column; gap: .5rem; align-items: center; justify-content: center; width: 100%; flex-direction: {flexDirection};"
 >
 	{#if player.Order === 1}
-		<h4><Badge rounded type="secondary">{player.name}</Badge></h4>
+		<h4 style="margin: 0;"><Badge rounded type="secondary">{player.name}</Badge></h4>
 	{:else}
 		<span>{player.name}</span>
 	{/if}

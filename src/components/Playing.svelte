@@ -44,13 +44,13 @@
 </div>
 
 <div class="row">
-	<div class="col-3 col">
+	<div class="col-3 col" style="display: flex;">
 		<OtherPlayer player={leftPlayer} position="left" />
 	</div>
 	<div class="col-6 col">
 		<LastTurns turns={game.Turns} {leftPlayer} {rightPlayer} {frontPlayer} {player} />
 	</div>
-	<div class="col-3 col">
+	<div class="col-3 col" style="display: flex;">
 		<OtherPlayer player={rightPlayer} position="right" />
 	</div>
 </div>

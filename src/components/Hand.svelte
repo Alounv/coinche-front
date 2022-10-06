@@ -10,10 +10,14 @@
 
 	let selectedCard: Card | null = null;
 
-	const handlePlay = () => {
-		if (play && canPlay && selectedCard) play(selectedCard);
+	const reset = () => {
 		selectedCard = null;
 		document?.activeElement.blur();
+	};
+
+	const handlePlay = () => {
+		if (play && canPlay && selectedCard) play(selectedCard);
+		reset();
 	};
 
 	let form: HTMLFormElement;
@@ -26,7 +30,13 @@
 	};
 
 	const onKeyDown = (e: KeyboardEvent) => {
-		if (form.matches(':focus-within')) return;
+		if (form.matches(':focus-within')) {
+			if (!['ArrowLeft', 'ArrowRight'].includes(e.key)) {
+				reset();
+			}
+
+			return;
+		}
 
 		if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
 			if (selectedCard) {
