@@ -7,6 +7,7 @@
 	import { getPlayers, getPlayersPositions, getTrump } from '../utils/game';
 	import { Badge } from 'spaper';
 	import OtherPlayer from './OtherPlayer.svelte';
+	import AnimatedBadge from './AnimatedBadge.svelte';
 
 	export let player: PlayerWithName;
 	export let game: Game;
@@ -63,7 +64,7 @@
 	<div>
 		Use <Badge>LEFT</Badge> / <Badge>RIGHT</Badge>
 		{#if canPlay}
-			to select a card then press <Badge type="secondary">ENTER</Badge> to play it.
+			to select a card then press <AnimatedBadge text="ENTER" /> to play it.
 		{:else}
 			to see your cards.
 		{/if}
