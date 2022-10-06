@@ -1,3 +1,3 @@
-<div class="padding" style="min-height: 100vh; display: flex;">
+<div class="padding" style="min-height: 100vh; display: flex; flex-direction: column;">
 	<slot />
 </div>
