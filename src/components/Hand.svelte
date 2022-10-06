@@ -53,9 +53,9 @@
 </script>
 
 <form
-	style="min-height: 11rem"
+	style="min-height: 11rem;"
 	bind:this={form}
-	class="row margin"
+	class="row margin flex-center"
 	on:submit|preventDefault={handlePlay}
 >
 	{#each player.Hand as card (card)}
