@@ -20,6 +20,8 @@
 	$: canBid = player.Order === 1;
 </script>
 
+<Players {game} playerName={player.name} />
+
 {#each bids as bid}
 	<div>{bid.value} - {bid.Color}</div>
 {/each}
@@ -38,5 +40,3 @@
 </div>
 
 <Hand {player} />
-
-<Players {game} playerName={player.name} />

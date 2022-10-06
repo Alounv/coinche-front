@@ -34,6 +34,8 @@
 	$: trumpLabel = bidColors.find((c) => c.value === trump)?.label;
 </script>
 
+<Players {game} playerName={player.name} />
+
 <div class="row">
 	<div class="col-3 col">
 		<div>Trump: {trumpLabel}</div>
@@ -67,5 +69,3 @@
 		{/if}
 	</div>
 </div>
-
-<Players {game} playerName={player.name} />

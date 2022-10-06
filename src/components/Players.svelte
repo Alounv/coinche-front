@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Collapsible } from 'spaper';
 	import type { Game } from '../data/types';
 	import { getPlayers } from '../utils/game';
 
@@ -17,18 +18,20 @@
 	};
 </script>
 
-<ul>
-	{#each players as p}
-		<li class={p.name === playerName ? 'current' : ''}>
-			<a href={`/game?game=${game.ID}&player=${p.name}`} on:click={() => handleClick(p.name)}>
-				{p.name}
-				{#if p.Order === 1}
-					<strong>👈</strong>
-				{/if}
-			</a>
-		</li>
-	{/each}
-</ul>
+<Collapsible label="Admin">
+	<ul>
+		{#each players as p}
+			<li class={p.name === playerName ? 'current' : ''}>
+				<a href={`/game?game=${game.ID}&player=${p.name}`} on:click={() => handleClick(p.name)}>
+					{p.name}
+					{#if p.Order === 1}
+						<strong>👈</strong>
+					{/if}
+				</a>
+			</li>
+		{/each}
+	</ul>
+</Collapsible>
 
 <style>
 	.current {
