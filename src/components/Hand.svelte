@@ -8,6 +8,7 @@
 	export let player: PlayerWithName;
 	export let play: ((card: Card) => void) | null = null;
 	export let canPlay = false;
+	export let hasInstructions = false;
 
 	let selectedCard: Card | null = null;
 
@@ -74,7 +75,9 @@
 	<button type="submit" class="hidden-button" />
 </form>
 
-<Instructions {canPlay} />
+{#if player.Hand.length && play}
+	<Instructions {canPlay} />
+{/if}
 
 <svelte:window on:keydown={onKeyDown} />
 

@@ -19,7 +19,7 @@
 	<Badge type="primary">{game.Name}</Badge>
 	<span>{phases[game.Phase]}</span>
 	{#if isPlaying}
-		<Progress style="width: 4rem; margin: 0;" class="custom-progress" value={progress} />
+		<Progress style="width: 4rem; margin: 0;" class="custom-progress" value={progress} max={8} />
 	{/if}
 
 	<div>

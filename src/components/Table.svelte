@@ -32,7 +32,5 @@
 
 	<slot name="middle" slot="center" />
 
-	<div slot="bottom">
-		<Hand {player} {play} {canPlay} />
-	</div>
+	<Hand slot="bottom" {player} {play} {canPlay} />
 </TableLayout>

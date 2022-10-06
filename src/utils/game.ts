@@ -62,3 +62,12 @@ export const getPlayersPositions = ({
 	const front = players.find((p) => [o - 2, o + 2].includes(p.Order)) as PlayerWithName;
 	return { left, right, front };
 };
+
+export const getTakenTeamWons = (game: Game, lastBidderName: string): number => {
+	const takenTeam = game.Players[lastBidderName].Team;
+	const players = getPlayers(game);
+	const partner = players.find((p) => p.Team === takenTeam && p.name !== lastBidderName)?.name;
+	const takenTeamWons = game.Turns.filter((t) => [partner, lastBidderName].includes(t.Winner));
+	console.log({ takenTeam, partner, takenTeamWons, count: takenTeamWons.length });
+	return takenTeamWons.length;
+};

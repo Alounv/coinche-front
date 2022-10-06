@@ -5,7 +5,6 @@
 	import Teaming from './Teaming.svelte';
 	import Bidding from './Bidding.svelte';
 	import Playing from './Playing.svelte';
-	import Counting from './Counting.svelte';
 
 	export let game: Game;
 	export let player: PlayerWithName;
@@ -24,9 +23,7 @@
 		<Teaming {game} {start} {joinTeam} />
 	{:else if phase === Phases.Bidding}
 		<Bidding {player} {game} {bid} {pass} {coinche} />
-	{:else if phase === Phases.Playing}
-		<Playing {player} {game} {play} />
-	{:else if phase === Phases.Counting}
-		<Counting {game} {start} />
+	{:else}
+		<Playing {player} {game} {play} {start} />
 	{/if}
 {/if}
