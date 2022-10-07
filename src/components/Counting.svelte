@@ -19,10 +19,12 @@
 
 	let winningTeam: Team;
 	let data: Line[];
+	let areTakersWinners: boolean;
 
 	$: winners = winningTeam ? winningTeam.players.map((p) => p.name) : [];
 	$: {
-		const { winner, loser } = getWinningTeam(game);
+		const { winner, loser, areTakersWinners: tw } = getWinningTeam(game);
+		areTakersWinners = tw;
 		winningTeam = winner;
 
 		data = [winner, loser].reduce<Line[]>((acc, { players, score, points }) => {
@@ -46,6 +48,7 @@
 			};
 		});
 	}
+	$: scoreMessage = `with ${winningTeam.points} points!`;
 	$: message = winners.includes(playerName) ? 'Yeahhhh 🎉' : '(Sorry 😗)';
 </script>
 
@@ -55,7 +58,8 @@
 >
 	And the winners are...
 	<h4 class="margin" in:fade={{ delay: 2000, duration }}>
-		<span>{winners.join(' and ')}</span> with {winningTeam.points} points!
+		{winners.join(' and ')}
+		{areTakersWinners ? scoreMessage : '!'}
 		{message}
 	</h4>
 

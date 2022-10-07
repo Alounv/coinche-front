@@ -73,7 +73,9 @@ export const getPlayerWinsCount = (turns: Turn[], playerName: string): number =>
 	return wins.length;
 };
 
-export const getWinningTeam = (game: Game): { winner: Team; loser: Team } => {
+export const getWinningTeam = (
+	game: Game
+): { winner: Team; loser: Team; areTakersWinners: boolean } => {
 	if (game.Turns.length < 8) throw new Error('Game not finished');
 
 	const teams = getTeams(game);
@@ -84,10 +86,10 @@ export const getWinningTeam = (game: Game): { winner: Team; loser: Team } => {
 	const takingTeam = teams.find((t) => t.name === takingTeamName) as Team;
 	const notTakingTeam = teams.find((t) => t.name !== takingTeamName) as Team;
 
-	const hasTakingTeamWon = takingTeam?.points >= lastBid.value;
-	if (hasTakingTeamWon) {
-		return { winner: takingTeam, loser: notTakingTeam };
+	const areTakersWinners = takingTeam?.points >= lastBid.value;
+	if (areTakersWinners) {
+		return { winner: takingTeam, loser: notTakingTeam, areTakersWinners };
 	} else {
-		return { winner: notTakingTeam, loser: takingTeam };
+		return { winner: notTakingTeam, loser: takingTeam, areTakersWinners };
 	}
 };
