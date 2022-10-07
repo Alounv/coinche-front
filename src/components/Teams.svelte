@@ -7,11 +7,12 @@
 
 	$: players = getPlayers(game);
 	$: data = players.map(({ name, Team }) => ({
-		Name: name,
-		['❓']: Team === '' ? 'X' : '',
+		['Name']: name,
 		['Team 🅰️']: Team === 'A' ? 'X' : '',
 		['Team 🅱️']: Team === 'B' ? 'X' : ''
 	}));
 </script>
 
-<Table {data} />
+<div class="padding" style="background-color: white; width: 20rem;">
+	<Table {data} />
+</div>

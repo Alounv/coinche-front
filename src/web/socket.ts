@@ -54,7 +54,7 @@ export class GameSocket {
 	}
 
 	joinTeam(team: string) {
-		if (team) this.send(`joinTeam: ${team}`);
+		this.send(`joinTeam: ${team}`);
 	}
 
 	bid({ value, color }: { value: BidValues; color: BidColors }) {

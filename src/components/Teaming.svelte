@@ -13,31 +13,29 @@
 	$: reset = () => joinTeam('');
 	$: canStart =
 		teams.length === 2 && teams[0].players.length === 2 && teams[1].players.length === 2;
+	$: APlayers = teams.find((team) => team.name === 'A')?.players || [];
+	$: BPlayers = teams.find((team) => team.name === 'B')?.players || [];
 
-	const TEAMS = [
-		{ label: '🅰️', value: 'A' },
-		{ label: '🅱️', value: 'B' }
+	$: teamsOptions = [
+		{ label: '🅰️', value: 'A', isFull: APlayers.length === 2 },
+		{ label: '🅱️', value: 'B', isFull: BPlayers.length === 2 }
 	];
 </script>
 
-<div class="padding">
-	Please choose a team.
-	<ul>
-		{#each TEAMS as { value, label }}
-			{#if value !== playerTeam}
-				<li class="margin-small">
-					<button on:click={() => joinTeam(value)}>Join {label}</button>
-				</li>
-			{/if}
-		{/each}
-		{#if playerTeam}
-			<li class="margin-small">
-				<button on:click={reset}>Leave my team </button>
-			</li>
-		{/if}
-	</ul>
+<div class="padding align-middle" style="display: flex; flex: 1; align-items: center;">
+	<div style="display:flex; flex-direction: column; gap: 1rem;">
+		Please choose a team.
+		<div style="display: flex; gap: 1rem;">
+			<button on:click={reset} disabled={!playerTeam}>Leave Team</button>
+			{#each teamsOptions as { value, label, isFull }}
+				<button disabled={value === playerTeam || isFull} on:click={() => joinTeam(value)}
+					>Join {label}</button
+				>
+			{/each}
+		</div>
 
-	<Teams {game} />
+		<Teams {game} />
 
-	<button on:click={start} disabled={!canStart}>Start</button>
+		<button style="width: 100%" on:click={start} disabled={!canStart}>Start</button>
+	</div>
 </div>
