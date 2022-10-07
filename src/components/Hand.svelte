@@ -2,7 +2,6 @@
 	import type { Card } from '../data/enums';
 	import type { PlayerWithName } from '../data/types';
 	import CardImage from './Card.svelte';
-	import Instructions from './Instructions.svelte';
 	import { fly } from 'svelte/transition';
 
 	export let player: PlayerWithName;
@@ -74,9 +73,7 @@
 	<button type="submit" class="hidden-button" />
 </form>
 
-{#if player.Hand.length && play}
-	<Instructions {canPlay} />
-{/if}
+<slot />
 
 <svelte:window on:keydown={onKeyDown} />
 

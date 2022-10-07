@@ -6,13 +6,15 @@
 	export let isVertical = false;
 </script>
 
-<div style="flex-direction: {isVertical ? 'column' : 'row'}" class="container">
-	{#each hand as _card}
-		<div class={isVertical ? 'horizontal-card' : 'vertical-card'}>
-			<CardImage />
-		</div>
-	{/each}
-</div>
+{#if hand.length}
+	<div style="flex-direction: {isVertical ? 'column' : 'row'}" class="container">
+		{#each hand as _card}
+			<div class={isVertical ? 'horizontal-card' : 'vertical-card'}>
+				<CardImage />
+			</div>
+		{/each}
+	</div>
+{/if}
 
 <style>
 	.container {

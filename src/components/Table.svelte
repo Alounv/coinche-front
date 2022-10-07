@@ -7,6 +7,7 @@
 	import TableLayout from './TableLayout.svelte';
 	import LastBid from './LastBid.svelte';
 	import OtherPlayer from './OtherPlayer.svelte';
+	import CurrentPlayerInfo from './CurrentPlayerInfo.svelte';
 
 	export let player: PlayerWithName;
 	export let game: Game;
@@ -20,6 +21,7 @@
 		currentPlayerOrder: player.Order
 	});
 	$: hasBids = getBids(game).length > 0;
+	$: turns = game.Turns;
 </script>
 
 <Players {game} playerName={player.name} />
@@ -31,11 +33,15 @@
 		{/if}
 	</div>
 
-	<OtherPlayer slot="top" player={otherPlayers.front} position="front" />
-	<OtherPlayer slot="left" player={otherPlayers.left} position="left" />
-	<OtherPlayer slot="right" player={otherPlayers.right} position="right" />
+	<OtherPlayer slot="top" player={otherPlayers.front} position="front" {turns} />
+	<OtherPlayer slot="left" player={otherPlayers.left} position="left" {turns} />
+	<OtherPlayer slot="right" player={otherPlayers.right} position="right" {turns} />
 
 	<slot name="middle" slot="center" />
 
-	<Hand slot="bottom" {player} {play} {canPlay} />
+	<Hand slot="bottom" {player} {play} {canPlay}>
+		{#if play}
+			<CurrentPlayerInfo {player} {turns} />
+		{/if}
+	</Hand>
 </TableLayout>
