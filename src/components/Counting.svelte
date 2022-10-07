@@ -6,6 +6,7 @@
 
 	export let game: Game;
 	export let start: () => void;
+	export let playerName: string;
 
 	const duration = 500;
 
@@ -45,20 +46,24 @@
 			};
 		});
 	}
+	$: message = winners.includes(playerName) ? 'Yeahhhh 🎉' : '(Sorry 😗)';
 </script>
 
-<h5 class="border padding-large shadow" style="background-color: white;">
+<h5
+	class="border padding-large shadow"
+	style="background-color: white; display: flex; flex-direction: column;"
+>
 	And the winners are...
 	<h4 class="margin" in:fade={{ delay: 2000, duration }}>
-		<span>{winners.join(' and ')}</span>
-		with {winningTeam.points} points!
+		<span>{winners.join(' and ')}</span> with {winningTeam.points} points!
+		{message}
 	</h4>
 
 	<div in:fade={{ delay: 4000, duration }}>
 		<PaperTable {data} class="margin" />
 	</div>
 
-	<div style="display: flex; justify-content: flex-end;" in:fade={{ delay: 4000, duration }}>
+	<div style="align-self: flex-end" in:fade={{ delay: 4000, duration }}>
 		<Button on:click={start}>Restart</Button>
 	</div>
 </h5>

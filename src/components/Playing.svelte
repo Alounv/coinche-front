@@ -11,7 +11,7 @@
 	export let play: (card: Card) => void;
 	export let start: () => void;
 
-	const LAST_TURN_SHOWING_TIME = 0;
+	const LAST_TURN_SHOWING_TIME = 5000;
 
 	let isHandShown = true;
 
@@ -35,7 +35,7 @@
 		{#if isHandShown}
 			<LastTurns turns={game.Turns} {...playersPositions} {player} />
 		{:else}
-			<Counting {game} {start} />
+			<Counting {game} {start} playerName={player.name} />
 		{/if}
 	</div>
 </Table>
