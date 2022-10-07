@@ -20,7 +20,7 @@
 
 {#if game}
 	{#if phase === Phases.Teaming}
-		<Teaming {game} {start} {joinTeam} />
+		<Teaming {game} {start} {joinTeam} playerTeam={player.Team} />
 	{:else if phase === Phases.Bidding}
 		<Bidding {player} {game} {bid} {pass} {coinche} />
 	{:else}

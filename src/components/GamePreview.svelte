@@ -5,7 +5,6 @@
 
 	export let game: GamePreview;
 	export let deleteGame: () => void;
-	export let forceLeave: () => void;
 	export let joinGame: () => void;
 	export let playerName: string;
 
@@ -13,6 +12,7 @@
 	$: isPlaying = game.Phase === Phases.Playing;
 	$: lastPlayerIndex = game.Players.length - 1;
 	$: progress = Math.round((game.TurnsCount / 8) * 100);
+	$: hasPlayers = game.Players.length > 0;
 </script>
 
 <li class="row" style="gap: .75rem; align-items: center">
@@ -33,9 +33,8 @@
 		)
 	</div>
 
-	<Button size="small" on:click={deleteGame} disabled={!!game.Players.length}>Delete</Button>
-	<Button size="small" on:click={forceLeave} disabled={game.Phase !== Phases.Teaming}
-		>Force Leave</Button
-	>
+	{#if !hasPlayers}
+		<Button size="small" on:click={deleteGame}>Delete</Button>
+	{/if}
 	<Button size="small" type="secondary" disabled={!canJoin} on:click={joinGame}>Join</Button>
 </li>

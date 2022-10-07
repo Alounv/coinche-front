@@ -4,10 +4,11 @@
 
 	export let games: GamePreview[] = [];
 	export let deleteGame: (gameId: number) => void;
-	export let forceLeave: (gameID: number, name: string) => void;
+	export let forceLeave: (gameID: number, name: string) => Promise<void>;
 	export let playerName: string;
 
-	const joinGame = (gameId: number) => {
+	const joinGame = async (gameId: number) => {
+		await forceLeave(gameId, playerName);
 		window.location.href = `/game?game=${gameId}&player=${playerName}`;
 	};
 </script>
