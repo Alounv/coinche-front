@@ -18,7 +18,6 @@
 		<GamePreviewComponent
 			{game}
 			deleteGame={() => deleteGame(game.ID)}
-			forceLeave={() => forceLeave(game.ID, playerName)}
 			joinGame={() => joinGame(game.ID)}
 			{playerName}
 		/>

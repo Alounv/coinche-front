@@ -7,6 +7,7 @@
 
 	import GameArea from '../../components/Game.svelte';
 	import { showToast } from '../../utils/toast';
+	import { CloseButton } from 'spaper';
 
 	let name = '';
 	let game: Game;
@@ -64,12 +65,16 @@
 	onDestroy(() => {
 		gs?.leave();
 	});
+
+	const goBackHome = () => {
+		window.location.href = `/`;
+	};
 </script>
 
 <svelte:window on:beforeunload={gs?.leave} />
 
-<div style="position: absolute; top: 2rem; right: 2rem;">
-	<a href="/">Exit</a>
+<div style="position: absolute; top: 2rem; right: 3rem; z-index: 1000;">
+	<CloseButton on:click={goBackHome} />
 </div>
 
 <div class="background-secondary border" style="flex: 1; display: flex; flex-direction: column;">
