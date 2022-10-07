@@ -1,4 +1,8 @@
 import type { GamePreview } from '../data/types';
+import { variables } from '../variables';
+
+const { REST_URL } = variables;
+const HEADERS = { 'Content-Type': 'application/json' };
 
 type ListGamesOutput =
 	| {
@@ -11,9 +15,9 @@ type ListGamesOutput =
 	  };
 
 export const listGames = async (): Promise<ListGamesOutput> => {
-	const response = await fetch('http://localhost:5000/games/all', {
+	const response = await fetch(`${REST_URL}/games/all`, {
 		method: 'GET',
-		headers: { 'content-type': 'application/json' }
+		headers: HEADERS
 	});
 
 	const data = await response.json();
@@ -31,9 +35,9 @@ export const listGames = async (): Promise<ListGamesOutput> => {
 };
 
 export const createGame = async (gameName: string): Promise<string> => {
-	const response = await fetch(`http://localhost:5000/games/create?name=${gameName}`, {
+	const response = await fetch(`${REST_URL}/games/create?name=${gameName}`, {
 		method: 'POST',
-		headers: { 'content-type': 'application/json' }
+		headers: HEADERS
 	});
 
 	const { error } = await response.json();
@@ -42,9 +46,9 @@ export const createGame = async (gameName: string): Promise<string> => {
 };
 
 export const deleteGame = async (gameId: number): Promise<string> => {
-	const response = await fetch(`http://localhost:5000/games/${gameId}/delete`, {
+	const response = await fetch(`${REST_URL}/games/${gameId}/delete`, {
 		method: 'DELETE',
-		headers: { 'content-type': 'application/json' }
+		headers: HEADERS
 	});
 	const { error } = await response.json();
 
@@ -52,13 +56,10 @@ export const deleteGame = async (gameId: number): Promise<string> => {
 };
 
 export const forceLeaveGame = async (gameID: number, playerName: string): Promise<string> => {
-	const response = await fetch(
-		`http://localhost:5000/games/${gameID}/leave?playerName=${playerName}`,
-		{
-			method: 'PUT',
-			headers: { 'content-type': 'application/json' }
-		}
-	);
+	const response = await fetch(`${REST_URL}/games/${gameID}/leave?playerName=${playerName}`, {
+		method: 'PUT',
+		headers: HEADERS
+	});
 	const { error } = await response.json();
 
 	return error || '';

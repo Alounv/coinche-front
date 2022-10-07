@@ -9,7 +9,6 @@
 	$: players = getPlayers(game);
 
 	const handleClick = (playerName: string): void => {
-		console.log('HELLO');
 		window.history.pushState(
 			{ player: playerName, game: game.ID },
 			document.title,

@@ -1,5 +1,8 @@
 import type { BidColors, BidValues, Card } from 'src/data/enums';
 import type { Game } from '../data/types';
+import { variables } from '../variables';
+
+const { WS_URL } = variables;
 
 interface ISocket {
 	gameId: number;
@@ -12,7 +15,7 @@ export class GameSocket {
 	private ws: WebSocket | null;
 
 	constructor({ gameId, playerName, onMessage, onGame }: ISocket) {
-		this.ws = new WebSocket(`ws://localhost:5000/games/${gameId}/join?playerName=${playerName}`);
+		this.ws = new WebSocket(`${WS_URL}/games/${gameId}/join?playerName=${playerName}`);
 
 		this.ws.onclose = () => {
 			console.info('WS closed');
