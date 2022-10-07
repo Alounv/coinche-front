@@ -10,8 +10,6 @@
 	export let right: PlayerWithName;
 	export let front: PlayerWithName;
 
-	console.log({ left, right, front, player });
-
 	let wasWinnerShown = false;
 
 	$: turn = turns[turns.length - 1] || { Plays: [] };

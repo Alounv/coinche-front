@@ -10,6 +10,12 @@
 
 	let selectedCard: Card | null = null;
 
+	$: {
+		if (selectedCard && !player.Hand.includes(selectedCard)) {
+			selectedCard = null;
+		}
+	}
+
 	const reset = () => {
 		selectedCard = null;
 		document?.activeElement.blur();
