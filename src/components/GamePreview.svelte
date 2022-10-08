@@ -36,5 +36,7 @@
 	{#if !hasPlayers}
 		<Button size="small" on:click={deleteGame}>Delete</Button>
 	{/if}
-	<Button size="small" type="secondary" disabled={!canJoin} on:click={joinGame}>Join</Button>
+	<Button size="small" type="secondary" disabled={!canJoin || !playerName} on:click={joinGame}
+		>Join</Button
+	>
 </li>
