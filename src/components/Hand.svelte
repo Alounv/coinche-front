@@ -68,8 +68,8 @@
 		<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 		<label
 			class="label"
-			on:mouseover={() => focusCard(card)}
-			on:mousedown={handlePlay}
+			on:click={() => focusCard(card)}
+			on:dblclick={handlePlay}
 			out:fly={{ y: -200 }}
 		>
 			<CardImage {card} />

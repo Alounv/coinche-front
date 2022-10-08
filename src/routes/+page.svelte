@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import type { GamePreview } from '../data/types';
 	import { listGames, createGame, deleteGame, forceLeaveGame } from '../web/rest';
 	import { Input } from 'spaper';
@@ -9,7 +9,7 @@
 	let games: GamePreview[] = [];
 	let newGameName = '';
 	let name = '';
-	let interval: any;
+	let interval: ReturnType<typeof setTimeout>;
 
 	const REFRESH_INTERVAL = 10000;
 
@@ -20,12 +20,12 @@
 	onMount(() => {
 		refreshList();
 		name = localStorage.getItem('name') || '';
+		interval = setInterval(refreshList, REFRESH_INTERVAL);
 	});
 
-	$: {
+	onDestroy(() => {
 		clearInterval(interval);
-		interval = setInterval(refreshList, REFRESH_INTERVAL);
-	}
+	});
 
 	const refreshList = async () => {
 		const { error, previews } = await listGames();
