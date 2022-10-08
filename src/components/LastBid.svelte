@@ -1,12 +1,11 @@
 <script lang="ts">
+	import type { BidWithValue } from '../data/types';
+
 	import { bidColors } from '../data/enums';
-	import type { Game } from '../data/types';
-	import { getLastBid } from '../utils/game';
 	import Coinche from './Coinche.svelte';
 
-	export let game: Game;
+	export let lastBid: BidWithValue;
 
-	$: lastBid = getLastBid(game);
 	$: trumpLabel = bidColors[lastBid.Color];
 	$: coinche = lastBid.Coinche;
 </script>

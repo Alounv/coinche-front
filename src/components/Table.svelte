@@ -3,7 +3,7 @@
 	import type { PlayerWithName, Game } from '../data/types';
 	import Admin from './Admin.svelte';
 	import Hand from './Hand.svelte';
-	import { getBids, getPlayers, getPlayersPositions } from '../utils/game';
+	import { getLastBid, getPlayers, getPlayersPositions } from '../utils/game';
 	import TableLayout from './TableLayout.svelte';
 	import LastBid from './LastBid.svelte';
 	import OtherPlayer from './OtherPlayer.svelte';
@@ -23,8 +23,8 @@
 		players,
 		currentPlayerOrder: player.Order
 	});
-	$: hasBids = getBids(game).length > 0;
 	$: turns = game.Turns;
+	$: lastBid = getLastBid(game);
 </script>
 
 {#if IS_ADMIN}
@@ -33,7 +33,7 @@
 
 <TableLayout>
 	<div slot="top-left">
-		{#if hasBids}<LastBid {game} />{/if}
+		{#if lastBid}<LastBid {lastBid} />{/if}
 	</div>
 
 	<OtherPlayer slot="top" player={otherPlayers.front} position="front" {turns} />
@@ -42,7 +42,7 @@
 
 	<slot name="middle" slot="center" />
 
-	<Hand slot="bottom" {player} {play} {canPlay}>
+	<Hand slot="bottom" {player} {play} {canPlay} trump={lastBid?.Color}>
 		{#if play}
 			<CurrentPlayerInfo {player} {turns} />
 		{/if}

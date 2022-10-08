@@ -1,15 +1,19 @@
 <script lang="ts">
-	import type { Card } from '../data/enums';
+	import { BidSpecificColors, type BidColors, type Card } from '../data/enums';
 	import type { PlayerWithName } from '../data/types';
 	import CardImage from './Card.svelte';
 	import { fly } from 'svelte/transition';
-	import { prevent_default } from 'svelte/internal';
+	import { getSortedCards } from '../utils/game';
 
 	export let player: PlayerWithName;
 	export let play: ((card: Card) => void) | null = null;
 	export let canPlay = false;
+	export let trump: BidColors = BidSpecificColors.NoTrump;
 
 	let selectedCard: Card | null = null;
+	let form: HTMLFormElement;
+
+	$: cards = getSortedCards(player.Hand, trump);
 
 	$: {
 		if (selectedCard && !player.Hand.includes(selectedCard)) {
@@ -33,8 +37,6 @@
 		if (play && canPlay && selectedCard) play(selectedCard);
 		blurSelectedCard();
 	};
-
-	let form: HTMLFormElement;
 
 	const focusCard = (card: Card): void => {
 		const cardInput = getCardInput(card);
@@ -74,7 +76,7 @@
 	class="row margin flex-center"
 	on:submit|preventDefault={handlePlay}
 >
-	{#each player.Hand as card (card)}
+	{#each cards as card (card)}
 		<!-- the on:mousedown|preventDefault prevents the blur just before the click -->
 		<label
 			class="label"
