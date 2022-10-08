@@ -5,12 +5,13 @@
 	import { showToast } from '../utils/toast';
 
 	export let turns: Turn[];
-	export let player: PlayerWithName;
 	export let left: PlayerWithName;
 	export let right: PlayerWithName;
 	export let front: PlayerWithName;
 
 	let wasWinnerShown = false;
+	let isShown = true;
+	const DELAY_BETWEEN_TURNS = 3000;
 
 	$: turn = turns[turns.length - 1] || { Plays: [] };
 	$: {
@@ -20,27 +21,50 @@
 			wasWinnerShown = true;
 		}
 	}
+	$: {
+		if (turn.Winner) {
+			setTimeout(() => {
+				isShown = false;
+			}, DELAY_BETWEEN_TURNS);
+		} else {
+			isShown = true;
+		}
+	}
 
-	const getClass = (p: string) => {
+	const getClass = (p: string): 'current' | 'left' | 'right' | 'front' => {
 		switch (p) {
-			case player.name:
-				return 'current';
 			case left.name:
 				return 'left';
 			case right.name:
 				return 'right';
 			case front.name:
 				return 'front';
+			default:
+				return 'current';
 		}
 	};
+
+	const duration = 1000;
+	const flyOut = {
+		current: { y: 300, duration },
+		front: { y: -300, duration },
+		left: { x: -300, duration },
+		right: { x: 300, duration }
+	};
+
+	$: transition = turn.Winner ? flyOut[getClass(turn.Winner)] : {};
 </script>
 
-<div class="container">
-	{#each turn.Plays as play}
-		<div class={getClass(play.PlayerName)} in:fly={{ y: 200 }}>
-			<Card card={play.Card} />
+<div>
+	{#if isShown}
+		<div class="container" out:fly={transition}>
+			{#each turn.Plays as play}
+				<div class={getClass(play.PlayerName)} in:fly={{ y: 200 }}>
+					<Card card={play.Card} />
+				</div>
+			{/each}
 		</div>
-	{/each}
+	{/if}
 </div>
 
 <style>
