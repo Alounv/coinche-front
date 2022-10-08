@@ -3,6 +3,7 @@
 	import type { PlayerWithName } from '../data/types';
 	import CardImage from './Card.svelte';
 	import { fly } from 'svelte/transition';
+	import { prevent_default } from 'svelte/internal';
 
 	export let player: PlayerWithName;
 	export let play: ((card: Card) => void) | null = null;
@@ -16,44 +17,53 @@
 		}
 	}
 
-	const reset = () => {
-		selectedCard = null;
-		document?.activeElement.blur();
+	const getCardInput = (card: Card): HTMLInputElement => {
+		const index = player.Hand.indexOf(card);
+		const cardLabel = form?.children[index] as HTMLLabelElement;
+		return cardLabel?.children[1] as HTMLInputElement;
+	};
+
+	const blurSelectedCard = (): void => {
+		if (!selectedCard) return;
+		const cardInput = getCardInput(selectedCard);
+		cardInput.blur();
 	};
 
 	const handlePlay = () => {
 		if (play && canPlay && selectedCard) play(selectedCard);
-		reset();
+		blurSelectedCard();
 	};
 
 	let form: HTMLFormElement;
 
 	const focusCard = (card: Card): void => {
-		const index = player.Hand.indexOf(card);
-		const cardInput = form?.children[index] as HTMLInputElement;
+		const cardInput = getCardInput(card);
 		cardInput?.focus();
 		selectedCard = card;
 	};
 
 	const onKeyDown = (e: KeyboardEvent) => {
-		if (form.matches(':focus-within')) {
-			if (['ArrowLeft', 'ArrowRight'].includes(e.key)) {
-				return;
-			}
-			if (canPlay && play && ['Backspace', 'Enter'].includes(e.key)) {
-				return;
-			}
+		const isSubmit = ['Enter', 'Backspace'].includes(e.key);
+		const isArrow = ['ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp'].includes(e.key);
+		const isFocused = form?.matches(':focus-within');
 
-			reset();
-			return;
-		}
-
-		if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+		if (isArrow && !isFocused) {
 			if (selectedCard) {
 				focusCard(selectedCard);
 			} else {
 				focusCard(player.Hand[0]);
 			}
+		}
+
+		if (isFocused && !isSubmit && !isArrow) blurSelectedCard();
+	};
+
+	const handleMouseDown = (card: Card) => {
+		const isFocused = form?.matches(':focus-within');
+		if (selectedCard === card && isFocused) {
+			handlePlay();
+		} else {
+			focusCard(card);
 		}
 	};
 </script>
@@ -65,11 +75,11 @@
 	on:submit|preventDefault={handlePlay}
 >
 	{#each player.Hand as card (card)}
-		<!-- svelte-ignore a11y-mouse-events-have-key-events -->
+		<!-- the on:mousedown|preventDefault prevents the blur just before the click -->
 		<label
 			class="label"
-			on:click={() => focusCard(card)}
-			on:dblclick={handlePlay}
+			on:click|preventDefault={() => handleMouseDown(card)}
+			on:mousedown|preventDefault
 			out:fly={{ y: -200 }}
 		>
 			<CardImage {card} />
