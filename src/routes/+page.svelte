@@ -9,7 +9,6 @@
 	let games: GamePreview[] = [];
 	let newGameName = '';
 	let name = '';
-	let interval: any;
 
 	$: {
 		if (name) localStorage.setItem('name', name);
@@ -19,11 +18,6 @@
 		refreshList();
 		name = localStorage.getItem('name') || '';
 	});
-
-	$: {
-		clearInterval(interval);
-		interval = setInterval(refreshList, 4000);
-	}
 
 	const refreshList = async () => {
 		const { error, previews } = await listGames();

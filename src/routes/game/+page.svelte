@@ -22,10 +22,12 @@
 	let gs: GameSocket;
 
 	const onMessage = (msg: string): void => {
+		console.info('Received message', msg);
 		showToast({ message: msg, type: 'danger' });
 	};
 
 	const onGame = (g: Game): void => {
+		console.info('onGame');
 		game = g;
 		const currentPlayer = g.Players[name];
 		if (currentPlayer) {
@@ -39,8 +41,10 @@
 		window.addEventListener('popstate', onPopState);
 		const { gameId, playerName } = getPlayerAndGameFromUrl();
 		name = playerName;
+		console.info('onMount: Connecting to game', gameId, playerName);
 		if (playerName && gameId) {
 			gs = new GameSocket({ gameId, playerName, onMessage, onGame });
+			console.info('gs', !!gs);
 		}
 	});
 
@@ -63,6 +67,7 @@
 	}
 
 	onDestroy(() => {
+		console.log('onDestroy');
 		gs?.leave();
 	});
 
