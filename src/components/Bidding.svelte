@@ -4,11 +4,12 @@
 	import { type BidValues, type BidColors, bidColors } from '../data/enums';
 	import type { PlayerWithName, Game } from '../data/types';
 	import { getBids, getCurrentPlayer } from '../utils/game';
+
 	import AnimatedBadge from './AnimatedBadge.svelte';
 	import Coinche from './Coinche.svelte';
-
 	import PlaceBid from './PlaceBid.svelte';
 	import Table from './Table.svelte';
+	import { Button } from 'spaper';
 
 	export let player: PlayerWithName;
 	export let game: Game;
@@ -20,47 +21,66 @@
 	$: maxBidValue = bids.length ? bids[bids.length - 1].value : 0;
 	$: lastBid = maxBidValue ? game.Bids[maxBidValue as BidValues] : null;
 	$: isCoinched = !!lastBid?.Coinche;
-	$: canBid = player.Order === 1;
+	$: isCurrentPlayerTurn = player.Order === 1;
 	$: currentPlayer = getCurrentPlayer(game);
-	$: canCoinche = bids.length && player.Order === 3;
+	$: canCoinche = bids.length && [1, 3].includes(player.Order);
+	$: canBid = isCurrentPlayerTurn && maxBidValue < 160 && !isCoinched;
+	$: canPass = isCurrentPlayerTurn && bid.length;
+
+	let bidValue: BidValues;
+	let bidColor: BidColors;
+
+	const handleBid = () => {
+		bid({ value: bidValue, color: bidColor });
+	};
 </script>
 
 <Table {player} {game}>
-	<div slot="middle" style="display: flex; align-items: center; justify-content: center; flex: 1;">
-		<h4>
-			<ul>
-				{#each bids as bid}
-					<div class="margin-small">
-						{bid.value} - {bidColors[bid.Color]} ({bid.Player})
-					</div>
-				{/each}
-				{#if lastBid?.Coinche}
-					<h3 class="margin-small">
-						<Coinche coinche={lastBid?.Coinche || 0} />
-					</h3>
-				{/if}
-			</ul>
+	<div
+		slot="middle"
+		style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1;"
+	>
+		{#if canBid}
+			<PlaceBid {maxBidValue} bind:value={bidValue} bind:color={bidColor} />
+		{/if}
+
+		<div class="row" style="gap: .75rem;">
+			{#if canBid}
+				<Button on:click={handleBid} class="align-bottom" disabled={!bidValue || !bidColor}
+					>{'Bid'}</Button
+				>
+			{/if}
+
+			{#if canPass}
+				<Button class="align-bottom" on:click={pass}>Pass</Button>
+			{/if}
+
+			{#if canCoinche}
+				<Button class="align-bottom" on:click={coinche}>Coinche</Button>
+			{/if}
+
+			{#if !canBid && !canPass && !canCoinche}
+				<div>Waiting for <Badge>{currentPlayer?.name}</Badge> to bid...</div>
+			{/if}
+		</div>
+
+		<h4 style="margin: 0;">
+			{#each bids as bid}
+				<div class="margin-small">
+					{bid.value} - {bidColors[bid.Color]} ({bid.Player})
+				</div>
+			{/each}
+			{#if lastBid?.Coinche}
+				<h3 class="margin-small">
+					<Coinche coinche={lastBid?.Coinche || 0} />
+				</h3>
+			{/if}
 		</h4>
 	</div>
 </Table>
 
 <div class="row" style="gap: 1rem; align-items: center;">
-	{#if canBid}
-		{#if maxBidValue < 160 && !isCoinched}
-			<PlaceBid {bid} {maxBidValue} />
-		{/if}
-
-		{#if bids.length}
-			<button class="align-bottom" on:click={coinche}>Coinche</button>
-			<button class="align-bottom" on:click={pass}>Pass</button>
-		{/if}
-	{:else if canCoinche}
-		<button class="align-bottom" on:click={coinche}>Coinche</button>
-	{:else}
-		<div>Waiting for <Badge>{currentPlayer?.name}</Badge> to bid...</div>
-	{/if}
-
-	{#if canBid || canCoinche}
+	{#if isCurrentPlayerTurn}
 		<AnimatedBadge text={player.name} />
 	{/if}
 </div>
