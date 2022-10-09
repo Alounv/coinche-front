@@ -9,6 +9,7 @@
 	import Coinche from './Coinche.svelte';
 	import PlaceBid from './PlaceBid.svelte';
 	import Table from './Table.svelte';
+	import Color from './Color.svelte';
 	import { Button } from 'spaper';
 
 	export let player: PlayerWithName;
@@ -69,7 +70,8 @@
 		<h4 style="margin: 0;">
 			{#each bids as bid}
 				<div class="margin-small">
-					{bid.value} - {bidColors[bid.Color]} ({bid.Player})
+					{bid.value} - <Color color={bid.Color} /> ({bid.Player})
+					<span>{bid.Pass ? `- passed: ${bid.Pass}` : ''}</span>
 				</div>
 			{/each}
 			{#if lastBid?.Coinche}
