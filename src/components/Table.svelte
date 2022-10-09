@@ -48,7 +48,7 @@
 
 	<slot name="middle" slot="center" />
 
-	<Hand slot="bottom" {player} {play} {canPlay} trump={lastBid?.Color}>
+	<Hand slot="bottom" {player} {play} {canPlay}>
 		{#if play}
 			<CurrentPlayerInfo {player} {turns} />
 		{/if}

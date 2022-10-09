@@ -1,4 +1,4 @@
-import { BidValues, cardsOrder, Card, type BidColors, BidSpecificColors } from '../data/enums';
+import { BidValues, cardsOrder, Card } from '../data/enums';
 import type { Game, PlayerWithName, BidWithValue, Team, Turn } from '../data/types';
 
 export const getPlayers = (game: Game): PlayerWithName[] => {
@@ -94,19 +94,9 @@ export const getWinningTeam = (
 	}
 };
 
-const getCardOrder = (card: Card, trump: BidColors): number => {
-	const { normal: order, trump: trumpOrder, color } = cardsOrder[card];
-
-	if (trump === BidSpecificColors.AllTrump || color === trump) {
-		return trumpOrder;
-	}
-
-	return order;
-};
-
-export const getSortedCards = (cards: Card[], trump: BidColors): Card[] => {
+export const getSortedCards = (cards: Card[]): Card[] => {
 	const sortedCards = cards.sort((a, b) => {
-		return getCardOrder(a, trump) - getCardOrder(b, trump);
+		return cardsOrder[a] - cardsOrder[b];
 	});
 	return sortedCards;
 };
