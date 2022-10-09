@@ -17,6 +17,8 @@
 
 	const { IS_ADMIN } = variables;
 
+	let scoresText = '';
+
 	$: order = player.Order;
 	$: canPlay = order === 1;
 	$: players = getPlayers(game);
@@ -27,6 +29,17 @@
 	$: turns = game.Turns;
 	$: lastBid = getLastBid(game);
 	$: firstPlayer = players.find((p) => p.InitialOrder === 1);
+	$: {
+		const teamScores: { team: string; score: number }[] = [];
+		for (const team in game.Scores) {
+			const teamPlayersNames = players.filter((p) => p.Team === team).map((p) => p.name);
+			teamScores.push({
+				team: teamPlayersNames.join(', '),
+				score: game.Scores[team]
+			});
+		}
+		scoresText = teamScores.map(({ team, score }) => `${team}: ${score}`).join(' | ');
+	}
 </script>
 
 {#if IS_ADMIN}
@@ -39,6 +52,7 @@
 			First player will be <Badge>{firstPlayer?.name}</Badge>
 		{:else}
 			<LastBid {lastBid} />
+			<div>{scoresText}</div>
 		{/if}
 	</div>
 
