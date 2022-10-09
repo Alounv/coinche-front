@@ -1,8 +1,9 @@
 <script lang="ts">
+	import { Button } from 'spaper';
+	import Modal from 'spaper/components/Modal/Modal.svelte';
 	import type { PlayerWithName, Turn } from '../data/types';
-	import { fly } from 'svelte/transition';
-	import Card from './Card.svelte';
 	import { showToast } from '../utils/toast';
+	import TurnComponent from './Turn.svelte';
 
 	export let turns: Turn[];
 	export let left: PlayerWithName;
@@ -14,6 +15,8 @@
 	const DELAY_BETWEEN_TURNS = 3000;
 
 	$: turn = turns[turns.length - 1] || { Plays: [] };
+	$: previousTurn = turns[turns.length - 2];
+	$: lastTurn = turn.Plays.length === 4 ? turn : previousTurn;
 	$: {
 		if (turn.Winner && !wasWinnerShown) {
 			const message = `${turn.Winner} has won the turn`;
@@ -53,58 +56,34 @@
 	};
 
 	$: transition = turn.Winner ? flyOut[getClass(turn.Winner)] : {};
+
+	let isPreviousTurnShown = false;
+
+	const showPreviousTurn = () => {
+		if (previousTurn) {
+			isPreviousTurnShown = true;
+		}
+	};
 </script>
 
 <div>
+	{#if lastTurn}
+		<Button size="small" on:click={showPreviousTurn}>See last turn</Button>
+	{/if}
+
 	{#if isShown}
-		<div class="container" out:fly={transition}>
-			{#each turn.Plays as play}
-				<div class={getClass(play.PlayerName)} in:fly={{ y: 200 }}>
-					<Card card={play.Card} />
-				</div>
-			{/each}
-		</div>
+		<TurnComponent {transition} {turn} {left} {right} {front} />
 	{/if}
 </div>
 
-<style>
-	:root {
-		--axial-offset: 2rem;
-	}
-
-	.container {
-		position: relative;
-		min-height: 16rem;
-		width: 100%;
-	}
-
-	.current,
-	.left,
-	.right,
-	.front {
-		position: absolute;
-		top: calc(50% - 5.5rem);
-		left: calc(50% - 4rem);
-		width: 8rem;
-	}
-	.current {
-		top: calc(50% - 5.5rem + var(--axial-offset));
-		left: calc(50% - 4rem + 1rem);
-		transform: rotate(0deg);
-	}
-	.left {
-		left: calc(50% - 4rem - var(--axial-offset));
-		top: calc(50% - 5.5rem + 1rem);
-		transform: rotate(90deg);
-	}
-	.front {
-		top: calc(50% - 5.5rem - var(--axial-offset));
-		left: calc(50% - 4rem - 1rem);
-		transform: rotate(180deg);
-	}
-	.right {
-		left: calc(50% - 4rem + var(--axial-offset));
-		top: calc(50% - 5.5rem - 1rem);
-		transform: rotate(-90deg);
-	}
-</style>
+<Modal
+	bind:active={isPreviousTurnShown}
+	class="border"
+	style="min-width: 25rem; width: 50%; background-color: #deefff; padding: 2rem;"
+	title="Last turn"
+	subTitle="Won by {lastTurn?.Winner}"
+>
+	{#if lastTurn}
+		<TurnComponent turn={lastTurn} {left} {right} {front} />
+	{/if}
+</Modal>
