@@ -3,7 +3,9 @@
 	export let coinche: number;
 </script>
 
-{#if coinche > 1}
+{#if coinche === 3}
+	<Badge>Contrecoinché</Badge> ⚔️⚔️⚔️
+{:else if coinche === 2}
 	<Badge>Surcoinché</Badge> ⚔️⚔️
 {:else if coinche > 0}
 	<Badge>Coinché</Badge> ⚔️
