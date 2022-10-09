@@ -1,8 +1,9 @@
 <script lang="ts">
-	import type { Card } from '../data/enums';
+	import { Phases, type Card } from '../data/enums';
 	import type { PlayerWithName, Game } from '../data/types';
 	import Admin from './Admin.svelte';
 	import Hand from './Hand.svelte';
+	import { Badge } from 'spaper';
 	import { getLastBid, getPlayers, getPlayersPositions } from '../utils/game';
 	import TableLayout from './TableLayout.svelte';
 	import LastBid from './LastBid.svelte';
@@ -25,6 +26,7 @@
 	});
 	$: turns = game.Turns;
 	$: lastBid = getLastBid(game);
+	$: firstPlayer = players.find((p) => p.InitialOrder === 1);
 </script>
 
 {#if IS_ADMIN}
@@ -33,7 +35,11 @@
 
 <TableLayout>
 	<div slot="top-left">
-		{#if lastBid}<LastBid {lastBid} />{/if}
+		{#if game.Phase === Phases.Bidding}
+			First player will be <Badge>{firstPlayer?.name}</Badge>
+		{:else}
+			<LastBid {lastBid} />
+		{/if}
 	</div>
 
 	<OtherPlayer slot="top" player={otherPlayers.front} position="front" {turns} />
