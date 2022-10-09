@@ -14,7 +14,7 @@
 		Rank: number;
 		Team: string;
 		Score: number;
-		Points: string;
+		Points: number;
 	}
 
 	let winningTeam: Team;
@@ -31,7 +31,7 @@
 			acc.push({
 				Team: players.map((p) => p.name).join(' & '),
 				Score: score,
-				Points: `(+${points})`,
+				Points: points,
 				Rank: 0
 			});
 			return acc;
