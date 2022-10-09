@@ -44,6 +44,8 @@
 
 	const handlePlay = () => {
 		if (canPlay && play && selectedCard) {
+			console.log(canPlay, play, selectedCard);
+			console.log(getIsSelectedCardFocused());
 			if (getIsSelectedCardFocused()) {
 				play(selectedCard);
 			}
@@ -101,9 +103,12 @@
 			<input type="radio" value={card} bind:group={selectedCard} />
 		</label>
 	{/each}
+	<!-- we use onmousedown so the card is not blured before we check for the focus -->
 	<button
 		disabled={!selectedCard}
 		type="submit"
+		on:mousedown={handlePlay}
+		on:click|preventDefault
 		style="margin-left: 1rem"
 		class={!canPlay ? 'hidden-button' : ''}>Play</button
 	>
