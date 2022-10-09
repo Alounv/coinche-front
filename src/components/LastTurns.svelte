@@ -57,18 +57,16 @@
 
 	$: transition = turn.Winner ? flyOut[getClass(turn.Winner)] : {};
 
-	let isPreviousTurnShown = false;
+	let isLastTurnShow = false;
 
-	const showPreviousTurn = () => {
-		if (previousTurn) {
-			isPreviousTurnShown = true;
-		}
+	const showLastTurn = () => {
+		isLastTurnShow = true;
 	};
 </script>
 
 <div>
 	{#if lastTurn}
-		<Button size="small" on:click={showPreviousTurn}>See last turn</Button>
+		<Button size="small" on:click={showLastTurn}>See last turn</Button>
 	{/if}
 
 	{#if isShown}
@@ -77,7 +75,7 @@
 </div>
 
 <Modal
-	bind:active={isPreviousTurnShown}
+	bind:active={isLastTurnShow}
 	class="border"
 	style="min-width: 25rem; width: 50%; background-color: #deefff; padding: 2rem;"
 	title="Last turn"
