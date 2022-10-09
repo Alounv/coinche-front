@@ -7,7 +7,9 @@
 
 	export let player: PlayerWithName;
 	export let play: ((card: Card) => void) | null = null;
-	export let canPlay = false;
+	export let isPlayerTurn = false;
+
+	$: canPlay = isPlayerTurn && play !== null;
 
 	let selectedCard: Card | null = null;
 	let form: HTMLFormElement;
@@ -26,6 +28,14 @@
 		return cardLabel?.children[1] as HTMLInputElement;
 	};
 
+	const getIsSelectedCardFocused = (): boolean => {
+		if (selectedCard) {
+			const cardInput = getCardInput(selectedCard);
+			return cardInput === document.activeElement;
+		}
+		return false;
+	};
+
 	const blurSelectedCard = (): void => {
 		if (!selectedCard) return;
 		const cardInput = getCardInput(selectedCard);
@@ -33,7 +43,11 @@
 	};
 
 	const handlePlay = () => {
-		if (play && canPlay && selectedCard) play(selectedCard);
+		if (canPlay && play && selectedCard) {
+			if (getIsSelectedCardFocused()) {
+				play(selectedCard);
+			}
+		}
 		blurSelectedCard();
 	};
 
@@ -59,10 +73,10 @@
 		if (isFocused && !isSubmit && !isArrow) blurSelectedCard();
 	};
 
-	const handleMouseDown = (card: Card) => {
+	const handleClick = (card: Card) => {
 		const isFocused = form?.matches(':focus-within');
 		if (selectedCard === card && isFocused) {
-			handlePlay();
+			blurSelectedCard();
 		} else {
 			focusCard(card);
 		}
@@ -79,15 +93,20 @@
 		<!-- the on:mousedown|preventDefault prevents the blur just before the click -->
 		<label
 			class="label"
-			on:click|preventDefault={() => handleMouseDown(card)}
+			on:click|preventDefault={() => handleClick(card)}
 			on:mousedown|preventDefault
 			out:fly={{ y: -200 }}
 		>
 			<CardImage {card} />
-			<input type="radio" value={card} bind:group={selectedCard} disabled={!play} />
+			<input type="radio" value={card} bind:group={selectedCard} />
 		</label>
 	{/each}
-	<button type="submit" class="hidden-button" />
+	<button
+		disabled={!selectedCard}
+		type="submit"
+		style="margin-left: 1rem"
+		class={!canPlay ? 'hidden-button' : ''}>Play</button
+	>
 </form>
 
 <slot />

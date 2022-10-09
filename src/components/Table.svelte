@@ -20,7 +20,7 @@
 	let scoresText = '';
 
 	$: order = player.Order;
-	$: canPlay = order === 1;
+	$: isPlayerTurn = order === 1;
 	$: players = getPlayers(game);
 	$: otherPlayers = getPlayersPositions({
 		players,
@@ -62,7 +62,7 @@
 
 	<slot name="middle" slot="center" />
 
-	<Hand slot="bottom" {player} {play} {canPlay}>
+	<Hand slot="bottom" {player} {play} {isPlayerTurn}>
 		{#if play}
 			<CurrentPlayerInfo {player} {turns} />
 		{/if}
