@@ -27,6 +27,7 @@
 	};
 
 	const onGame = (g: Game): void => {
+		console.log('onGame', g);
 		game = g;
 		const currentPlayer = g.Players[name];
 		if (currentPlayer) {
