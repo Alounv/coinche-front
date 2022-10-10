@@ -42,6 +42,7 @@
 		name = playerName;
 		if (playerName && gameId) {
 			gs = new GameSocket({ gameId, playerName, onMessage, onGame });
+			console.log(gs);
 		}
 	});
 
