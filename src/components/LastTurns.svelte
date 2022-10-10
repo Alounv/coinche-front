@@ -12,7 +12,7 @@
 
 	let wasWinnerShown = false;
 	let isShown = true;
-	const DELAY_BETWEEN_TURNS = 3000;
+	const DELAY_BETWEEN_TURNS = 1500;
 
 	$: turn = turns[turns.length - 1] || { Plays: [] };
 	$: previousTurn = turns[turns.length - 2];

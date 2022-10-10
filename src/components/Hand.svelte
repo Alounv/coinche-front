@@ -43,6 +43,7 @@
 	};
 
 	const handlePlay = () => {
+		console.log('hello');
 		if (canPlay && play && selectedCard) {
 			console.log(canPlay, play, selectedCard);
 			console.log(getIsSelectedCardFocused());
@@ -72,6 +73,11 @@
 			}
 		}
 
+		if (isSubmit) {
+			e.preventDefault();
+			handlePlay();
+		}
+
 		if (isFocused && !isSubmit && !isArrow) blurSelectedCard();
 	};
 
@@ -85,12 +91,7 @@
 	};
 </script>
 
-<form
-	style="min-height: 11rem;"
-	bind:this={form}
-	class="row margin flex-center"
-	on:submit|preventDefault={handlePlay}
->
+<form style="min-height: 11rem;" bind:this={form} class="row margin flex-center">
 	{#each cards as card (card)}
 		<!-- the on:mousedown|preventDefault prevents the blur just before the click -->
 		<label
@@ -106,7 +107,6 @@
 	<!-- we use onmousedown so the card is not blured before we check for the focus -->
 	<button
 		disabled={!selectedCard}
-		type="submit"
 		on:mousedown={handlePlay}
 		on:click|preventDefault
 		style="margin-left: 1rem"

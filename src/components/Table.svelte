@@ -52,8 +52,8 @@
 			First player will be <Badge>{firstPlayer?.name}</Badge>
 		{:else}
 			<LastBid {lastBid} />
-			<div>{scoresText}</div>
 		{/if}
+		<div>{scoresText}</div>
 	</div>
 
 	<OtherPlayer slot="top" player={otherPlayers.front} position="front" {turns} />
