@@ -43,10 +43,7 @@
 	};
 
 	const handlePlay = () => {
-		console.log('hello');
 		if (canPlay && play && selectedCard) {
-			console.log(canPlay, play, selectedCard);
-			console.log(getIsSelectedCardFocused());
 			if (getIsSelectedCardFocused()) {
 				play(selectedCard);
 			}

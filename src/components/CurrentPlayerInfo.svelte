@@ -14,7 +14,8 @@
 <div class="row" style="gap: 1rem">
 	{#if player.Hand.length}
 		<Instructions {canPlay} />
-	{:else if winsCount}
-		<span class="align-bottom">You won <WinsCount {turns} {player} /> turns.</span>
+	{/if}
+	{#if winsCount}
+		<span class="align-bottom">(You won <WinsCount {turns} {player} /> turns.)</span>
 	{/if}
 </div>

@@ -2,7 +2,6 @@
 	import { Button } from 'spaper';
 	import Modal from 'spaper/components/Modal/Modal.svelte';
 	import type { PlayerWithName, Turn } from '../data/types';
-	import { showToast } from '../utils/toast';
 	import TurnComponent from './Turn.svelte';
 
 	export let turns: Turn[];
@@ -10,20 +9,12 @@
 	export let right: PlayerWithName;
 	export let front: PlayerWithName;
 
-	let wasWinnerShown = false;
 	let isShown = true;
 	const DELAY_BETWEEN_TURNS = 1500;
 
 	$: turn = turns[turns.length - 1] || { Plays: [] };
 	$: previousTurn = turns[turns.length - 2];
 	$: lastTurn = turn.Plays.length === 4 ? turn : previousTurn;
-	$: {
-		if (turn.Winner && !wasWinnerShown) {
-			const message = `${turn.Winner} has won the turn`;
-			showToast({ message, type: 'secondary' });
-			wasWinnerShown = true;
-		}
-	}
 	$: {
 		if (turn.Winner) {
 			setTimeout(() => {

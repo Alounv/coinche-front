@@ -27,7 +27,6 @@
 	};
 
 	const onGame = (g: Game): void => {
-		console.log('onGame', g);
 		game = g;
 		const currentPlayer = g.Players[name];
 		if (currentPlayer) {
@@ -43,7 +42,6 @@
 		name = playerName;
 		if (playerName && gameId) {
 			gs = new GameSocket({ gameId, playerName, onMessage, onGame });
-			console.log(gs);
 		}
 	});
 

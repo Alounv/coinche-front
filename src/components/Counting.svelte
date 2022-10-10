@@ -23,6 +23,7 @@
 
 	$: winners = winningTeam ? winningTeam.players.map((p) => p.name) : [];
 	$: {
+		console.info('TURNS', game.Turns); // we keep this for debugging
 		const { winner, loser, areTakersWinners: tw } = getWinningTeam(game);
 		areTakersWinners = tw;
 		winningTeam = winner;
