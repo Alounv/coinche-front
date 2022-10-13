@@ -1,16 +1,14 @@
 <script lang="ts">
-	import { Badge } from 'spaper'
-
 	import type { BidColors, BidValues } from '../data/enums'
 	import type { Game, PlayerWithName } from '../data/types'
 	import { getBids, getCurrentPlayer } from '../utils/game'
-
 	import AnimatedBadge from './AnimatedBadge.svelte'
+	import { Badge } from 'spaper'
+	import { Button } from 'spaper'
 	import Coinche from './Coinche.svelte'
+	import Color from './Color.svelte'
 	import PlaceBid from './PlaceBid.svelte'
 	import Table from './Table.svelte'
-	import Color from './Color.svelte'
-	import { Button } from 'spaper'
 
 	export let player: PlayerWithName
 	export let game: Game

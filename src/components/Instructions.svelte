@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Badge } from 'spaper'
 	import AnimatedBadge from './AnimatedBadge.svelte'
+	import { Badge } from 'spaper'
 
 	export let canPlay: boolean
 </script>

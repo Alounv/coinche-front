@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { fade } from 'svelte/transition'
-	import type { Game, Team } from '../data/types'
-	import { getWinningTeam } from '../utils/game'
 	import { Button, Table as PaperTable } from 'spaper'
+	import type { Game, Team } from '../data/types'
+	import { fade } from 'svelte/transition'
+	import { getWinningTeam } from '../utils/game'
 
 	export let game: Game
 	export let start: () => void

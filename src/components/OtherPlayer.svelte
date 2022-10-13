@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PlayerWithName, Turn } from '../data/types'
-	import BackHand from './BackHand.svelte'
 	import AnimatedBadge from './AnimatedBadge.svelte'
+	import BackHand from './BackHand.svelte'
 	import WinsCount from './WinsCount.svelte'
 
 	export let player: PlayerWithName

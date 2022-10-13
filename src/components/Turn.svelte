@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PlayerWithName, Turn } from '../data/types'
-	import { fly } from 'svelte/transition'
 	import Card from './Card.svelte'
+	import { fly } from 'svelte/transition'
 
 	export let left: PlayerWithName
 	export let right: PlayerWithName

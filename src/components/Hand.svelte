@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Card } from '../data/enums'
-	import type { PlayerWithName } from '../data/types'
 	import CardImage from './Card.svelte'
+	import type { PlayerWithName } from '../data/types'
 	import { fly } from 'svelte/transition'
 	import { getSortedCards } from '../utils/game'
 

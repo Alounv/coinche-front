@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { createGame, deleteGame, forceLeaveGame, listGames } from '../web/rest'
 	import { onDestroy, onMount } from 'svelte'
 	import type { GamePreview } from '../data/types'
-	import { createGame, deleteGame, forceLeaveGame, listGames } from '../web/rest'
-	import { Input } from 'spaper'
 	import GamesList from '../components/GamesList.svelte'
+	import { Input } from 'spaper'
 	import { showToast } from '../utils/toast'
 
 	let games: GamePreview[] = []

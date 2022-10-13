@@ -1,7 +1,7 @@
 <script lang="ts">
+	import type { PlayerWithName, Turn } from '../data/types'
 	import { Button } from 'spaper'
 	import Modal from 'spaper/components/Modal/Modal.svelte'
-	import type { PlayerWithName, Turn } from '../data/types'
 	import TurnComponent from './Turn.svelte'
 
 	export let turns: Turn[]

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { type Card, Phases } from '../data/enums'
 	import type { Game, PlayerWithName } from '../data/types'
-	import LastTurns from './LastTurns.svelte'
-	import Table from './Table.svelte'
 	import { getPlayers, getPlayersPositions } from '../utils/game'
 	import Counting from './Counting.svelte'
+	import LastTurns from './LastTurns.svelte'
+	import Table from './Table.svelte'
 
 	export let player: PlayerWithName
 	export let game: Game

@@ -1,5 +1,5 @@
-import { Toast } from 'spaper'
 import type { PaperType } from 'spaper/types'
+import { Toast } from 'spaper'
 
 type ShowToastFn = (args: { message: string; type: PaperType }) => void
 

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { PlayerWithName, Turn } from '../data/types'
-	import { getPlayerWinsCount } from '../utils/game'
 	import Instructions from './Instructions.svelte'
 	import WinsCount from './WinsCount.svelte'
+	import { getPlayerWinsCount } from '../utils/game'
 
 	export let player: PlayerWithName
 	export let turns: Turn[]

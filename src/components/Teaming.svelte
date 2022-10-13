@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { getTeams } from '../utils/game'
-
 	import type { Game } from '../data/types'
 	import Teams from './Teams.svelte'
+	import { getTeams } from '../utils/game'
 
 	export let game: Game
 	export let start: () => void

@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { onDestroy, onMount } from 'svelte'
-	import type { Game, PlayerWithName } from '../../data/types'
 	import type { BidColors, BidValues, Card } from '../../data/enums'
+	import type { Game, PlayerWithName } from '../../data/types'
+	import { onDestroy, onMount } from 'svelte'
+	import { CloseButton } from 'spaper'
+	import GameArea from '../../components/Game.svelte'
 	import { GameSocket } from '../../web/socket'
 	import { getPlayerAndGameFromUrl } from '../../utils/url'
 	import github from '../../images/github.png'
-
-	import GameArea from '../../components/Game.svelte'
 	import { showToast } from '../../utils/toast'
-	import { CloseButton } from 'spaper'
 
 	let name = ''
 	let game: Game

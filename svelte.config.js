@@ -1,6 +1,6 @@
 //import adapter from 'svelte-adapter-bun';
-import vercel from '@sveltejs/adapter-vercel'
 import preprocess from 'svelte-preprocess'
+import vercel from '@sveltejs/adapter-vercel'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

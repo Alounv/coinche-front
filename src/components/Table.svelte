@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { type Card, Phases } from '../data/enums'
 	import type { Game, PlayerWithName } from '../data/types'
-	import Admin from './Admin.svelte'
-	import Hand from './Hand.svelte'
-	import { Badge } from 'spaper'
 	import { getLastBid, getPlayers, getPlayersPositions } from '../utils/game'
-	import TableLayout from './TableLayout.svelte'
+	import Admin from './Admin.svelte'
+	import { Badge } from 'spaper'
+	import CurrentPlayerInfo from './CurrentPlayerInfo.svelte'
+	import Hand from './Hand.svelte'
 	import LastBid from './LastBid.svelte'
 	import OtherPlayer from './OtherPlayer.svelte'
-	import CurrentPlayerInfo from './CurrentPlayerInfo.svelte'
+	import TableLayout from './TableLayout.svelte'
 	import { variables } from '../variables'
 
 	export let player: PlayerWithName

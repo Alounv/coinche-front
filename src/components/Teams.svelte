@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Game } from '../data/types'
-	import { getPlayers } from '../utils/game'
 	import { Table } from 'spaper'
+	import { getPlayers } from '../utils/game'
 
 	export let game: Game
 

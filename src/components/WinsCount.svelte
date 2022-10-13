@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { Badge } from 'spaper'
-
 	import type { PlayerWithName, Turn } from '../data/types'
-	import { getPlayerWinsCount } from '../utils/game'
+	import { Badge } from 'spaper'
 	import FlashingBagde from './FlashingBagde.svelte'
+	import { getPlayerWinsCount } from '../utils/game'
 
 	export let player: PlayerWithName
 	export let turns: Turn[]

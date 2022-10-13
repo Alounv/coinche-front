@@ -1,10 +1,9 @@
 <script lang="ts">
-	import type { Game, PlayerWithName } from '../data/types'
 	import { type BidColors, BidValues, Card, Phases } from '../data/enums'
-
-	import Teaming from './Teaming.svelte'
+	import type { Game, PlayerWithName } from '../data/types'
 	import Bidding from './Bidding.svelte'
 	import Playing from './Playing.svelte'
+	import Teaming from './Teaming.svelte'
 
 	export let game: Game
 	export let player: PlayerWithName
