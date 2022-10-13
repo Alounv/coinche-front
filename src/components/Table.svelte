@@ -2,20 +2,16 @@
 	import { type Card, Phases } from '../data/enums'
 	import type { Game, PlayerWithName } from '../data/types'
 	import { getLastBid, getPlayers, getPlayersPositions } from '../utils/game'
-	import Admin from './Admin.svelte'
 	import { Badge } from 'spaper'
 	import CurrentPlayerInfo from './CurrentPlayerInfo.svelte'
 	import Hand from './Hand.svelte'
 	import LastBid from './LastBid.svelte'
 	import OtherPlayer from './OtherPlayer.svelte'
 	import TableLayout from './TableLayout.svelte'
-	import { variables } from '../variables'
 
 	export let player: PlayerWithName
 	export let game: Game
 	export let play: null | ((card: Card) => void) = null
-
-	const { IS_ADMIN } = variables
 
 	let scoresText = ''
 
@@ -42,10 +38,6 @@
 	}
 </script>
 
-{#if IS_ADMIN}
-	<Admin {game} playerName={player.name} />
-{/if}
-
 <TableLayout>
 	<div slot="top-left">
 		{#if game.Phase === Phases.Bidding}
@@ -56,9 +48,9 @@
 		<div>{scoresText}</div>
 	</div>
 
-	<OtherPlayer slot="top" player={otherPlayers.front} position="front" {turns} />
-	<OtherPlayer slot="left" player={otherPlayers.left} position="left" {turns} />
-	<OtherPlayer slot="right" player={otherPlayers.right} position="right" {turns} />
+	<OtherPlayer slot="top" player={otherPlayers.front} position="front" {turns} gameId={game.ID} />
+	<OtherPlayer slot="left" player={otherPlayers.left} position="left" {turns} gameId={game.ID} />
+	<OtherPlayer slot="right" player={otherPlayers.right} position="right" {turns} gameId={game.ID} />
 
 	<slot name="middle" slot="center" />
 

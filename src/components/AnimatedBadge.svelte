@@ -2,9 +2,10 @@
 	import { Badge } from 'spaper'
 
 	export let text: string
+	export let onClick: () => void = () => null
 </script>
 
-<h4 style="margin: 0; display: inline-block;">
+<h4 style="margin: 0; display: inline-block;" on:click={onClick}>
 	<Badge rounded type="secondary" style="display: flex">
 		{text}
 		<div class="moving">{'<'}</div>
