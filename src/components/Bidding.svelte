@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Badge } from 'spaper'
 
-	import type { BidValues, BidColors } from '../data/enums'
-	import type { PlayerWithName, Game } from '../data/types'
+	import type { BidColors, BidValues } from '../data/enums'
+	import type { Game, PlayerWithName } from '../data/types'
 	import { getBids, getCurrentPlayer } from '../utils/game'
 
 	import AnimatedBadge from './AnimatedBadge.svelte'
@@ -34,7 +34,7 @@
 	let bidColor: BidColors
 
 	const handleBid = () => {
-		bid({ value: bidValue, color: bidColor })
+		bid({ color: bidColor, value: bidValue })
 	}
 </script>
 

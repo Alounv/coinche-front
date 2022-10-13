@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte'
 	import type { GamePreview } from '../data/types'
-	import { listGames, createGame, deleteGame, forceLeaveGame } from '../web/rest'
+	import { createGame, deleteGame, forceLeaveGame, listGames } from '../web/rest'
 	import { Input } from 'spaper'
 	import GamesList from '../components/GamesList.svelte'
 	import { showToast } from '../utils/toast'

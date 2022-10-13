@@ -3,5 +3,5 @@ export const getPlayerAndGameFromUrl = (): { playerName: string; gameId: number 
 	const playerName = urlParams.get('player') || ''
 	const gameIdString = urlParams.get('game') || ''
 	const gameId = parseInt(gameIdString)
-	return { playerName, gameId }
+	return { gameId, playerName }
 }

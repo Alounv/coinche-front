@@ -40,10 +40,10 @@
 
 	const duration = 1000
 	const flyOut = {
-		current: { y: 300, duration },
-		front: { y: -300, duration },
-		left: { x: -300, duration },
-		right: { x: 300, duration }
+		current: { duration, y: 300 },
+		front: { duration, y: -300 },
+		left: { duration, x: -300 },
+		right: { duration, x: 300 }
 	}
 
 	$: transition = turn.Winner ? flyOut[getClass(turn.Winner)] : {}

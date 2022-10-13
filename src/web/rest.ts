@@ -17,8 +17,8 @@ type ListGamesOutput =
 export const listGames = async (): Promise<ListGamesOutput> => {
 	try {
 		const response = await fetch(`${REST_URL}/games/all`, {
-			method: 'GET',
-			headers: HEADERS
+			headers: HEADERS,
+			method: 'GET'
 		})
 
 		const data = await response.json()
@@ -41,8 +41,8 @@ export const listGames = async (): Promise<ListGamesOutput> => {
 export const createGame = async (gameName: string): Promise<string> => {
 	try {
 		const response = await fetch(`${REST_URL}/games/create?name=${gameName}`, {
-			method: 'POST',
-			headers: HEADERS
+			headers: HEADERS,
+			method: 'POST'
 		})
 
 		const { error } = await response.json()
@@ -56,8 +56,8 @@ export const createGame = async (gameName: string): Promise<string> => {
 export const deleteGame = async (gameId: number): Promise<string> => {
 	try {
 		const response = await fetch(`${REST_URL}/games/${gameId}/delete`, {
-			method: 'DELETE',
-			headers: HEADERS
+			headers: HEADERS,
+			method: 'DELETE'
 		})
 		const { error } = await response.json()
 
@@ -70,8 +70,8 @@ export const deleteGame = async (gameId: number): Promise<string> => {
 export const forceLeaveGame = async (gameID: number, playerName: string): Promise<string> => {
 	try {
 		const response = await fetch(`${REST_URL}/games/${gameID}/leave?playerName=${playerName}`, {
-			method: 'PUT',
-			headers: HEADERS
+			headers: HEADERS,
+			method: 'PUT'
 		})
 		const { error } = await response.json()
 

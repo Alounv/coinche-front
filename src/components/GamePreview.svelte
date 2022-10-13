@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { GamePreview } from '../data/types'
-	import { Button, Badge, Progress } from 'spaper'
-	import { phases, Phases } from '../data/enums'
+	import { Badge, Button, Progress } from 'spaper'
+	import { Phases, phases } from '../data/enums'
 
 	export let game: GamePreview
 	export let deleteGame: () => void

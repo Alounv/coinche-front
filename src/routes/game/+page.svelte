@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte'
 	import type { Game, PlayerWithName } from '../../data/types'
-	import type { BidValues, Card, BidColors } from '../../data/enums'
+	import type { BidColors, BidValues, Card } from '../../data/enums'
 	import { GameSocket } from '../../web/socket'
 	import { getPlayerAndGameFromUrl } from '../../utils/url'
 	import github from '../../images/github.png'
@@ -41,7 +41,7 @@
 		const { gameId, playerName } = getPlayerAndGameFromUrl()
 		name = playerName
 		if (playerName && gameId) {
-			gs = new GameSocket({ gameId, playerName, onMessage, onGame })
+			gs = new GameSocket({ gameId, onGame, onMessage, playerName })
 		}
 	})
 
@@ -50,14 +50,14 @@
 		if (playerName !== name || gameId !== game?.ID) {
 			gs?.leave()
 			name = playerName
-			gs = new GameSocket({ gameId, playerName, onMessage, onGame })
+			gs = new GameSocket({ gameId, onGame, onMessage, playerName })
 		}
 	}
 
 	$: {
 		joinTeam = (team: string) => gs.joinTeam(team)
 		start = () => gs.start()
-		bid = ({ value, color }) => gs.bid({ value, color })
+		bid = ({ value, color }) => gs.bid({ color, value })
 		pass = () => gs.pass()
 		coinche = () => gs.coinche()
 		play = (card) => gs.play(card)

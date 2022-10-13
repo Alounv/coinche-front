@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Phases, type Card } from '../data/enums'
-	import type { PlayerWithName, Game } from '../data/types'
+	import { type Card, Phases } from '../data/enums'
+	import type { Game, PlayerWithName } from '../data/types'
 	import Admin from './Admin.svelte'
 	import Hand from './Hand.svelte'
 	import { Badge } from 'spaper'
@@ -23,8 +23,8 @@
 	$: isPlayerTurn = order === 1
 	$: players = getPlayers(game)
 	$: otherPlayers = getPlayersPositions({
-		players,
-		currentPlayerOrder: player.Order
+		currentPlayerOrder: player.Order,
+		players
 	})
 	$: turns = game.Turns
 	$: lastBid = getLastBid(game)
@@ -34,8 +34,8 @@
 		for (const team in game.Scores) {
 			const teamPlayersNames = players.filter((p) => p.Team === team).map((p) => p.name)
 			teamScores.push({
-				team: teamPlayersNames.join(', '),
-				score: game.Scores[team]
+				score: game.Scores[team],
+				team: teamPlayersNames.join(', ')
 			})
 		}
 		scoresText = teamScores.map(({ team, score }) => `${team}: ${score}`).join(' | ')

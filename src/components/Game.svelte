@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Game, PlayerWithName } from '../data/types'
-	import { BidValues, Card, Phases, type BidColors } from '../data/enums'
+	import { type BidColors, BidValues, Card, Phases } from '../data/enums'
 
 	import Teaming from './Teaming.svelte'
 	import Bidding from './Bidding.svelte'

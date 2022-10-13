@@ -16,8 +16,8 @@
 	$: BPlayers = teams.find((team) => team.name === 'B')?.players || []
 
 	$: teamsOptions = [
-		{ label: '🅰️', value: 'A', isFull: APlayers.length === 2 },
-		{ label: '🅱️', value: 'B', isFull: BPlayers.length === 2 }
+		{ isFull: APlayers.length === 2, label: '🅰️', value: 'A' },
+		{ isFull: BPlayers.length === 2, label: '🅱️', value: 'B' }
 	]
 </script>
 

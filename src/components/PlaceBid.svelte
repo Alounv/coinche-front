@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { bidValues, type BidValues, bidColors, type BidColors } from '../data/enums'
+	import { type BidColors, type BidValues, bidColors, bidValues } from '../data/enums'
 	import { Select } from 'spaper'
 
 	export let maxBidValue: BidValues

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { bidColors, Colors, type BidColors } from '../data/enums'
+	import { type BidColors, Colors, bidColors } from '../data/enums'
 
 	export let color: BidColors
 

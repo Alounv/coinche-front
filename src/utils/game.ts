@@ -1,5 +1,5 @@
-import { BidValues, cardsOrder, Card } from '../data/enums'
-import type { Game, PlayerWithName, BidWithValue, Team, Turn } from '../data/types'
+import { BidValues, Card, cardsOrder } from '../data/enums'
+import type { BidWithValue, Game, PlayerWithName, Team, Turn } from '../data/types'
 
 export const getPlayers = (game: Game): PlayerWithName[] => {
 	const players = []
@@ -45,8 +45,8 @@ export const getTeams = (game: Game): Team[] => {
 			teams.push({
 				name: teamName,
 				players: [player],
-				score: game.Scores?.[teamName],
-				points: game.Points?.[teamName]
+				points: game.Points?.[teamName],
+				score: game.Scores?.[teamName]
 			})
 		}
 	}
@@ -65,7 +65,7 @@ export const getPlayersPositions = ({
 	const left = players.find((p) => [o + 1, o - 3].includes(p.Order)) as PlayerWithName
 	const right = players.find((p) => [o - 1, o + 3].includes(p.Order)) as PlayerWithName
 	const front = players.find((p) => [o - 2, o + 2].includes(p.Order)) as PlayerWithName
-	return { left, right, front }
+	return { front, left, right }
 }
 
 export const getPlayerWinsCount = (turns: Turn[], playerName: string): number => {
@@ -88,9 +88,9 @@ export const getWinningTeam = (
 
 	const areTakersWinners = takingTeam?.points >= lastBid.value
 	if (areTakersWinners) {
-		return { winner: takingTeam, loser: notTakingTeam, areTakersWinners }
+		return { areTakersWinners, loser: notTakingTeam, winner: takingTeam }
 	} else {
-		return { winner: notTakingTeam, loser: takingTeam, areTakersWinners }
+		return { areTakersWinners, loser: takingTeam, winner: notTakingTeam }
 	}
 }
 

@@ -30,10 +30,10 @@
 
 		data = [winner, loser].reduce<Line[]>((acc, { players, score, points }) => {
 			acc.push({
-				Team: players.map((p) => p.name).join(' & '),
-				Score: score,
 				Points: points,
-				Rank: 0
+				Rank: 0,
+				Score: score,
+				Team: players.map((p) => p.name).join(' & ')
 			})
 			return acc
 		}, [])
@@ -42,10 +42,10 @@
 
 		data = data.map(({ Team, Score, Points }, index) => {
 			return {
+				Points,
 				Rank: index + 1,
-				Team,
 				Score,
-				Points
+				Team
 			}
 		})
 	}

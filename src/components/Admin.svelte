@@ -10,7 +10,7 @@
 
 	const handleClick = (playerName: string): void => {
 		window.history.pushState(
-			{ player: playerName, game: game.ID },
+			{ game: game.ID, player: playerName },
 			document.title,
 			`?game=${game.ID}&player=${playerName}`
 		)

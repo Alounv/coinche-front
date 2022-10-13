@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { type Card, Phases } from '../data/enums'
-	import type { PlayerWithName, Game } from '../data/types'
+	import type { Game, PlayerWithName } from '../data/types'
 	import LastTurns from './LastTurns.svelte'
 	import Table from './Table.svelte'
 	import { getPlayers, getPlayersPositions } from '../utils/game'
@@ -17,8 +17,8 @@
 
 	$: players = getPlayers(game)
 	$: playersPositions = getPlayersPositions({
-		players,
-		currentPlayerOrder: player.Order
+		currentPlayerOrder: player.Order,
+		players
 	})
 
 	$: {

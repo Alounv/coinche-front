@@ -1,4 +1,4 @@
-import type { Phases, Card, BidColors, BidValues } from './enums'
+import type { BidColors, BidValues, Card, Phases } from './enums'
 
 export interface GamePreview {
 	ID: number
