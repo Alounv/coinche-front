@@ -1,78 +1,78 @@
-import type { BidColors, BidValues, Card } from 'src/data/enums';
-import type { Game } from '../data/types';
-import { variables } from '../variables';
+import type { BidColors, BidValues, Card } from 'src/data/enums'
+import type { Game } from '../data/types'
+import { variables } from '../variables'
 
-const { WS_URL } = variables;
+const { WS_URL } = variables
 
 interface ISocket {
-	gameId: number;
-	playerName: string;
-	onMessage: (message: string) => void;
-	onGame: (game: Game) => void;
+	gameId: number
+	playerName: string
+	onMessage: (message: string) => void
+	onGame: (game: Game) => void
 }
 
 export class GameSocket {
-	private ws: WebSocket | null;
+	private ws: WebSocket | null
 
 	constructor({ gameId, playerName, onMessage, onGame }: ISocket) {
-		this.ws = new WebSocket(`${WS_URL}/games/${gameId}/join?playerName=${playerName}`);
+		this.ws = new WebSocket(`${WS_URL}/games/${gameId}/join?playerName=${playerName}`)
 
 		this.ws.onclose = () => {
-			console.info('WS closed');
-		};
+			console.info('WS closed')
+		}
 
 		this.ws.onerror = () => {
-			console.error('WS error');
-		};
+			console.error('WS error')
+		}
 
 		this.ws.onmessage = async (event) => {
-			const data = await event.data.text();
+			const data = await event.data.text()
 
 			try {
-				const parsedData = JSON.parse(data);
+				const parsedData = JSON.parse(data)
 				if (typeof parsedData === 'string') {
-					onMessage(parsedData);
+					onMessage(parsedData)
 				} else {
-					onGame(parsedData);
+					onGame(parsedData)
 				}
 			} catch (e) {
-				console.error(e);
-				onMessage(data);
+				console.error(e)
+				onMessage(data)
 			}
-		};
+		}
 	}
 
 	private send(message: string) {
 		if (this.ws?.readyState === WebSocket.OPEN) {
-			this.ws.send(JSON.stringify(message));
+			this.ws.send(JSON.stringify(message))
 		}
 	}
 
 	leave() {
-		this.send('leave');
+		this.send('leave')
 	}
 
 	start() {
-		this.send('start');
+		this.send('start')
 	}
 
 	joinTeam(team: string) {
-		this.send(`joinTeam: ${team}`);
+		this.send(`joinTeam: ${team}`)
 	}
 
 	bid({ value, color }: { value: BidValues; color: BidColors }) {
-		this.send(`bid: ${color},${value}`);
+		this.send(`bid: ${color},${value}`)
 	}
 
 	pass() {
-		this.send('bid: pass');
+		this.send('bid: pass')
 	}
 
 	coinche() {
-		this.send('bid: coinche');
+		this.send('bid: coinche')
 	}
 
 	play(card: Card) {
-		this.send(`play: ${card}`);
+		this.send(`play: ${card}`)
 	}
 }

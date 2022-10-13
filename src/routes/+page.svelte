@@ -1,58 +1,58 @@
 <script lang="ts">
-	import { onDestroy, onMount } from 'svelte';
-	import type { GamePreview } from '../data/types';
-	import { listGames, createGame, deleteGame, forceLeaveGame } from '../web/rest';
-	import { Input } from 'spaper';
-	import GamesList from '../components/GamesList.svelte';
-	import { showToast } from '../utils/toast';
+	import { onDestroy, onMount } from 'svelte'
+	import type { GamePreview } from '../data/types'
+	import { listGames, createGame, deleteGame, forceLeaveGame } from '../web/rest'
+	import { Input } from 'spaper'
+	import GamesList from '../components/GamesList.svelte'
+	import { showToast } from '../utils/toast'
 
-	let games: GamePreview[] = [];
-	let newGameName = '';
-	let name = '';
-	let interval: ReturnType<typeof setTimeout>;
+	let games: GamePreview[] = []
+	let newGameName = ''
+	let name = ''
+	let interval: ReturnType<typeof setTimeout>
 
-	const REFRESH_INTERVAL = 10000;
+	const REFRESH_INTERVAL = 10000
 
 	$: {
-		if (name) localStorage.setItem('name', name);
+		if (name) localStorage.setItem('name', name)
 	}
 
 	onMount(() => {
-		refreshList();
-		name = localStorage.getItem('name') || '';
-		interval = setInterval(refreshList, REFRESH_INTERVAL);
-	});
+		refreshList()
+		name = localStorage.getItem('name') || ''
+		interval = setInterval(refreshList, REFRESH_INTERVAL)
+	})
 
 	onDestroy(() => {
-		clearInterval(interval);
-	});
+		clearInterval(interval)
+	})
 
 	const refreshList = async () => {
-		const { error, previews } = await listGames();
+		const { error, previews } = await listGames()
 		if (previews) {
-			games = previews;
+			games = previews
 		} else {
-			showToast({ message: error, type: 'danger' });
+			showToast({ message: error, type: 'danger' })
 		}
-	};
+	}
 
 	const createNewGame = async () => {
-		const error = await createGame(newGameName);
-		if (error) showToast({ message: error, type: 'danger' });
-		refreshList();
-	};
+		const error = await createGame(newGameName)
+		if (error) showToast({ message: error, type: 'danger' })
+		refreshList()
+	}
 
 	const deleteThisGame = async (gameId: number) => {
-		const error = await deleteGame(gameId);
-		if (error) showToast({ message: error, type: 'danger' });
-		refreshList();
-	};
+		const error = await deleteGame(gameId)
+		if (error) showToast({ message: error, type: 'danger' })
+		refreshList()
+	}
 
 	const forceLeave = async (gameID: number, name: string) => {
-		const error = await forceLeaveGame(gameID, name);
-		if (error) showToast({ message: error, type: 'danger' });
-		refreshList();
-	};
+		const error = await forceLeaveGame(gameID, name)
+		if (error) showToast({ message: error, type: 'danger' })
+		refreshList()
+	}
 </script>
 
 <div style="margin-left: auto; margin-right: auto;">

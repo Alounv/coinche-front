@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { bidValues, type BidValues, bidColors, type BidColors } from '../data/enums';
-	import { Select } from 'spaper';
+	import { bidValues, type BidValues, bidColors, type BidColors } from '../data/enums'
+	import { Select } from 'spaper'
 
-	export let maxBidValue: BidValues;
+	export let maxBidValue: BidValues
 
-	export let value: BidValues;
-	export let color: BidColors;
+	export let value: BidValues
+	export let color: BidColors
 
-	const values = bidValues.filter((v) => v > maxBidValue);
+	const values = bidValues.filter((v) => v > maxBidValue)
 </script>
 
 <div class="row" style="gap: 1rem;">

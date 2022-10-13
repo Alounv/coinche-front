@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Card } from '../data/enums';
-	import { cardImages } from '../utils/image';
+	import type { Card } from '../data/enums'
+	import { cardImages } from '../utils/image'
 
-	export let card: Card | null = null;
+	export let card: Card | null = null
 
-	const deg = Math.floor(Math.random() * 6) - 3;
+	const deg = Math.floor(Math.random() * 6) - 3
 </script>
 
 {#if card}

@@ -1,21 +1,21 @@
 <script lang="ts">
-	import { Collapsible } from 'spaper';
-	import type { Game } from '../data/types';
-	import { getPlayers } from '../utils/game';
+	import { Collapsible } from 'spaper'
+	import type { Game } from '../data/types'
+	import { getPlayers } from '../utils/game'
 
-	export let playerName: string;
-	export let game: Game;
+	export let playerName: string
+	export let game: Game
 
-	$: players = getPlayers(game);
+	$: players = getPlayers(game)
 
 	const handleClick = (playerName: string): void => {
 		window.history.pushState(
 			{ player: playerName, game: game.ID },
 			document.title,
 			`?game=${game.ID}&player=${playerName}`
-		);
-		window.dispatchEvent(new Event('popstate'));
-	};
+		)
+		window.dispatchEvent(new Event('popstate'))
+	}
 </script>
 
 <Collapsible label="Admin" style="position: absolute; right: 5rem; top: 1.25rem;">

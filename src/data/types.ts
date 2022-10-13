@@ -1,70 +1,70 @@
-import type { Phases, Card, BidColors, BidValues } from './enums';
+import type { Phases, Card, BidColors, BidValues } from './enums'
 
 export interface GamePreview {
-	ID: number;
-	Name: string;
-	Players: string[];
-	TurnsCount: number;
-	Phase: Phases;
-	CreatedAt: string;
+	ID: number
+	Name: string
+	Players: string[]
+	TurnsCount: number
+	Phase: Phases
+	CreatedAt: string
 }
 
 export interface Bid {
-	Color: BidColors;
-	Pass: number;
-	Coinche: number;
-	Player: string;
+	Color: BidColors
+	Pass: number
+	Coinche: number
+	Player: string
 }
 
 export interface BidWithValue extends Bid {
-	value: number;
+	value: number
 }
 
 interface Play {
-	Card: Card;
-	PlayerName: string;
+	Card: Card
+	PlayerName: string
 }
 
 export interface Turn {
-	Winner?: string;
-	Plays: Play[];
+	Winner?: string
+	Plays: Play[]
 }
 
 export interface Game {
-	ID: number;
-	Name: string;
-	Players: Record<string, Player>;
-	Phase: Phases;
-	Bids: Record<BidValues, Bid>;
-	Turns: Turn[];
-	Scores: Record<string, number>;
-	Points: Record<string, number>;
+	ID: number
+	Name: string
+	Players: Record<string, Player>
+	Phase: Phases
+	Bids: Record<BidValues, Bid>
+	Turns: Turn[]
+	Scores: Record<string, number>
+	Points: Record<string, number>
 }
 
 export interface Player {
-	Hand: Card[];
-	Team: string;
-	Order: number;
-	InitialOrder: number;
+	Hand: Card[]
+	Team: string
+	Order: number
+	InitialOrder: number
 }
 
 export interface PlayerWithName extends Player {
-	name: string;
+	name: string
 }
 
 export interface Team {
-	name: string;
-	players: PlayerWithName[];
-	score: number;
-	points: number;
+	name: string
+	players: PlayerWithName[]
+	score: number
+	points: number
 }
 
 export interface Score {
-	team: string;
-	value: number;
+	team: string
+	value: number
 }
 
 export interface Point {
-	team: string;
-	value: number;
+	team: string
+	value: number
 }

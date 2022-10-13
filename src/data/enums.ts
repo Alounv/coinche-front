@@ -10,7 +10,7 @@ export const phases = {
 	[Phases.Bidding]: 'Bidding',
 	[Phases.Playing]: 'Playing',
 	[Phases.Counting]: 'Counting'
-};
+}
 
 export enum Card {
 	C7 = '7-club',
@@ -69,7 +69,7 @@ export const bidValues: BidValues[] = [
 	BidValues.OneHundredForty,
 	BidValues.OneHundredFifty,
 	BidValues.Capot
-];
+]
 
 export enum Colors {
 	Spade = 'spade',
@@ -83,7 +83,7 @@ export enum BidSpecificColors {
 	AllTrump = 'allTrump'
 }
 
-export type BidColors = Colors | BidSpecificColors;
+export type BidColors = Colors | BidSpecificColors
 
 export const bidColors = {
 	[Colors.Spade]: '♠',
@@ -92,7 +92,7 @@ export const bidColors = {
 	[Colors.Club]: '♣',
 	[BidSpecificColors.NoTrump]: 'No Trump',
 	[BidSpecificColors.AllTrump]: 'All Trump'
-};
+}
 
 export const cardsOrder: Record<Card, number> = {
 	[Card.CA]: 0,
@@ -127,4 +127,4 @@ export const cardsOrder: Record<Card, number> = {
 	[Card.H9]: 29,
 	[Card.H8]: 30,
 	[Card.H7]: 31
-};
+}

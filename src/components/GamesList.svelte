@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type { GamePreview } from '../data/types';
-	import GamePreviewComponent from './GamePreview.svelte';
+	import type { GamePreview } from '../data/types'
+	import GamePreviewComponent from './GamePreview.svelte'
 
-	export let games: GamePreview[] = [];
-	export let deleteGame: (gameId: number) => void;
-	export let forceLeave: (gameID: number, name: string) => Promise<void>;
-	export let playerName: string;
+	export let games: GamePreview[] = []
+	export let deleteGame: (gameId: number) => void
+	export let forceLeave: (gameID: number, name: string) => Promise<void>
+	export let playerName: string
 
 	const joinGame = async (gameId: number) => {
-		await forceLeave(gameId, playerName);
-		window.location.href = `/game?game=${gameId}&player=${playerName}`;
-	};
+		await forceLeave(gameId, playerName)
+		window.location.href = `/game?game=${gameId}&player=${playerName}`
+	}
 </script>
 
 <ul>

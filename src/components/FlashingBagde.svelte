@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge } from 'spaper';
+	import { Badge } from 'spaper'
 </script>
 
 <span class="flashing">

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { BidWithValue } from '../data/types';
+	import type { BidWithValue } from '../data/types'
 
-	import Coinche from './Coinche.svelte';
-	import Color from './Color.svelte';
+	import Coinche from './Coinche.svelte'
+	import Color from './Color.svelte'
 
-	export let lastBid: BidWithValue;
+	export let lastBid: BidWithValue
 
-	$: coinche = lastBid.Coinche;
+	$: coinche = lastBid.Coinche
 </script>
 
 <div class="row" style="align-items: center; gap: .25rem;">

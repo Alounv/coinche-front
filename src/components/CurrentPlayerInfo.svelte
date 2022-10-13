@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { PlayerWithName, Turn } from '../data/types';
-	import { getPlayerWinsCount } from '../utils/game';
-	import Instructions from './Instructions.svelte';
-	import WinsCount from './WinsCount.svelte';
+	import type { PlayerWithName, Turn } from '../data/types'
+	import { getPlayerWinsCount } from '../utils/game'
+	import Instructions from './Instructions.svelte'
+	import WinsCount from './WinsCount.svelte'
 
-	export let player: PlayerWithName;
-	export let turns: Turn[];
+	export let player: PlayerWithName
+	export let turns: Turn[]
 
-	$: canPlay = player.Order === 1;
-	$: winsCount = getPlayerWinsCount(turns, player.name);
+	$: canPlay = player.Order === 1
+	$: winsCount = getPlayerWinsCount(turns, player.name)
 </script>
 
 <div class="row" style="gap: 1rem">

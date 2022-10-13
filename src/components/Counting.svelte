@@ -1,32 +1,32 @@
 <script lang="ts">
-	import { fade } from 'svelte/transition';
-	import type { Game, Team } from '../data/types';
-	import { getWinningTeam } from '../utils/game';
-	import { Button, Table as PaperTable } from 'spaper';
+	import { fade } from 'svelte/transition'
+	import type { Game, Team } from '../data/types'
+	import { getWinningTeam } from '../utils/game'
+	import { Button, Table as PaperTable } from 'spaper'
 
-	export let game: Game;
-	export let start: () => void;
-	export let playerName: string;
+	export let game: Game
+	export let start: () => void
+	export let playerName: string
 
-	const duration = 500;
+	const duration = 500
 
 	interface Line {
-		Rank: number;
-		Team: string;
-		Score: number;
-		Points: number;
+		Rank: number
+		Team: string
+		Score: number
+		Points: number
 	}
 
-	let winningTeam: Team;
-	let data: Line[];
-	let areTakersWinners: boolean;
+	let winningTeam: Team
+	let data: Line[]
+	let areTakersWinners: boolean
 
-	$: winners = winningTeam ? winningTeam.players.map((p) => p.name) : [];
+	$: winners = winningTeam ? winningTeam.players.map((p) => p.name) : []
 	$: {
-		console.info('TURNS', game.Turns); // we keep this for debugging
-		const { winner, loser, areTakersWinners: tw } = getWinningTeam(game);
-		areTakersWinners = tw;
-		winningTeam = winner;
+		console.info('TURNS', game.Turns) // we keep this for debugging
+		const { winner, loser, areTakersWinners: tw } = getWinningTeam(game)
+		areTakersWinners = tw
+		winningTeam = winner
 
 		data = [winner, loser].reduce<Line[]>((acc, { players, score, points }) => {
 			acc.push({
@@ -34,11 +34,11 @@
 				Score: score,
 				Points: points,
 				Rank: 0
-			});
-			return acc;
-		}, []);
+			})
+			return acc
+		}, [])
 
-		data.sort((a, b) => b.Score - a.Score);
+		data.sort((a, b) => b.Score - a.Score)
 
 		data = data.map(({ Team, Score, Points }, index) => {
 			return {
@@ -46,11 +46,11 @@
 				Team,
 				Score,
 				Points
-			};
-		});
+			}
+		})
 	}
-	$: scoreMessage = `with ${winningTeam.points} points!`;
-	$: message = winners.includes(playerName) ? 'Yeahhhh 🎉' : '(Sorry 😗)';
+	$: scoreMessage = `with ${winningTeam.points} points!`
+	$: message = winners.includes(playerName) ? 'Yeahhhh 🎉' : '(Sorry 😗)'
 </script>
 
 <h5

@@ -1,25 +1,24 @@
 <script lang="ts">
-	import { getTeams } from '../utils/game';
+	import { getTeams } from '../utils/game'
 
-	import type { Game } from '../data/types';
-	import Teams from './Teams.svelte';
+	import type { Game } from '../data/types'
+	import Teams from './Teams.svelte'
 
-	export let game: Game;
-	export let start: () => void;
-	export let joinTeam: (team: string) => void;
-	export let playerTeam: string;
+	export let game: Game
+	export let start: () => void
+	export let joinTeam: (team: string) => void
+	export let playerTeam: string
 
-	$: teams = getTeams(game);
-	$: reset = () => joinTeam('');
-	$: canStart =
-		teams.length === 2 && teams[0].players.length === 2 && teams[1].players.length === 2;
-	$: APlayers = teams.find((team) => team.name === 'A')?.players || [];
-	$: BPlayers = teams.find((team) => team.name === 'B')?.players || [];
+	$: teams = getTeams(game)
+	$: reset = () => joinTeam('')
+	$: canStart = teams.length === 2 && teams[0].players.length === 2 && teams[1].players.length === 2
+	$: APlayers = teams.find((team) => team.name === 'A')?.players || []
+	$: BPlayers = teams.find((team) => team.name === 'B')?.players || []
 
 	$: teamsOptions = [
 		{ label: '🅰️', value: 'A', isFull: APlayers.length === 2 },
 		{ label: '🅱️', value: 'B', isFull: BPlayers.length === 2 }
-	];
+	]
 </script>
 
 <div class="padding align-middle" style="display: flex; flex: 1; align-items: center;">

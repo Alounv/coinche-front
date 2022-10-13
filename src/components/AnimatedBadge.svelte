@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Badge } from 'spaper';
+	import { Badge } from 'spaper'
 
-	export let text: string;
+	export let text: string
 </script>
 
 <h4 style="margin: 0; display: inline-block;">

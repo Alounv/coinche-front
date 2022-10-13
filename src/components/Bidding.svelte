@@ -1,41 +1,41 @@
 <script lang="ts">
-	import { Badge } from 'spaper';
+	import { Badge } from 'spaper'
 
-	import { type BidValues, type BidColors, bidColors } from '../data/enums';
-	import type { PlayerWithName, Game } from '../data/types';
-	import { getBids, getCurrentPlayer } from '../utils/game';
+	import type { BidValues, BidColors } from '../data/enums'
+	import type { PlayerWithName, Game } from '../data/types'
+	import { getBids, getCurrentPlayer } from '../utils/game'
 
-	import AnimatedBadge from './AnimatedBadge.svelte';
-	import Coinche from './Coinche.svelte';
-	import PlaceBid from './PlaceBid.svelte';
-	import Table from './Table.svelte';
-	import Color from './Color.svelte';
-	import { Button } from 'spaper';
+	import AnimatedBadge from './AnimatedBadge.svelte'
+	import Coinche from './Coinche.svelte'
+	import PlaceBid from './PlaceBid.svelte'
+	import Table from './Table.svelte'
+	import Color from './Color.svelte'
+	import { Button } from 'spaper'
 
-	export let player: PlayerWithName;
-	export let game: Game;
-	export let bid: (args: { value: BidValues; color: BidColors }) => void;
-	export let pass: () => void;
-	export let coinche: () => void;
+	export let player: PlayerWithName
+	export let game: Game
+	export let bid: (args: { value: BidValues; color: BidColors }) => void
+	export let pass: () => void
+	export let coinche: () => void
 
-	$: bids = getBids(game);
-	$: maxBidValue = bids.length ? bids[bids.length - 1].value : 0;
-	$: lastBid = maxBidValue ? game.Bids[maxBidValue as BidValues] : null;
-	$: lastBidPlayerOrder = lastBid ? game.Players[lastBid.Player].Order : 100;
-	$: isCoinched = !!lastBid?.Coinche;
-	$: isCurrentPlayerTurn = player.Order === 1;
-	$: currentPlayer = getCurrentPlayer(game);
+	$: bids = getBids(game)
+	$: maxBidValue = bids.length ? bids[bids.length - 1].value : 0
+	$: lastBid = maxBidValue ? game.Bids[maxBidValue as BidValues] : null
+	$: lastBidPlayerOrder = lastBid ? game.Players[lastBid.Player].Order : 100
+	$: isCoinched = !!lastBid?.Coinche
+	$: isCurrentPlayerTurn = player.Order === 1
+	$: currentPlayer = getCurrentPlayer(game)
 	$: canCoinche =
-		bids.length && [1, 3].includes(player.Order) && [2, 4].includes(lastBidPlayerOrder);
-	$: canBid = isCurrentPlayerTurn && maxBidValue < 160 && !isCoinched;
-	$: canPass = isCurrentPlayerTurn && bid.length;
+		bids.length && [1, 3].includes(player.Order) && [2, 4].includes(lastBidPlayerOrder)
+	$: canBid = isCurrentPlayerTurn && maxBidValue < 160 && !isCoinched
+	$: canPass = isCurrentPlayerTurn && bid.length
 
-	let bidValue: BidValues;
-	let bidColor: BidColors;
+	let bidValue: BidValues
+	let bidColor: BidColors
 
 	const handleBid = () => {
-		bid({ value: bidValue, color: bidColor });
-	};
+		bid({ value: bidValue, color: bidColor })
+	}
 </script>
 
 <Table {player} {game}>

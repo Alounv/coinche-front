@@ -1,58 +1,58 @@
 <script lang="ts">
-	import { Button } from 'spaper';
-	import Modal from 'spaper/components/Modal/Modal.svelte';
-	import type { PlayerWithName, Turn } from '../data/types';
-	import TurnComponent from './Turn.svelte';
+	import { Button } from 'spaper'
+	import Modal from 'spaper/components/Modal/Modal.svelte'
+	import type { PlayerWithName, Turn } from '../data/types'
+	import TurnComponent from './Turn.svelte'
 
-	export let turns: Turn[];
-	export let left: PlayerWithName;
-	export let right: PlayerWithName;
-	export let front: PlayerWithName;
+	export let turns: Turn[]
+	export let left: PlayerWithName
+	export let right: PlayerWithName
+	export let front: PlayerWithName
 
-	let isShown = true;
-	const DELAY_BETWEEN_TURNS = 1500;
+	let isShown = true
+	const DELAY_BETWEEN_TURNS = 1500
 
-	$: turn = turns[turns.length - 1] || { Plays: [] };
-	$: previousTurn = turns[turns.length - 2];
-	$: lastTurn = turn.Plays.length === 4 ? turn : previousTurn;
+	$: turn = turns[turns.length - 1] || { Plays: [] }
+	$: previousTurn = turns[turns.length - 2]
+	$: lastTurn = turn.Plays.length === 4 ? turn : previousTurn
 	$: {
 		if (turn.Winner) {
 			setTimeout(() => {
-				isShown = false;
-			}, DELAY_BETWEEN_TURNS);
+				isShown = false
+			}, DELAY_BETWEEN_TURNS)
 		} else {
-			isShown = true;
+			isShown = true
 		}
 	}
 
 	const getClass = (p: string): 'current' | 'left' | 'right' | 'front' => {
 		switch (p) {
 			case left.name:
-				return 'left';
+				return 'left'
 			case right.name:
-				return 'right';
+				return 'right'
 			case front.name:
-				return 'front';
+				return 'front'
 			default:
-				return 'current';
+				return 'current'
 		}
-	};
+	}
 
-	const duration = 1000;
+	const duration = 1000
 	const flyOut = {
 		current: { y: 300, duration },
 		front: { y: -300, duration },
 		left: { x: -300, duration },
 		right: { x: 300, duration }
-	};
+	}
 
-	$: transition = turn.Winner ? flyOut[getClass(turn.Winner)] : {};
+	$: transition = turn.Winner ? flyOut[getClass(turn.Winner)] : {}
 
-	let isLastTurnShow = false;
+	let isLastTurnShow = false
 
 	const showLastTurn = () => {
-		isLastTurnShow = true;
-	};
+		isLastTurnShow = true
+	}
 </script>
 
 <div>

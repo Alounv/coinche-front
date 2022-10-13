@@ -1,26 +1,26 @@
 <script lang="ts">
-	import type { PlayerWithName, Turn } from '../data/types';
-	import { fly } from 'svelte/transition';
-	import Card from './Card.svelte';
+	import type { PlayerWithName, Turn } from '../data/types'
+	import { fly } from 'svelte/transition'
+	import Card from './Card.svelte'
 
-	export let left: PlayerWithName;
-	export let right: PlayerWithName;
-	export let front: PlayerWithName;
-	export let transition: { x?: number; y?: number; duration?: number } = {};
-	export let turn: Turn;
+	export let left: PlayerWithName
+	export let right: PlayerWithName
+	export let front: PlayerWithName
+	export let transition: { x?: number; y?: number; duration?: number } = {}
+	export let turn: Turn
 
 	const getClass = (p: string): 'current' | 'left' | 'right' | 'front' => {
 		switch (p) {
 			case left.name:
-				return 'left';
+				return 'left'
 			case right.name:
-				return 'right';
+				return 'right'
 			case front.name:
-				return 'front';
+				return 'front'
 			default:
-				return 'current';
+				return 'current'
 		}
-	};
+	}
 </script>
 
 <div class="container" out:fly={transition}>

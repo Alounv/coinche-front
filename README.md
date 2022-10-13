@@ -4,7 +4,7 @@ This is the client part, the server part can be found here https://github.com/Al
 
 ## What
 
-A simple multiplayer coinche game. 
+A simple multiplayer coinche game.
 
 You can play here: https://coinche.vercel.app/
 
@@ -13,6 +13,7 @@ You can play here: https://coinche.vercel.app/
 ## Why
 
 This is a personal project to learn:
+
 - WebSockets
 - Svelte
 
@@ -36,6 +37,7 @@ bun run build
 You can preview the production build with `bun run preview`.
 
 ## Environment variables
+
 ```bash
 # to switch players
 VITE_ADMIN=true

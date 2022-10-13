@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Card } from '../data/enums';
-	import CardImage from './Card.svelte';
+	import type { Card } from '../data/enums'
+	import CardImage from './Card.svelte'
 
-	export let hand: Card[];
-	export let isVertical = false;
+	export let hand: Card[]
+	export let isVertical = false
 </script>
 
 {#if hand.length}

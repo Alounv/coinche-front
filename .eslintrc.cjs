@@ -8,6 +8,11 @@ module.exports = {
 	settings: {
 		'svelte3/typescript': () => require('typescript')
 	},
+	rules: {
+		'sort-imports': error,
+		'sort-keys': error,
+		'sort-vars': error
+	},
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 2020
@@ -17,4 +22,4 @@ module.exports = {
 		es2017: true,
 		node: true
 	}
-};
+}

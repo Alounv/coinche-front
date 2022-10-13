@@ -1,18 +1,18 @@
 <script lang="ts">
-	import type { GamePreview } from '../data/types';
-	import { Button, Badge, Progress } from 'spaper';
-	import { phases, Phases } from '../data/enums';
+	import type { GamePreview } from '../data/types'
+	import { Button, Badge, Progress } from 'spaper'
+	import { phases, Phases } from '../data/enums'
 
-	export let game: GamePreview;
-	export let deleteGame: () => void;
-	export let joinGame: () => void;
-	export let playerName: string;
+	export let game: GamePreview
+	export let deleteGame: () => void
+	export let joinGame: () => void
+	export let playerName: string
 
-	$: canJoin = game.Players.includes(playerName) || game.Phase === Phases.Teaming;
-	$: isPlaying = game.Phase === Phases.Playing;
-	$: lastPlayerIndex = game.Players.length - 1;
-	$: progress = Math.round((game.TurnsCount / 8) * 100);
-	$: hasPlayers = game.Players.length > 0;
+	$: canJoin = game.Players.includes(playerName) || game.Phase === Phases.Teaming
+	$: isPlaying = game.Phase === Phases.Playing
+	$: lastPlayerIndex = game.Players.length - 1
+	$: progress = Math.round((game.TurnsCount / 8) * 100)
+	$: hasPlayers = game.Players.length > 0
 </script>
 
 <li class="row" style="gap: .75rem; align-items: center">

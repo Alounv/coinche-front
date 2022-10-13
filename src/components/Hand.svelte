@@ -1,91 +1,91 @@
 <script lang="ts">
-	import type { Card } from '../data/enums';
-	import type { PlayerWithName } from '../data/types';
-	import CardImage from './Card.svelte';
-	import { fly } from 'svelte/transition';
-	import { getSortedCards } from '../utils/game';
+	import type { Card } from '../data/enums'
+	import type { PlayerWithName } from '../data/types'
+	import CardImage from './Card.svelte'
+	import { fly } from 'svelte/transition'
+	import { getSortedCards } from '../utils/game'
 
-	export let player: PlayerWithName;
-	export let play: ((card: Card) => void) | null = null;
-	export let isPlayerTurn = false;
+	export let player: PlayerWithName
+	export let play: ((card: Card) => void) | null = null
+	export let isPlayerTurn = false
 
-	$: canPlay = isPlayerTurn && play !== null;
+	$: canPlay = isPlayerTurn && play !== null
 
-	let selectedCard: Card | null = null;
-	let form: HTMLFormElement;
+	let selectedCard: Card | null = null
+	let form: HTMLFormElement
 
-	$: cards = getSortedCards(player.Hand);
+	$: cards = getSortedCards(player.Hand)
 
 	$: {
 		if (selectedCard && !player.Hand.includes(selectedCard)) {
-			selectedCard = null;
+			selectedCard = null
 		}
 	}
 
 	const getCardInput = (card: Card): HTMLInputElement => {
-		const index = player.Hand.indexOf(card);
-		const cardLabel = form?.children[index] as HTMLLabelElement;
-		return cardLabel?.children[1] as HTMLInputElement;
-	};
+		const index = player.Hand.indexOf(card)
+		const cardLabel = form?.children[index] as HTMLLabelElement
+		return cardLabel?.children[1] as HTMLInputElement
+	}
 
 	const getIsSelectedCardFocused = (): boolean => {
 		if (selectedCard) {
-			const cardInput = getCardInput(selectedCard);
-			return cardInput === document.activeElement;
+			const cardInput = getCardInput(selectedCard)
+			return cardInput === document.activeElement
 		}
-		return false;
-	};
+		return false
+	}
 
 	const blurSelectedCard = (): void => {
-		if (!selectedCard) return;
-		const cardInput = getCardInput(selectedCard);
-		cardInput.blur();
-	};
+		if (!selectedCard) return
+		const cardInput = getCardInput(selectedCard)
+		cardInput.blur()
+	}
 
 	const handlePlay = () => {
 		if (canPlay && play && selectedCard) {
 			if (getIsSelectedCardFocused()) {
-				play(selectedCard);
+				play(selectedCard)
 			}
 		}
-		blurSelectedCard();
-	};
+		blurSelectedCard()
+	}
 
 	const focusCard = (card: Card): void => {
-		const cardInput = getCardInput(card);
-		cardInput?.focus();
-		selectedCard = card;
-	};
+		const cardInput = getCardInput(card)
+		cardInput?.focus()
+		selectedCard = card
+	}
 
 	const onKeyDown = (e: KeyboardEvent) => {
-		const isSubmit = ['Enter', 'Backspace'].includes(e.key);
-		const isArrow = ['ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp'].includes(e.key);
-		const isFocused = form?.matches(':focus-within');
+		const isSubmit = ['Enter', 'Backspace'].includes(e.key)
+		const isArrow = ['ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp'].includes(e.key)
+		const isFocused = form?.matches(':focus-within')
 
 		if (isArrow && !isFocused) {
 			if (selectedCard) {
-				focusCard(selectedCard);
+				focusCard(selectedCard)
 			} else {
-				focusCard(player.Hand[0]);
+				focusCard(player.Hand[0])
 			}
 		}
 
 		if (isSubmit) {
-			e.preventDefault();
-			handlePlay();
+			e.preventDefault()
+			handlePlay()
 		}
 
-		if (isFocused && !isSubmit && !isArrow) blurSelectedCard();
-	};
+		if (isFocused && !isSubmit && !isArrow) blurSelectedCard()
+	}
 
 	const handleClick = (card: Card) => {
-		const isFocused = form?.matches(':focus-within');
+		const isFocused = form?.matches(':focus-within')
 		if (selectedCard === card && isFocused) {
-			blurSelectedCard();
+			blurSelectedCard()
 		} else {
-			focusCard(card);
+			focusCard(card)
 		}
-	};
+	}
 </script>
 
 <form style="min-height: 11rem;" bind:this={form} class="row margin flex-center">

@@ -1,31 +1,31 @@
 <script lang="ts">
-	import { type Card, Phases } from '../data/enums';
-	import type { PlayerWithName, Game } from '../data/types';
-	import LastTurns from './LastTurns.svelte';
-	import Table from './Table.svelte';
-	import { getPlayers, getPlayersPositions } from '../utils/game';
-	import Counting from './Counting.svelte';
+	import { type Card, Phases } from '../data/enums'
+	import type { PlayerWithName, Game } from '../data/types'
+	import LastTurns from './LastTurns.svelte'
+	import Table from './Table.svelte'
+	import { getPlayers, getPlayersPositions } from '../utils/game'
+	import Counting from './Counting.svelte'
 
-	export let player: PlayerWithName;
-	export let game: Game;
-	export let play: (card: Card) => void;
-	export let start: () => void;
+	export let player: PlayerWithName
+	export let game: Game
+	export let play: (card: Card) => void
+	export let start: () => void
 
-	const LAST_TURN_SHOWING_TIME = 5000;
+	const LAST_TURN_SHOWING_TIME = 5000
 
-	let isHandShown = true;
+	let isHandShown = true
 
-	$: players = getPlayers(game);
+	$: players = getPlayers(game)
 	$: playersPositions = getPlayersPositions({
 		players,
 		currentPlayerOrder: player.Order
-	});
+	})
 
 	$: {
 		if (game.Phase === Phases.Counting && isHandShown) {
 			setTimeout(() => {
-				isHandShown = false;
-			}, LAST_TURN_SHOWING_TIME);
+				isHandShown = false
+			}, LAST_TURN_SHOWING_TIME)
 		}
 	}
 </script>

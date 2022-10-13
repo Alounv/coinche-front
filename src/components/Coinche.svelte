@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Badge } from 'spaper';
-	export let coinche: number;
+	import { Badge } from 'spaper'
+	export let coinche: number
 </script>
 
 {#if coinche === 3}

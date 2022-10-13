@@ -1,7 +1,7 @@
-import { Toast } from 'spaper';
-import type { PaperType } from 'spaper/types';
+import { Toast } from 'spaper'
+import type { PaperType } from 'spaper/types'
 
-type ShowToastFn = (args: { message: string; type: PaperType }) => void;
+type ShowToastFn = (args: { message: string; type: PaperType }) => void
 
 export const showToast: ShowToastFn = ({ message, type }) => {
 	Toast.open({
@@ -12,5 +12,5 @@ export const showToast: ShowToastFn = ({ message, type }) => {
 		pauseOnHover: false,
 		dismissible: true,
 		indefinite: false
-	});
-};
+	})
+}
