@@ -15,7 +15,7 @@
 </script>
 
 <ul>
-	{#each games as game (game.ID)}
+	{#each games.reverse() as game (game.ID)}
 		<GamePreviewComponent
 			{game}
 			deleteGame={() => deleteGame(game.ID)}
