@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createGame, deleteGame, forceLeaveGame, listGames } from '../web/rest'
+	import { archiveGame, createGame, deleteGame, forceLeaveGame, listGames } from '../web/rest'
 	import { onDestroy, onMount } from 'svelte'
 	import type { GamePreview } from '../data/types'
 	import GamesList from '../components/GamesList.svelte'
@@ -35,23 +35,29 @@
 			showToast({ message: error, type: 'danger' })
 		}
 	}
+	const then = (error: string) => {
+		if (error) showToast({ message: error, type: 'danger' })
+		refreshList()
+	}
 
 	const createNewGame = async () => {
 		const error = await createGame(newGameName)
-		if (error) showToast({ message: error, type: 'danger' })
-		refreshList()
+		then(error)
 	}
 
 	const deleteThisGame = async (gameId: number) => {
 		const error = await deleteGame(gameId)
-		if (error) showToast({ message: error, type: 'danger' })
-		refreshList()
+		then(error)
+	}
+
+	const archiveThisGame = async (gameId: number) => {
+		const error = await archiveGame(gameId)
+		then(error)
 	}
 
 	const forceLeave = async (gameID: number, name: string) => {
 		const error = await forceLeaveGame(gameID, name)
-		if (error) showToast({ message: error, type: 'danger' })
-		refreshList()
+		then(error)
 	}
 </script>
 
@@ -71,7 +77,13 @@
 		<div>(press <span class="badge">Enter</span> to create)</div>
 	</form>
 
-	<GamesList {games} playerName={name} deleteGame={deleteThisGame} {forceLeave} />
+	<GamesList
+		{games}
+		playerName={name}
+		archiveGame={archiveThisGame}
+		deleteGame={deleteThisGame}
+		{forceLeave}
+	/>
 </div>
 
 <style>

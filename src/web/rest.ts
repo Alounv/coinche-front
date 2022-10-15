@@ -67,6 +67,20 @@ export const deleteGame = async (gameId: number): Promise<string> => {
 	}
 }
 
+export const archiveGame = async (gameId: number): Promise<string> => {
+	try {
+		const response = await fetch(`${REST_URL}/games/${gameId}/archive`, {
+			headers: HEADERS,
+			method: 'PATCH'
+		})
+		const { error } = await response.json()
+
+		return error || ''
+	} catch (e) {
+		return (e as Error).message
+	}
+}
+
 export const forceLeaveGame = async (gameID: number, playerName: string): Promise<string> => {
 	try {
 		const response = await fetch(`${REST_URL}/games/${gameID}/leave?playerName=${playerName}`, {

@@ -4,6 +4,7 @@
 
 	export let games: GamePreview[] = []
 	export let deleteGame: (gameId: number) => void
+	export let archiveGame: (gameId: number) => void
 	export let forceLeave: (gameID: number, name: string) => Promise<void>
 	export let playerName: string
 
@@ -18,6 +19,7 @@
 		<GamePreviewComponent
 			{game}
 			deleteGame={() => deleteGame(game.ID)}
+			archiveGame={() => archiveGame(game.ID)}
 			joinGame={() => joinGame(game.ID)}
 			{playerName}
 		/>

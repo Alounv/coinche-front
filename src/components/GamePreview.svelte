@@ -5,6 +5,7 @@
 
 	export let game: GamePreview
 	export let deleteGame: () => void
+	export let archiveGame: () => void
 	export let joinGame: () => void
 	export let playerName: string
 
@@ -13,6 +14,9 @@
 	$: lastPlayerIndex = game.Players.length - 1
 	$: progress = Math.round((game.TurnsCount / 8) * 100)
 	$: hasPlayers = game.Players.length > 0
+
+	$: handleDelete = hasPlayers ? archiveGame : deleteGame
+	$: deleteLabel = hasPlayers ? 'Archive' : 'Delete'
 </script>
 
 <li class="row" style="gap: .75rem; align-items: center">
@@ -33,9 +37,7 @@
 		)
 	</div>
 
-	{#if !hasPlayers}
-		<Button size="small" on:click={deleteGame}>Delete</Button>
-	{/if}
+	<Button size="small" on:click={handleDelete}>{deleteLabel}</Button>
 	<Button size="small" type="secondary" disabled={!canJoin || !playerName} on:click={joinGame}
 		>Join</Button
 	>
