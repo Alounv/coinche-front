@@ -17,6 +17,10 @@ export class GameSocket {
 	constructor({ gameId, playerName, onMessage, onGame }: ISocket) {
 		this.ws = new WebSocket(`${WS_URL}/games/${gameId}/join?playerName=${playerName}`)
 
+		this.ws.onopen = () => {
+			this.send('ping')
+		}
+
 		this.ws.onclose = () => {
 			console.info('WS closed')
 		}
@@ -31,6 +35,12 @@ export class GameSocket {
 			try {
 				const parsedData = JSON.parse(data)
 				if (typeof parsedData === 'string') {
+					if (parsedData === 'pong') {
+						setTimeout(() => {
+							this.send('ping')
+						}, 2000)
+						return
+					}
 					onMessage(parsedData)
 				} else {
 					onGame(parsedData)
