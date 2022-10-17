@@ -43,9 +43,11 @@
 	}
 
 	const handlePlay = () => {
-		if (canPlay && play && selectedCard) {
-			if (getIsSelectedCardFocused()) {
+		if (canPlay && play) {
+			if (selectedCard && getIsSelectedCardFocused()) {
 				play(selectedCard)
+			} else if (cards.length === 1) {
+				play(cards[0])
 			}
 		}
 		blurSelectedCard()
@@ -66,7 +68,9 @@
 			if (selectedCard) {
 				focusCard(selectedCard)
 			} else {
-				focusCard(player.Hand[0])
+				const isBack = ['ArrowLeft', 'ArrowUp'].includes(e.key)
+				const index = isBack ? cards.length - 1 : 0
+				focusCard(player.Hand[index])
 			}
 		}
 
