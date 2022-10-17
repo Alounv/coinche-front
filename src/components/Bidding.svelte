@@ -19,7 +19,7 @@
 	$: bids = getBids(game)
 	$: maxBidValue = bids.length ? bids[bids.length - 1].value : 0
 	$: lastBid = maxBidValue ? game.Bids[maxBidValue as BidValues] : null
-	$: lastBidPlayerOrder = lastBid ? game.Players[lastBid.Player].Order : 100
+	$: lastBidPlayerOrder = lastBid ? game.Players[lastBid.Player]?.Order : 100
 	$: isCoinched = !!lastBid?.Coinche
 	$: isCurrentPlayerTurn = player.Order === 1
 	$: currentPlayer = getCurrentPlayer(game)
