@@ -11,7 +11,7 @@
 	export let play: (card: Card) => void
 	export let start: () => void
 
-	const LAST_TURN_SHOWING_TIME = 5000
+	const LAST_TURN_SHOWING_TIME = 3000
 
 	let isHandShown = true
 

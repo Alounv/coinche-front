@@ -15,6 +15,7 @@
 	$: turn = turns[turns.length - 1] || { Plays: [] }
 	$: previousTurn = turns[turns.length - 2]
 	$: lastTurn = turn.Plays.length === 4 ? turn : previousTurn
+	$: isGameOver = turn.Plays.length === 4 && turns.length === 8
 	$: {
 		if (turn.Winner) {
 			setTimeout(() => {
@@ -56,7 +57,7 @@
 </script>
 
 <div>
-	{#if lastTurn}
+	{#if lastTurn && !isGameOver}
 		<Button size="small" on:click={showLastTurn}>See last turn</Button>
 	{/if}
 
