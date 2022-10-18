@@ -35,7 +35,7 @@ export interface Game {
 	Name: string
 	Players: Record<string, Player>
 	Phase: Phases
-	Bids: Record<BidValues, Bid>
+	Bids: Record<string, Bid>
 	Turns: Turn[]
 	Scores: Record<string, number>
 	Points: Record<string, number>
