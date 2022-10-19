@@ -1,4 +1,11 @@
-import { BidValues, Card, cardsOrder } from '../data/enums'
+import {
+	type BidColors,
+	BidSpecificColors,
+	BidValues,
+	Card,
+	Colors,
+	cardsOrder
+} from '../data/enums'
 import type { BidWithValue, Game, PlayerWithName, Team, Turn } from '../data/types'
 
 export const getPlayers = (game: Game): PlayerWithName[] => {
@@ -94,9 +101,34 @@ export const getWinningTeam = (
 	}
 }
 
-export const getSortedCards = (cards: Card[]): Card[] => {
-	const sortedCards = cards.sort((a, b) => {
-		return cardsOrder[a] - cardsOrder[b]
-	})
-	return sortedCards
+export const getSortedCards = (cards: Card[], trump: BidColors): Card[] => {
+	const colors = cards.reduce(
+		(acc, card) => {
+			const color = card.split('-')[1]
+			acc[color].push(card)
+			return acc
+		},
+		{ club: [], diamond: [], heart: [], spade: [] } as Record<string, Card[]>
+	)
+
+	for (const color in colors) {
+		const isTrump = trump === BidSpecificColors.AllTrump || color === trump
+		if (isTrump) {
+			colors[color].sort((a, b) => cardsOrder[b].trumpRank - cardsOrder[a].trumpRank)
+		} else {
+			colors[color].sort((a, b) => cardsOrder[b].rank - cardsOrder[a].rank)
+		}
+	}
+
+	const { club, diamond, heart, spade } = colors
+
+	if (!diamond.length) {
+		return [...club, ...heart, ...spade]
+	}
+
+	if (!spade.length) {
+		return [...diamond, ...club, ...heart]
+	}
+
+	return [...club, ...diamond, ...spade, ...heart]
 }
