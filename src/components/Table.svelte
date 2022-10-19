@@ -24,6 +24,7 @@
 	})
 	$: turns = game.Turns
 	$: lastBid = getLastBid(game)
+	$: trump = lastBid?.Color
 	$: firstPlayer = players.find((p) => p.InitialOrder === 1)
 	$: {
 		const teamScores: { team: string; score: number }[] = []
@@ -54,7 +55,7 @@
 
 	<slot name="middle" slot="center" />
 
-	<Hand slot="bottom" {player} {play} {isPlayerTurn}>
+	<Hand slot="bottom" {player} {play} {isPlayerTurn} {trump}>
 		{#if play}
 			<CurrentPlayerInfo {player} {turns} />
 		{/if}

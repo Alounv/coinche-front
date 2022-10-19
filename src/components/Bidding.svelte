@@ -28,11 +28,11 @@
 	$: canBid = isCurrentPlayerTurn && maxBidValue < 160 && !isCoinched
 	$: canPass = isCurrentPlayerTurn && bid.length
 
-	let bidValue: BidValues
+	let bidValue: string
 	let bidColor: BidColors
 
 	const handleBid = () => {
-		bid({ color: bidColor, value: bidValue })
+		bid({ color: bidColor, value: bidValue as unknown as BidValues })
 	}
 </script>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Card } from '../data/enums'
+	import type { BidColors, Card } from '../data/enums'
 	import CardImage from './Card.svelte'
 	import type { PlayerWithName } from '../data/types'
 	import { fly } from 'svelte/transition'
@@ -8,13 +8,14 @@
 	export let player: PlayerWithName
 	export let play: ((card: Card) => void) | null = null
 	export let isPlayerTurn = false
+	export let trump: BidColors
 
 	$: canPlay = isPlayerTurn && play !== null
 
 	let selectedCard: Card | null = null
 	let form: HTMLFormElement
 
-	$: cards = getSortedCards(player.Hand)
+	$: cards = getSortedCards(player.Hand, trump)
 
 	$: {
 		if (selectedCard && !player.Hand.includes(selectedCard)) {

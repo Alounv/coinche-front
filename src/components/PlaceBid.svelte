@@ -4,7 +4,7 @@
 
 	export let maxBidValue: BidValues
 
-	export let value: BidValues
+	export let value: string
 	export let color: BidColors
 
 	const values = bidValues.filter((v) => v > maxBidValue)

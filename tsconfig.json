@@ -9,7 +9,10 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"strictNullChecks": true
+		"strictNullChecks": true,
+
+		// "bun-types" is the important part
+		"types": ["bun-types"]
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//
