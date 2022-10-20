@@ -15,8 +15,12 @@
 	$: progress = Math.round((game.TurnsCount / 8) * 100)
 	$: hasPlayers = game.Players.length > 0
 
-	$: handleDelete = hasPlayers ? archiveGame : deleteGame
 	$: deleteLabel = hasPlayers ? 'Archive' : 'Delete'
+	$: handleDelete = () => {
+		if (confirm(`${deleteLabel} "${game.Name}" game?\nThis cannot be undone.`)) {
+			hasPlayers ? archiveGame() : deleteGame()
+		}
+	}
 </script>
 
 <li class="row" style="gap: .75rem; align-items: center">
