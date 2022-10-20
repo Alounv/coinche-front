@@ -6,7 +6,6 @@
 	import GameArea from '../../components/Game.svelte'
 	import { GameSocket } from '../../web/socket'
 	import { getPlayerAndGameFromUrl } from '../../utils/url'
-	import github from '../../images/github.png'
 	import { showToast } from '../../utils/toast'
 
 	let name = ''
@@ -76,7 +75,7 @@
 <div style="position: absolute; top: 2rem; right: 3rem; z-index: 1000; display: flex; gap: .5rem;">
 	<div style="width: 1.25rem;">
 		<a href="https://github.com/Alounv/coinche-back#readme" target="_blank"
-			><img class="no-border" src={github} alt="github" /></a
+			><img class="no-border" src="/github.png" alt="github" /></a
 		>
 	</div>
 	<CloseButton on:click={goBackHome} />

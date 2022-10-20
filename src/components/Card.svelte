@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Card } from '../data/enums'
-	import { cardImages } from '../utils/image'
+	import { cardsSrc } from '../utils/image'
 
 	export let card: Card | null = null
 
@@ -11,7 +11,7 @@
 	<img
 		class="shadow shadow-hover padding-small"
 		style="transform: rotate({deg}deg); background-color: white;"
-		src={cardImages[card]}
+		src={cardsSrc[card]}
 		alt={card}
 	/>
 {:else}

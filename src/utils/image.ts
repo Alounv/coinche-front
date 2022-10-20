@@ -1,68 +1,36 @@
 import { Card } from '../data/enums'
-import clubs_10 from '../images/clubs_10.png'
-import clubs_7 from '../images/clubs_7.png'
-import clubs_8 from '../images/clubs_8.png'
-import clubs_9 from '../images/clubs_9.png'
-import clubs_ace from '../images/clubs_ace.png'
-import clubs_jack from '../images/clubs_jack.png'
-import clubs_king from '../images/clubs_king.png'
-import clubs_queen from '../images/clubs_queen.png'
-import diamonds_10 from '../images/diamonds_10.png'
-import diamonds_7 from '../images/diamonds_7.png'
-import diamonds_8 from '../images/diamonds_8.png'
-import diamonds_9 from '../images/diamonds_9.png'
-import diamonds_ace from '../images/diamonds_ace.png'
-import diamonds_jack from '../images/diamonds_jack.png'
-import diamonds_king from '../images/diamonds_king.png'
-import diamonds_queen from '../images/diamonds_queen.png'
-import hearts_10 from '../images/hearts_10.png'
-import hearts_7 from '../images/hearts_7.png'
-import hearts_8 from '../images/hearts_8.png'
-import hearts_9 from '../images/hearts_9.png'
-import hearts_ace from '../images/hearts_ace.png'
-import hearts_jack from '../images/hearts_jack.png'
-import hearts_king from '../images/hearts_king.png'
-import hearts_queen from '../images/hearts_queen.png'
-import spades_10 from '../images/spades_10.png'
-import spades_7 from '../images/spades_7.png'
-import spades_8 from '../images/spades_8.png'
-import spades_9 from '../images/spades_9.png'
-import spades_ace from '../images/spades_ace.png'
-import spades_jack from '../images/spades_jack.png'
-import spades_king from '../images/spades_king.png'
-import spades_queen from '../images/spades_queen.png'
 
-export const cardImages: Record<Card, string> = {
-	[Card.S7]: spades_7,
-	[Card.S8]: spades_8,
-	[Card.S9]: spades_9,
-	[Card.S10]: spades_10,
-	[Card.SJ]: spades_jack,
-	[Card.SQ]: spades_queen,
-	[Card.SK]: spades_king,
-	[Card.SA]: spades_ace,
-	[Card.H7]: hearts_7,
-	[Card.H8]: hearts_8,
-	[Card.H9]: hearts_9,
-	[Card.H10]: hearts_10,
-	[Card.HJ]: hearts_jack,
-	[Card.HQ]: hearts_queen,
-	[Card.HK]: hearts_king,
-	[Card.HA]: hearts_ace,
-	[Card.C7]: clubs_7,
-	[Card.C8]: clubs_8,
-	[Card.C9]: clubs_9,
-	[Card.C10]: clubs_10,
-	[Card.CJ]: clubs_jack,
-	[Card.CQ]: clubs_queen,
-	[Card.CK]: clubs_king,
-	[Card.CA]: clubs_ace,
-	[Card.D7]: diamonds_7,
-	[Card.D8]: diamonds_8,
-	[Card.D9]: diamonds_9,
-	[Card.D10]: diamonds_10,
-	[Card.DJ]: diamonds_jack,
-	[Card.DQ]: diamonds_queen,
-	[Card.DK]: diamonds_king,
-	[Card.DA]: diamonds_ace
+export const cardsSrc: Record<Card, string> = {
+	[Card.S7]: '/cards/spades_7.png',
+	[Card.S8]: '/cards/spades_8.png',
+	[Card.S9]: '/cards/spades_9.png',
+	[Card.S10]: '/cards/spades_10.png',
+	[Card.SJ]: '/cards/spades_jack.png',
+	[Card.SQ]: '/cards/spades_queen.png',
+	[Card.SK]: '/cards/spades_king.png',
+	[Card.SA]: '/cards/spades_ace.png',
+	[Card.H7]: '/cards/hearts_7.png',
+	[Card.H8]: '/cards/hearts_8.png',
+	[Card.H9]: '/cards/hearts_9.png',
+	[Card.H10]: '/cards/hearts_10.png',
+	[Card.HJ]: '/cards/hearts_jack.png',
+	[Card.HQ]: '/cards/hearts_queen.png',
+	[Card.HK]: '/cards/hearts_king.png',
+	[Card.HA]: '/cards/hearts_ace.png',
+	[Card.C7]: '/cards/clubs_7.png',
+	[Card.C8]: '/cards/clubs_8.png',
+	[Card.C9]: '/cards/clubs_9.png',
+	[Card.C10]: '/cards/clubs_10.png',
+	[Card.CJ]: '/cards/clubs_jack.png',
+	[Card.CQ]: '/cards/clubs_queen.png',
+	[Card.CK]: '/cards/clubs_king.png',
+	[Card.CA]: '/cards/clubs_ace.png',
+	[Card.D7]: '/cards/diamonds_7.png',
+	[Card.D8]: '/cards/diamonds_8.png',
+	[Card.D9]: '/cards/diamonds_9.png',
+	[Card.D10]: '/cards/diamonds_10.png',
+	[Card.DJ]: '/cards/diamonds_jack.png',
+	[Card.DQ]: '/cards/diamonds_queen.png',
+	[Card.DK]: '/cards/diamonds_king.png',
+	[Card.DA]: '/cards/diamonds_ace.png'
 }
