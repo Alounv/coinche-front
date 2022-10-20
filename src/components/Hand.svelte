@@ -24,7 +24,7 @@
 	}
 
 	const getCardInput = (card: Card): HTMLInputElement => {
-		const index = player.Hand.indexOf(card)
+		const index = cards.indexOf(card)
 		const cardLabel = form?.children[index] as HTMLLabelElement
 		return cardLabel?.children[1] as HTMLInputElement
 	}
