@@ -61,9 +61,11 @@
 		<Button size="small" on:click={showLastTurn}>See last turn</Button>
 	{/if}
 
-	{#if isShown}
-		<TurnComponent {transition} {turn} {left} {right} {front} />
-	{/if}
+	<div style="min-height: 16rem; width: 100%;">
+		{#if isShown}
+			<TurnComponent {transition} {turn} {left} {right} {front} />
+		{/if}
+	</div>
 </div>
 
 <Modal

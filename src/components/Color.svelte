@@ -5,10 +5,11 @@
 
 	export let color: BidColors
 
-	let hexColor: string
-	customColors.subscribe((isCustom) => {
-		hexColor = getHexColor(color, isCustom)
+	let isCustom: boolean
+	customColors.subscribe((v) => {
+		isCustom = v
 	})
+	$: hexColor = getHexColor(color, isCustom)
 </script>
 
 <span style="color: {hexColor};">{bidColors[color]}</span>

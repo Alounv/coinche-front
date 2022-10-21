@@ -9,11 +9,12 @@
 
 	const deg = Math.floor(Math.random() * 6) - 3
 
-	let hexColor: string
-	customColors.subscribe((isCustom) => {
-		hexColor = getHexColorFromCard(card, isCustom)
+	let isCustom: boolean
+	customColors.subscribe((v) => {
+		isCustom = v
 	})
 
+	$: hexColor = getHexColorFromCard(card, isCustom)
 	$: data = card ? cardsSrc[card] : ''
 </script>
 
