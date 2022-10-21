@@ -8,10 +8,10 @@
 	const deg = Math.floor(Math.random() * 6) - 3
 
 	const hexColors: Record<string, string> = {
-		club: '#000',
-		diamond: '#f00',
-		heart: '#f00',
-		spade: '#000'
+		club: '#183713',
+		diamond: '#D06A41',
+		heart: '#CF3187',
+		spade: '#2E3F84'
 	}
 	$: color = card ? card.split('-')[1] : ''
 	$: hexColor = color ? hexColors[color] : ''
