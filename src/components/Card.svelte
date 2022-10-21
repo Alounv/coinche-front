@@ -2,19 +2,33 @@
 	import type { Card } from '../data/enums'
 	import Icon from 'svelte-icon'
 	import { cardsSrc } from '../utils/image'
+	import { customColors } from '../stores/customColors'
 
 	export let card: Card | null = null
 
 	const deg = Math.floor(Math.random() * 6) - 3
 
-	const hexColors: Record<string, string> = {
+	const customHexColors: Record<string, string> = {
 		club: '#183713',
 		diamond: '#D06A41',
 		heart: '#CF3187',
 		spade: '#2E3F84'
 	}
-	$: color = card ? card.split('-')[1] : ''
-	$: hexColor = color ? hexColors[color] : ''
+
+	const hexColors: Record<string, string> = {
+		club: 'black',
+		diamond: 'red',
+		heart: 'red',
+		spade: 'black'
+	}
+
+	let hexColor: string
+	customColors.subscribe((value) => {
+		const color = card ? card.split('-')[1] : ''
+		const colors = value ? customHexColors : hexColors
+		hexColor = color ? colors[color] : ''
+	})
+
 	$: data = card ? cardsSrc[card] : ''
 </script>
 

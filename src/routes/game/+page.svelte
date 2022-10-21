@@ -2,7 +2,6 @@
 	import type { BidColors, BidValues, Card } from '../../data/enums'
 	import type { Game, PlayerWithName } from '../../data/types'
 	import { onDestroy, onMount } from 'svelte'
-	import { CloseButton } from 'spaper'
 	import GameArea from '../../components/Game.svelte'
 	import { GameSocket } from '../../web/socket'
 	import { getPlayerAndGameFromUrl } from '../../utils/url'
@@ -64,22 +63,9 @@
 	onDestroy(() => {
 		gs?.leave()
 	})
-
-	const goBackHome = () => {
-		window.location.href = `/`
-	}
 </script>
 
 <svelte:window on:beforeunload={gs?.leave} />
-
-<div style="position: absolute; top: 2rem; right: 3rem; z-index: 1000; display: flex; gap: .5rem;">
-	<div style="width: 1.25rem;">
-		<a href="https://github.com/Alounv/coinche-back#readme" target="_blank"
-			><img class="no-border" src="/github.png" alt="github" /></a
-		>
-	</div>
-	<CloseButton on:click={goBackHome} />
-</div>
 
 <div class="background-secondary border" style="flex: 1; display: flex; flex-direction: column;">
 	<GameArea {game} {player} {joinTeam} {start} {bid} {pass} {coinche} {play} />

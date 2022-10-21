@@ -1,13 +1,14 @@
 <script lang="ts">
+	import { Badge, Button, CloseButton } from 'spaper'
 	import { type Card, Phases } from '../data/enums'
 	import type { Game, PlayerWithName } from '../data/types'
 	import { getLastBid, getPlayers, getPlayersPositions } from '../utils/game'
-	import { Badge } from 'spaper'
 	import CurrentPlayerInfo from './CurrentPlayerInfo.svelte'
 	import Hand from './Hand.svelte'
 	import LastBid from './LastBid.svelte'
 	import OtherPlayer from './OtherPlayer.svelte'
 	import TableLayout from './TableLayout.svelte'
+	import { customColors } from '../stores/customColors'
 
 	export let player: PlayerWithName
 	export let game: Game
@@ -37,6 +38,14 @@
 		}
 		scoresText = teamScores.map(({ team, score }) => `${team}: ${score}`).join(' | ')
 	}
+
+	const goBackHome = () => {
+		window.location.href = `/`
+	}
+
+	const switchColors = () => {
+		customColors.update((v) => !v)
+	}
 </script>
 
 <TableLayout>
@@ -47,6 +56,19 @@
 			<LastBid {lastBid} />
 		{/if}
 		<div>{scoresText}</div>
+	</div>
+
+	<div
+		slot="top-right"
+		style=" display: flex; gap: .5rem; justify-content: end; margin-right: .5rem; align-items: center;"
+	>
+		<Button on:click={switchColors} size="small">Colors</Button>
+		<div style="width: 1.25rem;">
+			<a href="https://github.com/Alounv/coinche-back#readme" target="_blank"
+				><img class="no-border" src="/github.png" alt="github" /></a
+			>
+		</div>
+		<CloseButton on:click={goBackHome} />
 	</div>
 
 	<OtherPlayer slot="top" player={otherPlayers.front} position="front" {turns} gameId={game.ID} />

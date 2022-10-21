@@ -8,6 +8,9 @@
 	>
 		<slot name="top" />
 	</div>
+	<div class="col-3 col">
+		<slot name="top-right" />
+	</div>
 </div>
 
 <div style="display: flex; margin-bottom: 1rem; flex: 1;">
