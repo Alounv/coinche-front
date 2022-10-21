@@ -3,30 +3,15 @@
 	import Icon from 'svelte-icon'
 	import { cardsSrc } from '../utils/image'
 	import { customColors } from '../stores/customColors'
+	import { getHexColorFromCard } from '../utils/colors'
 
 	export let card: Card | null = null
 
 	const deg = Math.floor(Math.random() * 6) - 3
 
-	const customHexColors: Record<string, string> = {
-		club: '#183713',
-		diamond: '#D06A41',
-		heart: '#CF3187',
-		spade: '#2E3F84'
-	}
-
-	const hexColors: Record<string, string> = {
-		club: 'black',
-		diamond: 'red',
-		heart: 'red',
-		spade: 'black'
-	}
-
 	let hexColor: string
-	customColors.subscribe((value) => {
-		const color = card ? card.split('-')[1] : ''
-		const colors = value ? customHexColors : hexColors
-		hexColor = color ? colors[color] : ''
+	customColors.subscribe((isCustom) => {
+		hexColor = getHexColorFromCard(card, isCustom)
 	})
 
 	$: data = card ? cardsSrc[card] : ''

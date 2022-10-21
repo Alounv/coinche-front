@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { Badge, Button, CloseButton } from 'spaper'
+	import { Badge, CloseButton } from 'spaper'
 	import { type Card, Phases } from '../data/enums'
 	import type { Game, PlayerWithName } from '../data/types'
 	import { getLastBid, getPlayers, getPlayersPositions } from '../utils/game'
 	import CurrentPlayerInfo from './CurrentPlayerInfo.svelte'
+	import ColorSwitch from './ColorSwitch.svelte'
 	import Hand from './Hand.svelte'
 	import LastBid from './LastBid.svelte'
 	import OtherPlayer from './OtherPlayer.svelte'
 	import TableLayout from './TableLayout.svelte'
-	import { customColors } from '../stores/customColors'
 
 	export let player: PlayerWithName
 	export let game: Game
@@ -42,10 +42,6 @@
 	const goBackHome = () => {
 		window.location.href = `/`
 	}
-
-	const switchColors = () => {
-		customColors.update((v) => !v)
-	}
 </script>
 
 <TableLayout>
@@ -62,7 +58,7 @@
 		slot="top-right"
 		style=" display: flex; gap: .5rem; justify-content: end; margin-right: .5rem; align-items: center;"
 	>
-		<Button on:click={switchColors} size="small">Colors</Button>
+		<ColorSwitch />
 		<div style="width: 1.25rem;">
 			<a href="https://github.com/Alounv/coinche-back#readme" target="_blank"
 				><img class="no-border" src="/github.png" alt="github" /></a

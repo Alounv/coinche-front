@@ -1,9 +1,14 @@
 <script lang="ts">
-	import { type BidColors, Colors, bidColors } from '../data/enums'
+	import { type BidColors, bidColors } from '../data/enums'
+	import { customColors } from '../stores/customColors'
+	import { getHexColor } from '../utils/colors'
 
 	export let color: BidColors
 
-	$: isRed = color === Colors.Diamond || color === Colors.Heart
+	let hexColor: string
+	customColors.subscribe((isCustom) => {
+		hexColor = getHexColor(color, isCustom)
+	})
 </script>
 
-<span style={isRed ? 'color: red;' : ''}>{bidColors[color]}</span>
+<span style="color: {hexColor};">{bidColors[color]}</span>

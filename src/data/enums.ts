@@ -72,10 +72,10 @@ export const bidValues: BidValues[] = [
 ]
 
 export enum Colors {
-	Spade = 'spade',
-	Heart = 'heart',
+	Club = 'club',
 	Diamond = 'diamond',
-	Club = 'club'
+	Spade = 'spade',
+	Heart = 'heart'
 }
 
 export enum BidSpecificColors {
