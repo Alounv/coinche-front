@@ -8,7 +8,12 @@ A simple multiplayer coinche game.
 
 You can play here: https://coinche.vercel.app/
 
-<img width="800" alt="Capture d’écran 2022-10-09 à 02 22 02" src="https://user-images.githubusercontent.com/34238160/194732034-793d1e95-4382-4cb2-838c-ab772d65fb25.png">
+<img width="832" alt="Capture d’écran 2022-10-21 à 15 12 42" src="https://user-images.githubusercontent.com/34238160/197204169-798c9637-d5c0-45c0-bfbf-4363017852ab.png">
+
+<details>
+    <summary>Bidding</summary>
+    <img width="831" alt="Capture d’écran 2022-10-21 à 15 11 12" src="https://user-images.githubusercontent.com/34238160/197204166-1f02e273-9e3b-4a71-b209-0a08a38ca28b.png">
+</details>
 
 ## Why
 
