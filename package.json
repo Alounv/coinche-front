@@ -37,6 +37,7 @@
   },
   "type": "module",
   "dependencies": {
+    "papercss": "^1.8.3",
     "spaper": "^0.9.6"
   }
 }
