@@ -24,7 +24,7 @@
 		style="transform: rotate({deg}deg); background-color: white; color: {hexColor};"
 		alt={card}
 	>
-		<Icon {data} width="100%" height="100%" />
+		<Icon {data} width="100%" height="100%" style="stroke: transparent" />
 	</div>
 {:else}
 	<div
