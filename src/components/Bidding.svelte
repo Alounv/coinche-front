@@ -65,8 +65,12 @@
 		<h4 class="m-0">
 			{#each bids as bid}
 				<div class="m-2">
-					{bid.value} - <Color color={bid.Color} /> ({bid.Player})
-					<span>{bid.Pass ? `- passed: ${bid.Pass}` : ''}</span>
+					{#if bid.value > 0}
+						{bid.value} - <Color color={bid.Color} /> ({bid.Player})
+						<span>{bid.Pass ? `- passed: ${bid.Pass}` : ''}</span>
+					{:else if bid.Pass}
+						<span>passed: {bid.Pass}</span>
+					{/if}
 				</div>
 			{/each}
 			{#if lastBid?.Coinche}
