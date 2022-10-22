@@ -42,7 +42,7 @@
 			<PlaceBid {maxBidValue} bind:value={bidValue} bind:color={bidColor} />
 		{/if}
 
-		<div class="row gap: 3">
+		<div class="row gap-3">
 			{#if canBid}
 				<Button on:click={handleBid} class="align-bottom" disabled={!bidValue || !bidColor}
 					>{'Bid'}</Button

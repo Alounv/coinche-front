@@ -10,7 +10,7 @@
 	const values = bidValues.filter((v) => v > maxBidValue)
 </script>
 
-<div class="row g-4">
+<div class="row gap-4">
 	<Select bind:value label="Value" class="bg-white">
 		{#each values as value}
 			<option {value}>{value === 160 ? 'CAPOT' : value}</option>

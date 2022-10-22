@@ -111,7 +111,7 @@
 		disabled={!selectedCard}
 		on:mousedown={handlePlay}
 		on:click|preventDefault
-		class={!canPlay ? 'opacity-0 pointer-events-none absolute ml-4' : 'ml-4'}>Play</button
+		class={!canPlay ? 'hidden pointer-events-none absolute ml-4' : 'ml-4'}>Play</button
 	>
 </form>
 
