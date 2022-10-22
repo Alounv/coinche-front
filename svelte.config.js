@@ -11,7 +11,9 @@ const config = {
 			split: false
 		})
 	},
-	preprocess: preprocess()
+	preprocess: preprocess({
+		postcss: true
+	})
 }
 
 export default config

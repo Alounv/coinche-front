@@ -37,15 +37,12 @@
 </script>
 
 <Table {player} {game}>
-	<div
-		slot="middle"
-		style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1;"
-	>
+	<div slot="middle" class="flex flex-col items-center justify-center flex-1">
 		{#if canBid}
 			<PlaceBid {maxBidValue} bind:value={bidValue} bind:color={bidColor} />
 		{/if}
 
-		<div class="row" style="gap: .75rem;">
+		<div class="row gap: 3">
 			{#if canBid}
 				<Button on:click={handleBid} class="align-bottom" disabled={!bidValue || !bidColor}
 					>{'Bid'}</Button
@@ -65,15 +62,15 @@
 			{/if}
 		</div>
 
-		<h4 style="margin: 0;">
+		<h4 class="m-0">
 			{#each bids as bid}
-				<div class="margin-small">
+				<div class="m-2">
 					{bid.value} - <Color color={bid.Color} /> ({bid.Player})
 					<span>{bid.Pass ? `- passed: ${bid.Pass}` : ''}</span>
 				</div>
 			{/each}
 			{#if lastBid?.Coinche}
-				<h3 class="margin-small">
+				<h3 class="m-2">
 					<Coinche coinche={lastBid?.Coinche || 0} />
 				</h3>
 			{/if}
@@ -81,7 +78,7 @@
 	</div>
 </Table>
 
-<div class="row" style="gap: 1rem; align-items: center;">
+<div class="row gap-4 items-center">
 	{#if isCurrentPlayerTurn}
 		<AnimatedBadge text={player.name} />
 	{/if}

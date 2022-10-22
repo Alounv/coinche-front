@@ -1,11 +1,8 @@
-<div style="display: flex; margin-bottom: 1rem;">
+<div class="flex mb-4">
 	<div class="col-3 col">
 		<slot name="top-left" />
 	</div>
-	<div
-		class="col-6 col"
-		style="padding-bottom: 0; min-height: 11rem; align-items: flex-end; display: flex; justify-content: center;"
-	>
+	<div class="col-6 col pb-0 min-h-44 items-end flex justify-center">
 		<slot name="top" />
 	</div>
 	<div class="col-3 col">
@@ -13,20 +10,20 @@
 	</div>
 </div>
 
-<div style="display: flex; margin-bottom: 1rem; flex: 1;">
-	<div class=" col" style="display: flex; flex: 0; min-width: 14rem; justify-content: center;">
+<div class="flex mb-4 flex-1">
+	<div class=" col flex flex-0 min-w-56 justify-center">
 		<slot name="left" />
 	</div>
 
-	<div style="flex: 1; display: flex;">
+	<div class="flex flex-1">
 		<slot name="center" />
 	</div>
 
-	<div class=" col" style="display: flex; flex: 0; min-width: 14rem; justify-content: center;;">
+	<div class="col flex flex-0 min-w-56 justify-center">
 		<slot name="right" />
 	</div>
 </div>
 
-<div style="display: flex; flex-direction: column; align-items: center;padding-bottom: 1rem;">
+<div class="flex flex-col items-center pb-4">
 	<slot name="bottom" />
 </div>

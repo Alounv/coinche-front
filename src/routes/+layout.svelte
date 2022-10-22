@@ -1,8 +1,9 @@
 <script>
+	import '../app.css'
 	import 'papercss/dist/paper.min.css'
 </script>
 
-<div class="padding" style="min-height: 100vh; display: flex; flex-direction: column;">
+<div class="p-4 min-h-screen flex flex-row">
 	<slot />
 </div>
 

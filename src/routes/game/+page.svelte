@@ -67,6 +67,6 @@
 
 <svelte:window on:beforeunload={gs?.leave} />
 
-<div class="background-secondary border" style="flex: 1; display: flex; flex-direction: column;">
+<div class="background-secondary border flex-1 flex flex-col">
 	<GameArea {game} {player} {joinTeam} {start} {bid} {pass} {coinche} {play} />
 </div>

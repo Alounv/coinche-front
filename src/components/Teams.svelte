@@ -13,6 +13,6 @@
 	}))
 </script>
 
-<div class="padding" style="background-color: white; width: 20rem;">
+<div class="p-4 bg-white w-80">
 	<Table {data} />
 </div>

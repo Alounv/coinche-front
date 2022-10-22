@@ -61,17 +61,17 @@
 	}
 </script>
 
-<div style="margin-left: auto; margin-right: auto;">
+<div class="mx-auto">
 	<h1>Let's play Coinche!</h1>
 
-	<div class="input-row">
+	<div class="row gap-4 items-center">
 		<label for="name">Set player name</label>
 		<Input id="name" bind:value={name} />
 	</div>
 
-	<h4>Games</h4>
+	<h4 class="mb-4">Games</h4>
 
-	<form on:submit|preventDefault={createNewGame} class="input-row">
+	<form on:submit|preventDefault={createNewGame} class="row gap-4 items-center">
 		<label for="create-game">Create new game</label>
 		<input id="create-game" bind:value={newGameName} />
 		<div>(press <span class="badge">Enter</span> to create)</div>
@@ -85,11 +85,3 @@
 		{forceLeave}
 	/>
 </div>
-
-<style>
-	.input-row {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-	}
-</style>

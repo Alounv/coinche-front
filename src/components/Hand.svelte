@@ -93,7 +93,7 @@
 	}
 </script>
 
-<form style="min-height: 11rem;" bind:this={form} class="row margin flex-center">
+<form bind:this={form} class="row m-4 flex-center h-min-44">
 	{#each cards as card (card)}
 		<!-- the on:mousedown|preventDefault prevents the blur just before the click -->
 		<label
@@ -111,8 +111,7 @@
 		disabled={!selectedCard}
 		on:mousedown={handlePlay}
 		on:click|preventDefault
-		style="margin-left: 1rem"
-		class={!canPlay ? 'hidden-button' : ''}>Play</button
+		class={!canPlay ? 'opacity-0 pointer-events-none absolute ml-4' : 'ml-4'}>Play</button
 	>
 </form>
 
@@ -121,12 +120,6 @@
 <svelte:window on:keydown={onKeyDown} />
 
 <style>
-	.hidden-button {
-		opacity: 0;
-		pointer-events: none;
-		position: absolute;
-	}
-
 	.label {
 		position: relative;
 		transition: all 0.2s ease-in-out;

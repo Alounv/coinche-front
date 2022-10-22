@@ -9,7 +9,7 @@
 	$: coinche = lastBid.Coinche
 </script>
 
-<div class="row" style="align-items: center; gap: .25rem;">
+<div class="row items-center gap-1">
 	<span>
 		{lastBid.Player} took with {lastBid.value}
 		<Color color={lastBid.Color} />

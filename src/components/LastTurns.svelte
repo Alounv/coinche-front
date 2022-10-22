@@ -61,7 +61,7 @@
 		<Button size="small" on:click={showLastTurn}>See last turn</Button>
 	{/if}
 
-	<div style="min-height: 16rem; width: 100%;">
+	<div class="min-h-64 w-full">
 		{#if isShown}
 			<TurnComponent {transition} {turn} {left} {right} {front} />
 		{/if}
@@ -70,8 +70,8 @@
 
 <Modal
 	bind:active={isLastTurnShow}
-	class="border"
-	style="min-width: 25rem; width: 50%; background-color: #deefff; padding: 2rem;"
+	class="border min-w-100 w-1/2 p-8"
+	style="background-color: #deefff;"
 	title="Last turn"
 	subTitle="Won by {lastTurn?.Winner}"
 >

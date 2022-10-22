@@ -20,15 +20,15 @@
 
 {#if card}
 	<div
-		class="shadow shadow-hover padding-small border"
-		style="transform: rotate({deg}deg); background-color: white; color: {hexColor};"
+		class="shadow shadow-hover p-2 border bg-white"
+		style="color: {hexColor}; transform: rotate({deg}deg)"
 		alt={card}
 	>
 		<Icon {data} width="100%" height="100%" style="stroke: transparent" />
 	</div>
 {:else}
 	<div
-		class="shadow shadow-hover padding-small border background-primary"
-		style="transform: rotate({deg}deg);  width: 100%; height: 100%;"
+		class="shadow shadow-hover p-2 border background-primary w-full h-full"
+		style="transform: rotate({deg}deg);"
 	/>
 {/if}

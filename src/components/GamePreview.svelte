@@ -23,11 +23,11 @@
 	}
 </script>
 
-<li class="row" style="gap: .75rem; align-items: center">
+<li class="row gap-3 items-center">
 	<Badge type="primary">{game.Name}</Badge>
 	<span>{phases[game.Phase]}</span>
 	{#if isPlaying}
-		<Progress style="width: 4rem; margin: 0;" class="custom-progress" value={progress} />
+		<Progress class="custom-progress w-16 m-0" value={progress} />
 	{/if}
 
 	<div>

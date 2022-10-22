@@ -3,8 +3,8 @@
 	import { type Card, Phases } from '../data/enums'
 	import type { Game, PlayerWithName } from '../data/types'
 	import { getLastBid, getPlayers, getPlayersPositions } from '../utils/game'
-	import CurrentPlayerInfo from './CurrentPlayerInfo.svelte'
 	import ColorSwitch from './ColorSwitch.svelte'
+	import CurrentPlayerInfo from './CurrentPlayerInfo.svelte'
 	import Hand from './Hand.svelte'
 	import LastBid from './LastBid.svelte'
 	import OtherPlayer from './OtherPlayer.svelte'
@@ -54,10 +54,7 @@
 		<div>{scoresText}</div>
 	</div>
 
-	<div
-		slot="top-right"
-		style=" display: flex; gap: .5rem; justify-content: end; margin-right: .5rem; align-items: center;"
-	>
+	<div slot="top-right" class="flex gap-2 justify-end mr-2 items-center">
 		<ColorSwitch />
 		<div style="width: 1.25rem;">
 			<a href="https://github.com/Alounv/coinche-back#readme" target="_blank"

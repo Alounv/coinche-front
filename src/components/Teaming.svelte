@@ -20,10 +20,10 @@
 	]
 </script>
 
-<div class="padding align-middle" style="display: flex; flex: 1; align-items: center;">
-	<div style="display:flex; flex-direction: column; gap: 1rem;">
+<div class="p-4 align-middle flex flex-1 items-center">
+	<div class="flex flex-col gap-4">
 		Please choose a team.
-		<div style="display: flex; gap: 1rem;">
+		<div class="flex gap-4">
 			<button on:click={reset} disabled={!playerTeam}>Leave Team</button>
 			{#each teamsOptions as { value, label, isFull }}
 				<button disabled={value === playerTeam || isFull} on:click={() => joinTeam(value)}
@@ -34,6 +34,6 @@
 
 		<Teams {game} />
 
-		<button style="width: 100%" on:click={start} disabled={!canStart}>Start</button>
+		<button class="w-full" on:click={start} disabled={!canStart}>Start</button>
 	</div>
 </div>

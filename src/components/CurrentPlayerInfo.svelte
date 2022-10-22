@@ -11,7 +11,7 @@
 	$: winsCount = getPlayerWinsCount(turns, player.name)
 </script>
 
-<div class="row" style="gap: 1rem">
+<div class="row gap-4">
 	{#if player.Hand.length}
 		<Instructions {canPlay} />
 	{/if}

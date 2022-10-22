@@ -53,22 +53,19 @@
 	$: message = winners.includes(playerName) ? 'Yeahhhh 🎉' : '(Sorry 😗)'
 </script>
 
-<h5
-	class="border padding-large shadow"
-	style="background-color: white; display: flex; flex-direction: column;"
->
+<h5 class="border p-8 shadow bg-white flex flex-col">
 	And the winners are...
-	<h4 class="margin" in:fade={{ delay: 2000, duration }}>
+	<h4 class="m-4" in:fade={{ delay: 2000, duration }}>
 		{winners.join(' and ')}
 		{areTakersWinners ? scoreMessage : '!'}
 		{message}
 	</h4>
 
 	<div in:fade={{ delay: 4000, duration }}>
-		<PaperTable {data} class="margin" />
+		<PaperTable {data} class="m-4" />
 	</div>
 
-	<div style="align-self: flex-end" in:fade={{ delay: 4000, duration }}>
+	<div class="self-end" in:fade={{ delay: 4000, duration }}>
 		<Button on:click={start}>Restart</Button>
 	</div>
 </h5>

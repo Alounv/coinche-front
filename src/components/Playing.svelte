@@ -31,7 +31,7 @@
 </script>
 
 <Table {player} {game} {play}>
-	<div slot="middle" style="display: flex; align-items: center; justify-content: center; flex: 1;">
+	<div slot="middle" class="flex items-center justify-center flex-1">
 		{#if isHandShown}
 			<LastTurns turns={game.Turns} {...playersPositions} />
 		{:else}

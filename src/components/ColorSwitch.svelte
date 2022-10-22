@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Button } from 'spaper'
+	import Color from './Color.svelte'
 	import { Colors } from '../data/enums'
 	import { customColors } from '../stores/customColors'
-	import Color from './Color.svelte'
 	import { onMount } from 'svelte'
 
 	const switchColors = () => {

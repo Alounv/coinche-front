@@ -23,7 +23,7 @@
 	}
 </script>
 
-<div class="container" out:fly={transition}>
+<div class="relative min-h-64 w-full" out:fly={transition}>
 	{#each turn.Plays as play}
 		<div class={getClass(play.PlayerName)} in:fly={{ y: 200 }}>
 			<Card card={play.Card} />
@@ -34,12 +34,6 @@
 <style>
 	:root {
 		--axial-offset: 2rem;
-	}
-
-	.container {
-		position: relative;
-		min-height: 16rem;
-		width: 100%;
 	}
 
 	.current,
