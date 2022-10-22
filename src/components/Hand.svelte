@@ -93,7 +93,7 @@
 	}
 </script>
 
-<form bind:this={form} class="row m-4 flex-center h-min-44">
+<form bind:this={form} class="row m-4 flex-center h-min-44 items-center justify-center">
 	{#each cards as card (card)}
 		<!-- the on:mousedown|preventDefault prevents the blur just before the click -->
 		<label
@@ -111,7 +111,7 @@
 		disabled={!selectedCard}
 		on:mousedown={handlePlay}
 		on:click|preventDefault
-		class={!canPlay ? 'hidden pointer-events-none absolute ml-4' : 'ml-4'}>Play</button
+		class={!canPlay ? 'hidden pointer-events-none absolute m-4' : 'm-4'}>Play</button
 	>
 </form>
 
