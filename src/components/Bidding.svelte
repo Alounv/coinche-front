@@ -24,7 +24,9 @@
 	$: isCurrentPlayerTurn = player.Order === 1
 	$: currentPlayer = getCurrentPlayer(game)
 	$: canCoinche =
-		bids.length && [1, 3].includes(player.Order) && [2, 4].includes(lastBidPlayerOrder)
+		bids.length &&
+		[1, 3].includes(player.Order) &&
+		(isCoinched || [2, 4].includes(lastBidPlayerOrder))
 	$: canBid = isCurrentPlayerTurn && maxBidValue < 160 && !isCoinched
 	$: canPass = isCurrentPlayerTurn && bid.length
 
